@@ -10,7 +10,7 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200323222850_InitialDb")]
+    [Migration("20200403204154_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,7 +36,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("LineaId");
 
-                    b.ToTable("Categoria");
+                    b.ToTable("Categorias");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Deshecho", b =>
@@ -49,7 +49,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Deshecho");
+                    b.ToTable("Deshechos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EmpleadoProducción", b =>
@@ -68,7 +68,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("EmpleadoProducción");
+                    b.ToTable("EmpleadosProducciones");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Empresa", b =>
@@ -83,7 +83,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Empresa");
+                    b.ToTable("Empresas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
@@ -98,7 +98,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("PersonaId");
 
-                    b.ToTable("EncargadoEmpresa");
+                    b.ToTable("EncargadosEmpresas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Envase", b =>
@@ -113,7 +113,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Envase");
+                    b.ToTable("Envases");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Etiqueta", b =>
@@ -135,7 +135,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Etiqueta");
+                    b.ToTable("Etiquetas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Fase", b =>
@@ -152,7 +152,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Fase");
+                    b.ToTable("Fases");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Insumo", b =>
@@ -169,7 +169,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Insumo");
+                    b.ToTable("Insumos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.InsumoUsado", b =>
@@ -225,7 +225,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Linea");
+                    b.ToTable("Lineas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Pago", b =>
@@ -246,7 +246,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("Pago");
+                    b.ToTable("Pagos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Pedido", b =>
@@ -265,7 +265,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("ProductoRealId");
 
-                    b.ToTable("Pedido");
+                    b.ToTable("Pedidos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Persona", b =>
@@ -286,7 +286,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Persona");
+                    b.ToTable("Personas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Presentacion", b =>
@@ -302,7 +302,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("EnvaseId");
 
-                    b.ToTable("Presentacion");
+                    b.ToTable("Presentaciones");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Produccion", b =>
@@ -331,7 +331,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("PedidoId");
 
-                    b.ToTable("Produccion");
+                    b.ToTable("Producciones");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Producto", b =>
@@ -361,7 +361,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("TipoProductoId");
 
-                    b.ToTable("Producto");
+                    b.ToTable("Productos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.ProductoPago", b =>
@@ -437,7 +437,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Resultado");
+                    b.ToTable("Resultados");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Sabor", b =>
@@ -451,7 +451,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sabor");
+                    b.ToTable("Sabores");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Sucursal", b =>
@@ -472,7 +472,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasIndex("EmpresaId");
 
-                    b.ToTable("Sucursal");
+                    b.ToTable("Sucursales");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.TipoProducto", b =>
@@ -486,7 +486,7 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TipoProducto");
+                    b.ToTable("TipoProductos");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Categoria", b =>

@@ -9,7 +9,7 @@ namespace ProductionSystem.Web.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Empresa",
+                name: "Empresas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -19,11 +19,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Empresa", x => x.Id);
+                    table.PrimaryKey("PK_Empresas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Envase",
+                name: "Envases",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -33,11 +33,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Envase", x => x.Id);
+                    table.PrimaryKey("PK_Envases", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Etiqueta",
+                name: "Etiquetas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -50,11 +50,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Etiqueta", x => x.Id);
+                    table.PrimaryKey("PK_Etiquetas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Fase",
+                name: "Fases",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -65,11 +65,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Fase", x => x.Id);
+                    table.PrimaryKey("PK_Fases", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Insumo",
+                name: "Insumos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -80,11 +80,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Insumo", x => x.Id);
+                    table.PrimaryKey("PK_Insumos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Linea",
+                name: "Lineas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -93,11 +93,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Linea", x => x.Id);
+                    table.PrimaryKey("PK_Lineas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Persona",
+                name: "Personas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -110,11 +110,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Persona", x => x.Id);
+                    table.PrimaryKey("PK_Personas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sabor",
+                name: "Sabores",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -123,11 +123,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sabor", x => x.Id);
+                    table.PrimaryKey("PK_Sabores", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "TipoProducto",
+                name: "TipoProductos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -136,11 +136,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TipoProducto", x => x.Id);
+                    table.PrimaryKey("PK_TipoProductos", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pago",
+                name: "Pagos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -152,17 +152,17 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pago", x => x.Id);
+                    table.PrimaryKey("PK_Pagos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pago_Empresa_EmpresaId",
+                        name: "FK_Pagos_Empresas_EmpresaId",
                         column: x => x.EmpresaId,
-                        principalTable: "Empresa",
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Sucursal",
+                name: "Sucursales",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -174,17 +174,17 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sucursal", x => x.Id);
+                    table.PrimaryKey("PK_Sucursales", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Sucursal_Empresa_EmpresaId",
+                        name: "FK_Sucursales_Empresas_EmpresaId",
                         column: x => x.EmpresaId,
-                        principalTable: "Empresa",
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Presentacion",
+                name: "Presentaciones",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -193,23 +193,23 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Presentacion", x => x.Id);
+                    table.PrimaryKey("PK_Presentaciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Presentacion_Envase_EnvaseId",
+                        name: "FK_Presentaciones_Envases_EnvaseId",
                         column: x => x.EnvaseId,
-                        principalTable: "Envase",
+                        principalTable: "Envases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Presentacion_Etiqueta_Id",
+                        name: "FK_Presentaciones_Etiquetas_Id",
                         column: x => x.Id,
-                        principalTable: "Etiqueta",
+                        principalTable: "Etiquetas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Categoria",
+                name: "Categorias",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -219,17 +219,17 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Categoria", x => x.Id);
+                    table.PrimaryKey("PK_Categorias", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Categoria_Linea_LineaId",
+                        name: "FK_Categorias_Lineas_LineaId",
                         column: x => x.LineaId,
-                        principalTable: "Linea",
+                        principalTable: "Lineas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmpleadoProducción",
+                name: "EmpleadosProducciones",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -240,17 +240,17 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EmpleadoProducción", x => x.Id);
+                    table.PrimaryKey("PK_EmpleadosProducciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EmpleadoProducción_Persona_PersonaId",
+                        name: "FK_EmpleadosProducciones_Personas_PersonaId",
                         column: x => x.PersonaId,
-                        principalTable: "Persona",
+                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "EncargadoEmpresa",
+                name: "EncargadosEmpresas",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -259,23 +259,23 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_EncargadoEmpresa", x => x.Id);
+                    table.PrimaryKey("PK_EncargadosEmpresas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_EncargadoEmpresa_Empresa_Id",
+                        name: "FK_EncargadosEmpresas_Empresas_Id",
                         column: x => x.Id,
-                        principalTable: "Empresa",
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_EncargadoEmpresa_Persona_PersonaId",
+                        name: "FK_EncargadosEmpresas_Personas_PersonaId",
                         column: x => x.PersonaId,
-                        principalTable: "Persona",
+                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Producto",
+                name: "Productos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -288,29 +288,29 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Producto", x => x.Id);
+                    table.PrimaryKey("PK_Productos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Producto_Categoria_CategoriaId",
+                        name: "FK_Productos_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
-                        principalTable: "Categoria",
+                        principalTable: "Categorias",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Producto_Presentacion_PresentacionId",
+                        name: "FK_Productos_Presentaciones_PresentacionId",
                         column: x => x.PresentacionId,
-                        principalTable: "Presentacion",
+                        principalTable: "Presentaciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Producto_Sabor_SaborId",
+                        name: "FK_Productos_Sabores_SaborId",
                         column: x => x.SaborId,
-                        principalTable: "Sabor",
+                        principalTable: "Sabores",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Producto_TipoProducto_TipoProductoId",
+                        name: "FK_Productos_TipoProductos_TipoProductoId",
                         column: x => x.TipoProductoId,
-                        principalTable: "TipoProducto",
+                        principalTable: "TipoProductos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -329,9 +329,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_ProductoReal", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductoReal_Producto_ProductoId",
+                        name: "FK_ProductoReal_Productos_ProductoId",
                         column: x => x.ProductoId,
-                        principalTable: "Producto",
+                        principalTable: "Productos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -350,9 +350,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_InventarioEmpresas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InventarioEmpresas_Empresa_EmpresaId",
+                        name: "FK_InventarioEmpresas_Empresas_EmpresaId",
                         column: x => x.EmpresaId,
-                        principalTable: "Empresa",
+                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -364,7 +364,7 @@ namespace ProductionSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Pedido",
+                name: "Pedidos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -375,9 +375,9 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Pedido", x => x.Id);
+                    table.PrimaryKey("PK_Pedidos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pedido_ProductoReal_ProductoRealId",
+                        name: "FK_Pedidos_ProductoReal_ProductoRealId",
                         column: x => x.ProductoRealId,
                         principalTable: "ProductoReal",
                         principalColumn: "Id",
@@ -399,9 +399,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_ProductoPagos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ProductoPagos_Pago_PagoId",
+                        name: "FK_ProductoPagos_Pagos_PagoId",
                         column: x => x.PagoId,
-                        principalTable: "Pago",
+                        principalTable: "Pagos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -426,9 +426,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_Recetas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recetas_Insumo_InsumoId",
+                        name: "FK_Recetas_Insumos_InsumoId",
                         column: x => x.InsumoId,
-                        principalTable: "Insumo",
+                        principalTable: "Insumos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -440,7 +440,7 @@ namespace ProductionSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Produccion",
+                name: "Producciones",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -453,35 +453,35 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Produccion", x => x.Id);
+                    table.PrimaryKey("PK_Producciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Produccion_EmpleadoProducción_EmpleadoProducciónId",
+                        name: "FK_Producciones_EmpleadosProducciones_EmpleadoProducciónId",
                         column: x => x.EmpleadoProducciónId,
-                        principalTable: "EmpleadoProducción",
+                        principalTable: "EmpleadosProducciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Produccion_Fase_FaseId",
+                        name: "FK_Producciones_Fases_FaseId",
                         column: x => x.FaseId,
-                        principalTable: "Fase",
+                        principalTable: "Fases",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Produccion_Insumo_InsumoId",
+                        name: "FK_Producciones_Insumos_InsumoId",
                         column: x => x.InsumoId,
-                        principalTable: "Insumo",
+                        principalTable: "Insumos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Produccion_Pedido_PedidoId",
+                        name: "FK_Producciones_Pedidos_PedidoId",
                         column: x => x.PedidoId,
-                        principalTable: "Pedido",
+                        principalTable: "Pedidos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Deshecho",
+                name: "Deshechos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -490,11 +490,11 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Deshecho", x => x.Id);
+                    table.PrimaryKey("PK_Deshechos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Deshecho_Produccion_Id",
+                        name: "FK_Deshechos_Producciones_Id",
                         column: x => x.Id,
-                        principalTable: "Produccion",
+                        principalTable: "Producciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -513,21 +513,21 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_InsumoUsados", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_InsumoUsados_Insumo_InsumoId",
+                        name: "FK_InsumoUsados_Insumos_InsumoId",
                         column: x => x.InsumoId,
-                        principalTable: "Insumo",
+                        principalTable: "Insumos",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_InsumoUsados_Produccion_ProduccionId",
+                        name: "FK_InsumoUsados_Producciones_ProduccionId",
                         column: x => x.ProduccionId,
-                        principalTable: "Produccion",
+                        principalTable: "Producciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Resultado",
+                name: "Resultados",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -536,28 +536,28 @@ namespace ProductionSystem.Web.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Resultado", x => x.Id);
+                    table.PrimaryKey("PK_Resultados", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Resultado_Produccion_Id",
+                        name: "FK_Resultados_Producciones_Id",
                         column: x => x.Id,
-                        principalTable: "Produccion",
+                        principalTable: "Producciones",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Categoria_LineaId",
-                table: "Categoria",
+                name: "IX_Categorias_LineaId",
+                table: "Categorias",
                 column: "LineaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmpleadoProducción_PersonaId",
-                table: "EmpleadoProducción",
+                name: "IX_EmpleadosProducciones_PersonaId",
+                table: "EmpleadosProducciones",
                 column: "PersonaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EncargadoEmpresa_PersonaId",
-                table: "EncargadoEmpresa",
+                name: "IX_EncargadosEmpresas_PersonaId",
+                table: "EncargadosEmpresas",
                 column: "PersonaId");
 
             migrationBuilder.CreateIndex(
@@ -581,59 +581,39 @@ namespace ProductionSystem.Web.Migrations
                 column: "ProductoRealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pago_EmpresaId",
-                table: "Pago",
+                name: "IX_Pagos_EmpresaId",
+                table: "Pagos",
                 column: "EmpresaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pedido_ProductoRealId",
-                table: "Pedido",
+                name: "IX_Pedidos_ProductoRealId",
+                table: "Pedidos",
                 column: "ProductoRealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Presentacion_EnvaseId",
-                table: "Presentacion",
+                name: "IX_Presentaciones_EnvaseId",
+                table: "Presentaciones",
                 column: "EnvaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produccion_EmpleadoProducciónId",
-                table: "Produccion",
+                name: "IX_Producciones_EmpleadoProducciónId",
+                table: "Producciones",
                 column: "EmpleadoProducciónId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produccion_FaseId",
-                table: "Produccion",
+                name: "IX_Producciones_FaseId",
+                table: "Producciones",
                 column: "FaseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produccion_InsumoId",
-                table: "Produccion",
+                name: "IX_Producciones_InsumoId",
+                table: "Producciones",
                 column: "InsumoId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Produccion_PedidoId",
-                table: "Produccion",
+                name: "IX_Producciones_PedidoId",
+                table: "Producciones",
                 column: "PedidoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_CategoriaId",
-                table: "Producto",
-                column: "CategoriaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_PresentacionId",
-                table: "Producto",
-                column: "PresentacionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_SaborId",
-                table: "Producto",
-                column: "SaborId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Producto_TipoProductoId",
-                table: "Producto",
-                column: "TipoProductoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductoPagos_PagoId",
@@ -651,6 +631,26 @@ namespace ProductionSystem.Web.Migrations
                 column: "ProductoId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Productos_CategoriaId",
+                table: "Productos",
+                column: "CategoriaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Productos_PresentacionId",
+                table: "Productos",
+                column: "PresentacionId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Productos_SaborId",
+                table: "Productos",
+                column: "SaborId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Productos_TipoProductoId",
+                table: "Productos",
+                column: "TipoProductoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Recetas_InsumoId",
                 table: "Recetas",
                 column: "InsumoId");
@@ -661,18 +661,18 @@ namespace ProductionSystem.Web.Migrations
                 column: "ProductoRealId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Sucursal_EmpresaId",
-                table: "Sucursal",
+                name: "IX_Sucursales_EmpresaId",
+                table: "Sucursales",
                 column: "EmpresaId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Deshecho");
+                name: "Deshechos");
 
             migrationBuilder.DropTable(
-                name: "EncargadoEmpresa");
+                name: "EncargadosEmpresas");
 
             migrationBuilder.DropTable(
                 name: "InsumoUsados");
@@ -687,61 +687,61 @@ namespace ProductionSystem.Web.Migrations
                 name: "Recetas");
 
             migrationBuilder.DropTable(
-                name: "Resultado");
+                name: "Resultados");
 
             migrationBuilder.DropTable(
-                name: "Sucursal");
+                name: "Sucursales");
 
             migrationBuilder.DropTable(
-                name: "Pago");
+                name: "Pagos");
 
             migrationBuilder.DropTable(
-                name: "Produccion");
+                name: "Producciones");
 
             migrationBuilder.DropTable(
-                name: "Empresa");
+                name: "Empresas");
 
             migrationBuilder.DropTable(
-                name: "EmpleadoProducción");
+                name: "EmpleadosProducciones");
 
             migrationBuilder.DropTable(
-                name: "Fase");
+                name: "Fases");
 
             migrationBuilder.DropTable(
-                name: "Insumo");
+                name: "Insumos");
 
             migrationBuilder.DropTable(
-                name: "Pedido");
+                name: "Pedidos");
 
             migrationBuilder.DropTable(
-                name: "Persona");
+                name: "Personas");
 
             migrationBuilder.DropTable(
                 name: "ProductoReal");
 
             migrationBuilder.DropTable(
-                name: "Producto");
+                name: "Productos");
 
             migrationBuilder.DropTable(
-                name: "Categoria");
+                name: "Categorias");
 
             migrationBuilder.DropTable(
-                name: "Presentacion");
+                name: "Presentaciones");
 
             migrationBuilder.DropTable(
-                name: "Sabor");
+                name: "Sabores");
 
             migrationBuilder.DropTable(
-                name: "TipoProducto");
+                name: "TipoProductos");
 
             migrationBuilder.DropTable(
-                name: "Linea");
+                name: "Lineas");
 
             migrationBuilder.DropTable(
-                name: "Envase");
+                name: "Envases");
 
             migrationBuilder.DropTable(
-                name: "Etiqueta");
+                name: "Etiquetas");
         }
     }
 }
