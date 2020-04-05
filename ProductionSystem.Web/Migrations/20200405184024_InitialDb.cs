@@ -46,7 +46,8 @@ namespace ProductionSystem.Web.Migrations
                     Altura = table.Column<decimal>(nullable: false),
                     Ancho = table.Column<decimal>(nullable: false),
                     PrecioUnitario = table.Column<decimal>(nullable: false),
-                    IsWaterProof = table.Column<bool>(nullable: false)
+                    IsWaterProof = table.Column<bool>(nullable: false),
+                    IsUsed = table.Column<bool>(nullable: false,defaultValue:false)
                 },
                 constraints: table =>
                 {

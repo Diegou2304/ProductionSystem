@@ -1,0 +1,45 @@
+﻿@model ProductionSystem.Web.Models.AddPresentacionViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Registrar Presentaciones</h2>
+
+<h4>Presentaciones</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <label asp-for="EnvaseId" class="control-label"></label>
+                <select asp-for="EnvaseId" asp-items="Model.Envases" class="form-control"></select>
+                <span asp-validation-for="EnvaseId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="EtiquetaId" class="control-label"></label>
+                <select asp-for="EtiquetaId" asp-items="Model.Etiquetas" class="form-control"></select>
+                <span asp-validation-for="EtiquetaId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" asp-items="Model.Nombre" class="form-control">
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+
+
+
+
+
+        </form>
+    </div>
+</div>

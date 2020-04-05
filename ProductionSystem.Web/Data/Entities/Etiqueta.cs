@@ -38,5 +38,7 @@ namespace ProductionSystem.Web.Data.Entities
 
         public Presentacion Presentacion { get; set; }
 
+        public bool IsUsed { get; set; }
+
     }
 }

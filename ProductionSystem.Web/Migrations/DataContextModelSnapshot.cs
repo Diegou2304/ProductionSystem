@@ -124,6 +124,8 @@ namespace ProductionSystem.Web.Migrations
 
                     b.Property<decimal>("Ancho");
 
+                    b.Property<bool>("IsUsed");
+
                     b.Property<bool>("IsWaterProof");
 
                     b.Property<string>("Nombre")

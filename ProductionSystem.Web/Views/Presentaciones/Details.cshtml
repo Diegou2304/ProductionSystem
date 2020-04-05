@@ -1,0 +1,71 @@
+﻿@model ProductionSystem.Web.Data.Entities.Presentacion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Presentaciones</h2>
+
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Envase.Capacidad)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Envase.Capacidad) G(gramos)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Envase.Isplastic)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Envase.Isplastic)
+        </dd>
+        <dt>
+            Marca de Etiqueta
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Etiqueta.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Etiqueta.PrecioUnitario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Etiqueta.PrecioUnitario) Bs
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Etiqueta.Altura)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Etiqueta.Altura) Cm
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Etiqueta.Ancho)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Etiqueta.Ancho) Cm
+        </dd>
+        <dt>
+            Impermeabilidad
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Etiqueta.IsWaterProof)
+        </dd>
+     
+
+
+
+
+
+
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

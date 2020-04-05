@@ -10,7 +10,7 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200403204154_InitialDb")]
+    [Migration("20200405184024_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,6 +125,8 @@ namespace ProductionSystem.Web.Migrations
                     b.Property<decimal>("Altura");
 
                     b.Property<decimal>("Ancho");
+
+                    b.Property<bool>("IsUsed");
 
                     b.Property<bool>("IsWaterProof");
 
