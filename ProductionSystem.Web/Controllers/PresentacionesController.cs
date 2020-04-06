@@ -113,6 +113,54 @@ namespace ProductionSystem.Web.Controllers
            
         }
 
+        //Cuando eliminamos una presentacion debemos cambiar el estado de esta etiqueta a disponible.
+        //La pantalla de edit tambien
+        // GET: Owners/Delete/5
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var presentacion = await _dataContext.Presentaciones
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (presentacion == null)
+            {
+                return NotFound();
+            }
+
+            return View(presentacion);
+        }
+
+        // POST: Owners/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var presentacion = await _dataContext.Presentaciones
+                .Include(e => e.Etiqueta)
+                .FirstAsync(m => m.Id == id);
+                
+
+            var etiqueta = await _dataContext.Etiquetas.FindAsync(presentacion.Etiqueta.Id);
+
+            _dataContext.Presentaciones.Remove(presentacion);
+
+            await _dataContext.SaveChangesAsync();
+
+            etiqueta.IsUsed = false;
+
+            _dataContext.Etiquetas.Update(etiqueta);
+
+            await _dataContext.SaveChangesAsync();
+
+
+            return RedirectToAction(nameof(Index));
+
+
+
+        }
 
 
 
