@@ -13,14 +13,15 @@ namespace ProductionSystem.Web.Helpers
     {
 
         private readonly DataContext _dataContext;
+        private readonly ICombosHelper _combosHelper;
 
-
-
-        public ConverterHelper(DataContext dataContext)
+        public ConverterHelper(
+            DataContext dataContext,
+            ICombosHelper combosHelper)
         {
 
             _dataContext = dataContext;
-
+            _combosHelper = combosHelper;
         }
 
         public async Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model)
@@ -41,8 +42,29 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
+        public AddPresentacionViewModel ToPresentacionViewModelAsync(Presentacion model)
+        {
+            //Le llega con todos los datos
+
+            return new AddPresentacionViewModel
+            {
+                Nombre = model.Nombre,
+                EnvaseId = model.Envase.Id,
+                EtiquetaId = model.Etiqueta.Id,
+                Etiqueta = model.Etiqueta,
+                Envase = model.Envase,
+                Envases = _combosHelper.GetComboEnvases(),
+
+                Etiquetas = _combosHelper.GetComboEtiqueta()
 
 
 
+        };
+
+        }
+
+        
+
+       
     }
 }

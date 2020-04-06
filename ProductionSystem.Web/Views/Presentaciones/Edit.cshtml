@@ -1,0 +1,60 @@
+﻿@model ProductionSystem.Web.Models.AddPresentacionViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h2>Editar</h2>
+
+<h4>Presentación</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <!--Todo esto esta sujeto a la accion de add property-->
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--Campo que no pidamos en el get lo guarmamos en el hidden-->
+            <input type="hidden" asp-for="EnvaseId" />
+            <input type="hidden" asp-for="EtiquetaId" />
+            <dl class="dl-horizontal">
+                <dt>
+                    Información Etiqueta
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.Etiqueta.Nombre)
+                    Precio: @Html.DisplayFor(model => model.Etiqueta.PrecioUnitario) Bs
+                    Altura: @Html.DisplayFor(model => model.Etiqueta.Altura) Cm
+                    Ancho: @Html.DisplayFor(model => model.Etiqueta.Ancho) Cm
+                </dd>
+                <dt>
+                    Información Envase
+                </dt>
+                <dd>
+                    Capacidad @Html.DisplayFor(model => model.Envase.Capacidad) Gr <br>
+                    Plastico: @Html.DisplayFor(model => model.Envase.Isplastic)
+
+                </dd>
+
+            </dl>
+
+            <div class="form-group">
+                <label asp-for="EnvaseId" class="control-label"></label>
+                <select asp-for="EnvaseId" asp-items="Model.Envases" class="form-control"></select>
+                <span asp-validation-for="EnvaseId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EtiquetaId" class="control-label"></label>
+                <select asp-for="EtiquetaId" asp-items="Model.Etiquetas" class="form-control"></select>
+                <span asp-validation-for="EtiquetaId" class="text-danger"></span>
+            </div>
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-action="Index" class="btn btn-success">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>

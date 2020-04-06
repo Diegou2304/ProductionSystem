@@ -10,15 +10,13 @@ namespace ProductionSystem.Web.Helpers
     public class CombosHelper : ICombosHelper
     {
         private readonly DataContext _dataContext;
-        private readonly IConverterHelper _converterHelper;
 
         public CombosHelper(
-            DataContext dataContext,
-            IConverterHelper converterHelper)
+            DataContext dataContext
+            )
         {
 
             _dataContext = dataContext;
-            _converterHelper = converterHelper;
         }
         //Select list item es una clase que tiene campo y valor
         public IEnumerable<SelectListItem> GetComboEnvases()

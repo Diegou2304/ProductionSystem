@@ -6,6 +6,9 @@ namespace ProductionSystem.Web.Helpers
 {
     public interface IConverterHelper
     {
-        Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model);
+         Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model);
+         AddPresentacionViewModel ToPresentacionViewModelAsync(Presentacion model);
+
+
     }
 }

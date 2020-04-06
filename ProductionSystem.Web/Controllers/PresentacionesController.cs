@@ -162,6 +162,36 @@ namespace ProductionSystem.Web.Controllers
 
         }
 
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var presentacion = _dataContext.Presentaciones
+                .Include(p => p.Envase)
+                .Include(et => et.Etiqueta)
+                .FirstOrDefault(pre => pre.Id == id);
+
+            if (presentacion == null)
+            {
+                return NotFound();
+            }
+
+            //Esto sirve, pero no es lo mejor me sale un error de dependencia circular que nose porque, al agregar el conbos helper 
+            //TODO: En el post de edit tenemos que ver como agarrar el id anterior, podemos traer view model, buscar el id de la presentacion
+            //Con todo lo correspondiente a la etiqueta y guardamos en objeto, convertimos y guardamos lo editado al final
+           var model = _converterHelper.ToPresentacionViewModelAsync(presentacion);
+
+           
+            //Convertir Presentacion a PresentacionViewModel
+
+            return View(model);
+        }
+
+
+
 
 
 
