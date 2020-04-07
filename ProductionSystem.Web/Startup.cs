@@ -61,7 +61,7 @@ namespace ProductionSystem.Web
 
             //inyeccion de los repositorios
             services.AddScoped<IInsumoRepository, InsumoRepository>();
-
+            services.AddScoped<ILineaRepository, LineaRepository>();
 
 
 
