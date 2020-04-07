@@ -19,7 +19,8 @@ namespace ProductionSystem.Web
     using Data;
     using Data.Entities;
     using Helpers;
-
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using ProductionSystem.Web.Data.Repositories.Repository;
 
     public class Startup
     {
@@ -58,6 +59,8 @@ namespace ProductionSystem.Web
             //inyeccion de la interfaz
             services.AddScoped<IUserHelper, UserHelper>();
 
+            //inyeccion de los repositorios
+            services.AddScoped<IInsumoRepository, InsumoRepository>();
 
 
 

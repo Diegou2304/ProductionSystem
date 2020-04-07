@@ -4,25 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
 using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
+using ProductionSystem.Web.Data.Repositories.Interfaz;
+using Remotion.Linq.Clauses.ResultOperators;
 
 namespace ProductionSystem.Web.Controllers
 {
     public class InsumosController : Controller
     {
-        private readonly DataContext _context;
 
-        public InsumosController(DataContext context)
+        private readonly IInsumoRepository insumoRepository;
+
+        public InsumosController(IInsumoRepository insumoRepository)
         {
-            _context = context;
+            this.insumoRepository = insumoRepository;
         }
 
+
         // GET: Insumos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Insumos.ToListAsync());
+            //cambia esto
+            return View(this.insumoRepository.GetAll());
         }
 
         // GET: Insumos/Details/5
@@ -33,8 +39,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var insumo = await _context.Insumos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var insumo = await this.insumoRepository.GetByIdAsync(id.Value);
             if (insumo == null)
             {
                 return NotFound();
@@ -49,17 +54,14 @@ namespace ProductionSystem.Web.Controllers
             return View();
         }
 
-        // POST: Insumos/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        //cambia aqui
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Stock,IsRawProduct")] Insumo insumo)
+        public async Task<IActionResult> Create(Insumo insumo)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(insumo);
-                await _context.SaveChangesAsync();
+                await this.insumoRepository.CreateAsync(insumo);
                 return RedirectToAction(nameof(Index));
             }
             return View(insumo);
@@ -73,7 +75,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var insumo = await _context.Insumos.FindAsync(id);
+            var insumo = await this.insumoRepository.GetByIdAsync(id.Value);
             if (insumo == null)
             {
                 return NotFound();
@@ -86,23 +88,18 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Stock,IsRawProduct")] Insumo insumo)
+        public async Task<IActionResult> Edit(Insumo insumo)
         {
-            if (id != insumo.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(insumo);
-                    await _context.SaveChangesAsync();
+                    await this.insumoRepository.UpdateAsync(insumo);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!InsumoExists(insumo.Id))
+                    if (!await this.insumoRepository.ExistAsync(insumo.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +121,8 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var insumo = await _context.Insumos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var insumo = await this.insumoRepository.GetByIdAsync(id.Value);
+
             if (insumo == null)
             {
                 return NotFound();
@@ -139,15 +136,10 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var insumo = await _context.Insumos.FindAsync(id);
-            _context.Insumos.Remove(insumo);
-            await _context.SaveChangesAsync();
+            var insumo = await this.insumoRepository.GetByIdAsync(id);
+            await this.insumoRepository.DeleteAsync(insumo);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool InsumoExists(int id)
-        {
-            return _context.Insumos.Any(e => e.Id == id);
-        }
     }
 }
