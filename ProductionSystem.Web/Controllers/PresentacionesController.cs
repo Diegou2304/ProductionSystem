@@ -16,16 +16,19 @@ namespace ProductionSystem.Web.Controllers
 
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IValidatorHelper _validatorHelper;
 
         public PresentacionesController(
             DataContext dataContext,
             ICombosHelper comboHelper,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IValidatorHelper validatorHelper)
         {
             _dataContext = dataContext;
 
             _combosHelper = comboHelper;
             _converterHelper = converterHelper;
+            _validatorHelper = validatorHelper;
         }
 
         public IActionResult Index()
@@ -85,7 +88,13 @@ namespace ProductionSystem.Web.Controllers
         public async Task<IActionResult> Create(AddPresentacionViewModel model)
         {
 
-            if(ModelState.IsValid)
+            //Aqui igual tenemos que hacer lo corresopndiente
+            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            {
+                  return RedirectToAction("Index");
+            }
+          
+            if (ModelState.IsValid)
             {
                
                 var etiqueta = await _dataContext.Etiquetas.FindAsync(model.EtiquetaId);
@@ -118,6 +127,7 @@ namespace ProductionSystem.Web.Controllers
         // GET: Owners/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -179,17 +189,34 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            //Esto sirve, pero no es lo mejor me sale un error de dependencia circular que nose porque, al agregar el conbos helper 
-            //TODO: En el post de edit tenemos que ver como agarrar el id anterior, podemos traer view model, buscar el id de la presentacion
-            //Con todo lo correspondiente a la etiqueta y guardamos en objeto, convertimos y guardamos lo editado al final
+            
            var model = _converterHelper.ToPresentacionViewModelAsync(presentacion);
 
            
-            //Convertir Presentacion a PresentacionViewModel
+          
 
             return View(model);
         }
+        
+        //Hay un problema, tenemos que validar que el estado de una etiqueta no sea true, asi no cambiamos
+        //No podemos validar que el atributo tenga solamente un metodo, debemos crear una clase o algo que nos ayude a verificar,
+        //Pero tiene que aparecer en el model.
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddPresentacionViewModel model)
+        {
+           
 
+            //No me esta llegando bien los datos que escojo en el view
+            //Aqui tendremos que hacer la validacion respectiva.
+            if (ModelState.IsValid)
+            {
+
+                return RedirectToAction("Index");
+
+            }
+
+            return View(model);
+        }
 
 
 

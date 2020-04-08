@@ -44,7 +44,7 @@ namespace ProductionSystem.Web.Helpers
         public IEnumerable<SelectListItem> GetComboEtiqueta()
         {
             //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
-            var list = _dataContext.Etiquetas.Where(pt => pt.IsUsed == false).Select(
+            var list = _dataContext.Etiquetas.Select(
                 pt => new SelectListItem
                 {
                     Text = 

@@ -28,7 +28,7 @@ namespace ProductionSystem.Web.Data
             if (!this.context.Sabores.Any())
             {
                 this.AddSabor("Papaya");
-                this.AddSabor("Frurilla");
+                this.AddSabor("Frutilla");
                 this.AddSabor("Manzana");
                 await this.context.SaveChangesAsync();
             }

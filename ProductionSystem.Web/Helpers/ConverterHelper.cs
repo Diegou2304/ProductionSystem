@@ -48,6 +48,7 @@ namespace ProductionSystem.Web.Helpers
 
             return new AddPresentacionViewModel
             {
+                Id = model.Id,
                 Nombre = model.Nombre,
                 EnvaseId = model.Envase.Id,
                 EtiquetaId = model.Etiqueta.Id,
@@ -55,7 +56,9 @@ namespace ProductionSystem.Web.Helpers
                 Envase = model.Envase,
                 Envases = _combosHelper.GetComboEnvases(),
 
-                Etiquetas = _combosHelper.GetComboEtiqueta()
+                Etiquetas = _combosHelper.GetComboEtiqueta(),
+
+                FormerEtiquetaId = model.Etiqueta.Id
 
 
 
