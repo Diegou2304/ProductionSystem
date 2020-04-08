@@ -29,13 +29,13 @@ namespace ProductionSystem.Web.Helpers
 
             return new Presentacion
             {
-               
-                
+
+
                 Nombre = model.Nombre,
                 Etiqueta = await _dataContext.Etiquetas.FindAsync(model.EtiquetaId),
-                Envase = await _dataContext.Envases.FindAsync(model.EnvaseId)
-
-
+                Envase = await _dataContext.Envases.FindAsync(model.EnvaseId),
+                Id = model.Id
+               
 
 
             };

@@ -401,9 +401,13 @@ namespace ProductionSystem.Web.Migrations
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Presentacion", b =>
                 {
-                    b.Property<int>("Id");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("EnvaseId");
+
+                    b.Property<int?>("EtiquetaId");
 
                     b.Property<string>("Nombre")
                         .IsRequired();
@@ -411,6 +415,8 @@ namespace ProductionSystem.Web.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("EnvaseId");
+
+                    b.HasIndex("EtiquetaId");
 
                     b.ToTable("Presentaciones");
                 });
@@ -791,9 +797,8 @@ namespace ProductionSystem.Web.Migrations
                         .HasForeignKey("EnvaseId");
 
                     b.HasOne("ProductionSystem.Web.Data.Entities.Etiqueta", "Etiqueta")
-                        .WithOne("Presentacion")
-                        .HasForeignKey("ProductionSystem.Web.Data.Entities.Presentacion", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("Presentacion")
+                        .HasForeignKey("EtiquetaId");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Produccion", b =>

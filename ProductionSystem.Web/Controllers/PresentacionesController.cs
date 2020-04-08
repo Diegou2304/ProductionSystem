@@ -83,6 +83,14 @@ namespace ProductionSystem.Web.Controllers
             return View(model);
         }
 
+
+        public IActionResult Error ()
+        { 
+           
+
+            return View();
+        }
+
         //TODO : Tenemos que validad que las etiquetas no lleguen al combo si es que estan usadas
         [HttpPost]
         public async Task<IActionResult> Create(AddPresentacionViewModel model)
@@ -91,7 +99,7 @@ namespace ProductionSystem.Web.Controllers
             //Aqui igual tenemos que hacer lo corresopndiente
             if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
             {
-                  return RedirectToAction("Index");
+                return RedirectToAction("Error");
             }
           
             if (ModelState.IsValid)
@@ -204,13 +212,44 @@ namespace ProductionSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AddPresentacionViewModel model)
         {
-           
-
-            //No me esta llegando bien los datos que escojo en el view
-            //Aqui tendremos que hacer la validacion respectiva.
+            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            {
+                //Aqui tiene que venir una ventana de error.
+                return RedirectToAction("Error");
+            }
+            
+       
+            
             if (ModelState.IsValid)
             {
+                //El id de la presentacion tiene que ser igual al id de la etiqueta por la relacion 1-1
+                var presentacion = await _converterHelper.ToPresentacionAsync(model);
 
+                var etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.FormerEtiquetaId);
+
+                
+                
+
+                _dataContext.Presentaciones.Update(presentacion);
+                await _dataContext.SaveChangesAsync();
+
+                etiqueta.IsUsed = false;
+
+                _dataContext.Etiquetas.Update(etiqueta);
+
+
+                etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.EtiquetaId);
+                etiqueta.IsUsed = true ;
+
+
+                _dataContext.Etiquetas.Update(etiqueta);
+
+
+
+                await _dataContext.SaveChangesAsync();
+
+
+                //Dtalles del propietario
                 return RedirectToAction("Index");
 
             }
