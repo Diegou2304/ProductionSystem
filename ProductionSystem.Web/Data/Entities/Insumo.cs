@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Insumo
-    {
 
+    using System;
+    using System.Collections.Generic;
+
+    //agregar la IEntity a todas las entidades
+    public class Insumo : IEntity
+    {
 
         public int Id { get; set; }
 
