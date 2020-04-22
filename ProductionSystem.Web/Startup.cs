@@ -80,6 +80,7 @@ namespace ProductionSystem.Web
             services.AddScoped<IInsumoRepository, InsumoRepository>();
             services.AddScoped<ILineaRepository, LineaRepository>();
             services.AddScoped<ISaborRepository, SaborRepository>();
+            services.AddScoped<IEtiquetaRepository, EtiquetaRepository>();
 
         }
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Etiqueta
+    public class Etiqueta : IEntity
     {
 
         public int Id { get; set; }

@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data;
-using ProductionSystem.Web.Data.Entities;
+﻿
 
 namespace ProductionSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+
     public class EtiquetasController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IEtiquetaRepository etiquetaRepository;
 
-        public EtiquetasController(DataContext context)
+        public EtiquetasController(IEtiquetaRepository etiquetaRepository)
         {
-            _context = context;
+            this.etiquetaRepository = etiquetaRepository;
         }
 
         // GET: Etiquetas
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Etiquetas.ToListAsync());
+            return View(this.etiquetaRepository.GetAll());
         }
 
         // GET: Etiquetas/Details/5
@@ -33,8 +36,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var etiqueta = await _context.Etiquetas
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var etiqueta = await this.etiquetaRepository.GetByIdAsync(id.Value);
             if (etiqueta == null)
             {
                 return NotFound();
@@ -54,12 +56,11 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,Altura,Ancho,PrecioUnitario,IsWaterProof")] Etiqueta etiqueta)
+        public async Task<IActionResult> Create(Etiqueta etiqueta)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(etiqueta);
-                await _context.SaveChangesAsync();
+                await this.etiquetaRepository.CreateAsync(etiqueta);
                 return RedirectToAction(nameof(Index));
             }
             return View(etiqueta);
@@ -73,7 +74,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var etiqueta = await _context.Etiquetas.FindAsync(id);
+            var etiqueta = await this.etiquetaRepository.GetByIdAsync(id.Value);
             if (etiqueta == null)
             {
                 return NotFound();
@@ -86,23 +87,18 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,Altura,Ancho,PrecioUnitario,IsWaterProof")] Etiqueta etiqueta)
+        public async Task<IActionResult> Edit(Etiqueta etiqueta)
         {
-            if (id != etiqueta.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
-                {
-                    _context.Update(etiqueta);
-                    await _context.SaveChangesAsync();
+                {  
+                    await this.etiquetaRepository.UpdateAsync(etiqueta);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EtiquetaExists(etiqueta.Id))
+                    if (!await this.etiquetaRepository.ExistAsync(etiqueta.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +120,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var etiqueta = await _context.Etiquetas
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var etiqueta = await this.etiquetaRepository.GetByIdAsync(id.Value);
             if (etiqueta == null)
             {
                 return NotFound();
@@ -139,15 +134,11 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var etiqueta = await _context.Etiquetas.FindAsync(id);
-            _context.Etiquetas.Remove(etiqueta);
-            await _context.SaveChangesAsync();
+            var etiqueta = await this.etiquetaRepository.GetByIdAsync(id);
+            await this.etiquetaRepository.DeleteAsync(etiqueta);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EtiquetaExists(int id)
-        {
-            return _context.Etiquetas.Any(e => e.Id == id);
-        }
+        
     }
 }
