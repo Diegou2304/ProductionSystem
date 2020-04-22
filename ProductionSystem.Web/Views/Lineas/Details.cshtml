@@ -4,10 +4,9 @@
     ViewData["Title"] = "Details";
 }
 
-<h2>Linea</h2>
+<h2>Detalles Linea</h2>
 
 <div>
-    <h4>Linea</h4>
     <hr />
     <dl class="dl-horizontal">
 
@@ -20,12 +19,8 @@
     </dl>
 </div>
 
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
-</div>
 
-<h4>Categorias</h4>
+<h4>Registrar Categorias</h4>
 
 @if (Model.Categorias == null || Model.Categorias.Count == 0)
 {
@@ -49,7 +44,7 @@ else
                     @Html.DisplayFor(modelItem => item.Nombre)
                 </td>
                 <td id="@item.Id" align="right">
-                    <a asp-action="EditCategoria" asp-route-id="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-action="EditCategoria" asp-route-id="@item.Id" class="btn btn-warning">Edit</a> |
                     <a asp-action="DeleteCategoria" asp-route-id="@item.Id" class="btn btn-danger" id="btnDelete">Delete</a>
                 </td>
             </tr>
@@ -58,9 +53,10 @@ else
 </table>
 }
 
-        <p>
-            <a asp-action="AddCategoria" asp-route-id="@Model.Id" class="btn btn-success"><i></i> Add Categoria </a>
-        </p>
+<p>
+    <a asp-action="AddCategoria" asp-route-id="@Model.Id" class="btn btn-success"><i></i> Add Categoria </a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</p>
 
 
 

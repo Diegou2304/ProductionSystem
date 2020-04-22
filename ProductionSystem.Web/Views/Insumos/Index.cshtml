@@ -13,9 +13,6 @@
     <a asp-action="Create" class="btn btn-success">Nuevo Insumo</a>
 </p>
 
-
-
-
 <div class="row">
     <div class="col-md-12">
         <div class="panel panel-default">
@@ -48,7 +45,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IsRawProduct)
                                 </td>
-                                <td>
+                                <td align="right"> 
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a> |
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalle</a> |
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>

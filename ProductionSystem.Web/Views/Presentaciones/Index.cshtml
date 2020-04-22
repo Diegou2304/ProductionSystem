@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <br />
 
-<h2>Presentaciones</h2>
+<h1>Presentaciones</h1>
 
 <p>
     <a asp-action="Create" class=" btn btn-success">Nueva Presentacion</a>
@@ -47,7 +47,7 @@
                                     @Html.DisplayFor(modelItem => item.Etiqueta.Nombre)
                                 </td>
 
-                                <td>
+                                <td align="right">
                                     <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a> |
                                     <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalle</a> |
                                     <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Borrar</a>
