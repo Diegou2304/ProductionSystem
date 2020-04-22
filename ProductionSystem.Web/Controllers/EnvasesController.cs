@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data;
-using ProductionSystem.Web.Data.Entities;
+﻿
 
 namespace ProductionSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+
     public class EnvasesController : Controller
     {
-        private readonly DataContext _context;
+        private readonly IEnvaseRepository envaseRepository;
 
-        public EnvasesController(DataContext context)
+        public EnvasesController(IEnvaseRepository envaseRepository)
         {
-            _context = context;
+            this.envaseRepository = envaseRepository;
         }
 
         // GET: Envases
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Envases.ToListAsync());
+            return View(this.envaseRepository.GetAll());
         }
 
         // GET: Envases/Details/5
@@ -33,8 +36,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var envase = await _context.Envases
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var envase = await this.envaseRepository.GetByIdAsync(id.Value);
             if (envase == null)
             {
                 return NotFound();
@@ -54,12 +56,11 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Capacidad,Isplastic")] Envase envase)
+        public async Task<IActionResult> Create(Envase envase)
         {
             if (ModelState.IsValid)
-            {
-                _context.Add(envase);
-                await _context.SaveChangesAsync();
+            {           
+                await this.envaseRepository.CreateAsync(envase);
                 return RedirectToAction(nameof(Index));
             }
             return View(envase);
@@ -73,7 +74,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var envase = await _context.Envases.FindAsync(id);
+            var envase = await this.envaseRepository.GetByIdAsync(id.Value);
             if (envase == null)
             {
                 return NotFound();
@@ -86,23 +87,18 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Capacidad,Isplastic")] Envase envase)
+        public async Task<IActionResult> Edit(Envase envase)
         {
-            if (id != envase.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(envase);
-                    await _context.SaveChangesAsync();
+                    await this.envaseRepository.UpdateAsync(envase);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EnvaseExists(envase.Id))
+                    if (!await this.envaseRepository.ExistAsync(envase.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +120,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var envase = await _context.Envases
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var envase = await this.envaseRepository.GetByIdAsync(id.Value);
             if (envase == null)
             {
                 return NotFound();
@@ -139,15 +134,9 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var envase = await _context.Envases.FindAsync(id);
-            _context.Envases.Remove(envase);
-            await _context.SaveChangesAsync();
+            var envase = await this.envaseRepository.GetByIdAsync(id);
+            await this.envaseRepository.DeleteAsync(envase);
             return RedirectToAction(nameof(Index));
-        }
-
-        private bool EnvaseExists(int id)
-        {
-            return _context.Envases.Any(e => e.Id == id);
-        }
+        }       
     }
 }

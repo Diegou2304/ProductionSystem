@@ -82,7 +82,7 @@ namespace ProductionSystem.Web
             services.AddScoped<ISaborRepository, SaborRepository>();
             services.AddScoped<IEtiquetaRepository, EtiquetaRepository>();
             services.AddScoped<ITipoProductoRepository, TipoProductoRepository>();
-
+            services.AddScoped<IEnvaseRepository, EnvaseRepository>();
         }
 
 
