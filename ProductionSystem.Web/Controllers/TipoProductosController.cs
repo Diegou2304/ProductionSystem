@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data;
-using ProductionSystem.Web.Data.Entities;
+﻿
 
 namespace ProductionSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+
     public class TipoProductosController : Controller
     {
-        private readonly DataContext _context;
+        private readonly ITipoProductoRepository tipoProductoRepository;
 
-        public TipoProductosController(DataContext context)
+        public TipoProductosController(ITipoProductoRepository tipoProductoRepository)
         {
-            _context = context;
+            this.tipoProductoRepository = tipoProductoRepository;
         }
 
         // GET: TipoProductos
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.TipoProductos.ToListAsync());
+            return View(this.tipoProductoRepository.GetAll());
         }
 
         // GET: TipoProductos/Details/5
@@ -33,8 +36,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var tipoProducto = await _context.TipoProductos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var tipoProducto = await this.tipoProductoRepository.GetByIdAsync(id.Value);
             if (tipoProducto == null)
             {
                 return NotFound();
@@ -54,12 +56,11 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] TipoProducto tipoProducto)
+        public async Task<IActionResult> Create(TipoProducto tipoProducto)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(tipoProducto);
-                await _context.SaveChangesAsync();
+                await this.tipoProductoRepository.CreateAsync(tipoProducto);
                 return RedirectToAction(nameof(Index));
             }
             return View(tipoProducto);
@@ -73,7 +74,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var tipoProducto = await _context.TipoProductos.FindAsync(id);
+            var tipoProducto = await this.tipoProductoRepository.GetByIdAsync(id.Value);
             if (tipoProducto == null)
             {
                 return NotFound();
@@ -88,21 +89,15 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] TipoProducto tipoProducto)
         {
-            if (id != tipoProducto.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(tipoProducto);
-                    await _context.SaveChangesAsync();
+                    await this.tipoProductoRepository.UpdateAsync(tipoProducto);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!TipoProductoExists(tipoProducto.Id))
+                    if (!await this.tipoProductoRepository.ExistAsync(tipoProducto.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +119,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var tipoProducto = await _context.TipoProductos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var tipoProducto = await this.tipoProductoRepository.GetByIdAsync(id.Value);
             if (tipoProducto == null)
             {
                 return NotFound();
@@ -139,15 +133,11 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var tipoProducto = await _context.TipoProductos.FindAsync(id);
-            _context.TipoProductos.Remove(tipoProducto);
-            await _context.SaveChangesAsync();
+            var tipoProducto = await this.tipoProductoRepository.GetByIdAsync(id);
+            await this.tipoProductoRepository.DeleteAsync(tipoProducto);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool TipoProductoExists(int id)
-        {
-            return _context.TipoProductos.Any(e => e.Id == id);
-        }
+        
     }
 }

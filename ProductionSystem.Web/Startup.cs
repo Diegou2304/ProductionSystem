@@ -34,7 +34,9 @@ namespace ProductionSystem.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //TODO: arreglar esto
             //propiedades para la autenticacion de usuarios
+            /*
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
@@ -45,7 +47,7 @@ namespace ProductionSystem.Web
                 cfg.Password.RequireUppercase = false;
                 cfg.Password.RequiredLength = 6; //tam minimo del password
             }).AddEntityFrameworkStores<DataContext>();
-
+            */
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -53,15 +55,10 @@ namespace ProductionSystem.Web
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
+            //TODO : arreglar esto
+            //services.AddTransient<SeedDb>();
 
-            services.AddTransient<SeedDb>();
-
-            //inyeccion de la interfaz
-            services.AddScoped<IUserHelper, UserHelper>();
-
-            //inyeccion de los repositorios
-            services.AddScoped<IInsumoRepository, InsumoRepository>();
-            services.AddScoped<ILineaRepository, LineaRepository>();
+            
 
 
 
@@ -75,7 +72,21 @@ namespace ProductionSystem.Web
             services.AddScoped<IConverterHelper, ConverterHelper>();
 
             services.AddScoped<IValidatorHelper, ValidatorHelper>();
+
+            //inyeccion de la interfaz
+            services.AddScoped<IUserHelper, UserHelper>();
+
+            //inyeccion de los repositorios
+            services.AddScoped<IInsumoRepository, InsumoRepository>();
+            services.AddScoped<ILineaRepository, LineaRepository>();
+            services.AddScoped<ISaborRepository, SaborRepository>();
+            services.AddScoped<IEtiquetaRepository, EtiquetaRepository>();
+            services.AddScoped<ITipoProductoRepository, TipoProductoRepository>();
+            services.AddScoped<IEnvaseRepository, EnvaseRepository>();
         }
+
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

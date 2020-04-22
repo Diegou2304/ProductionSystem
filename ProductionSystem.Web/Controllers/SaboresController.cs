@@ -1,28 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data;
-using ProductionSystem.Web.Data.Entities;
+﻿
 
 namespace ProductionSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+
     public class SaboresController : Controller
     {
-        private readonly DataContext _context;
+        private readonly ISaborRepository saborRepository;
 
-        public SaboresController(DataContext context)
+        public SaboresController(ISaborRepository saborRepository)
         {
-            _context = context;
+            this.saborRepository = saborRepository;
         }
 
         // GET: Saboresontroller
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Sabores.ToListAsync());
+            return View(this.saborRepository.GetAll());
         }
 
         // GET: Saboresontroller/Details/5
@@ -33,8 +36,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var sabor = await _context.Sabores
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sabor = await this.saborRepository.GetByIdAsync(id.Value);
             if (sabor == null)
             {
                 return NotFound();
@@ -49,17 +51,14 @@ namespace ProductionSystem.Web.Controllers
             return View();
         }
 
-        // POST: Saboresontroller/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre")] Sabor sabor)
+        public async Task<IActionResult> Create(Sabor sabor)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(sabor);
-                await _context.SaveChangesAsync();
+                await this.saborRepository.CreateAsync(sabor);
                 return RedirectToAction(nameof(Index));
             }
             return View(sabor);
@@ -73,7 +72,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var sabor = await _context.Sabores.FindAsync(id);
+            var sabor = await this.saborRepository.GetByIdAsync(id.Value);
             if (sabor == null)
             {
                 return NotFound();
@@ -81,28 +80,21 @@ namespace ProductionSystem.Web.Controllers
             return View(sabor);
         }
 
-        // POST: Saboresontroller/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Sabor sabor)
+        public async Task<IActionResult> Edit(Sabor sabor)
         {
-            if (id != sabor.Id)
-            {
-                return NotFound();
-            }
-
+            
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(sabor);
-                    await _context.SaveChangesAsync();
+                    await this.saborRepository.UpdateAsync(sabor);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!SaborExists(sabor.Id))
+                    if (!await this.saborRepository.ExistAsync(sabor.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +116,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var sabor = await _context.Sabores
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sabor = await this.saborRepository.GetByIdAsync(id.Value);
             if (sabor == null)
             {
                 return NotFound();
@@ -139,15 +130,11 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var sabor = await _context.Sabores.FindAsync(id);
-            _context.Sabores.Remove(sabor);
-            await _context.SaveChangesAsync();
+            var sabor = await this.saborRepository.GetByIdAsync(id);
+            await this.saborRepository.DeleteAsync(sabor);
             return RedirectToAction(nameof(Index));
         }
 
-        private bool SaborExists(int id)
-        {
-            return _context.Sabores.Any(e => e.Id == id);
-        }
+        
     }
 }

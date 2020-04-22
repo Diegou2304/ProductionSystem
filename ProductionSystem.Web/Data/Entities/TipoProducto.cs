@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class TipoProducto
+    public class TipoProducto : IEntity
     {
         public int Id { get; set; }
 

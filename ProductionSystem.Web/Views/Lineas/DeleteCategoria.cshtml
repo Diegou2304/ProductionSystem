@@ -1,12 +1,12 @@
-﻿@model ProductionSystem.Web.Data.Entities.Linea
-
+﻿@model ProductionSystem.Web.Data.Entities.Categoria
 @{
-    ViewData["Title"] = "Delete";
+    ViewData["Title"] = "DeleteCategoria";
 }
 
-<h2>Borrar Linea</h2>
+<h2>Borrar Categoria</h2>
 
-<h3>Esta seguro de eliminar?</h3>
+
+<h3>Esta seguro de eliminar ?</h3>
 <div>
     <hr />
     <dl class="dl-horizontal">
@@ -17,8 +17,8 @@
             @Html.DisplayFor(model => model.Nombre)
         </dd>
     </dl>
-    
-    <form asp-action="Delete">
+
+    <form asp-action="DeleteCategoria">
         <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
         <a asp-action="Index" class="btn btn-primary">Back to List</a>

@@ -7,10 +7,12 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
 
     public class InsumoRepository : GenericRepository<Insumo>, IInsumoRepository
     {
-       public InsumoRepository(DataContext context) : base(context)
+
+        private readonly DataContext context;
+
+        public InsumoRepository(DataContext context) : base(context)
         {
-
-
+            this.context = context;
         } 
 
     }

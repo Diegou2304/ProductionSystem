@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.Operations;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data;
-using ProductionSystem.Web.Data.Entities;
-using ProductionSystem.Web.Data.Repositories.Interfaz;
-using Remotion.Linq.Clauses.ResultOperators;
+﻿
 
 namespace ProductionSystem.Web.Controllers
 {
+
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.CodeAnalysis.Operations;
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using Remotion.Linq.Clauses.ResultOperators;
+
+
     public class InsumosController : Controller
     {
 
@@ -27,7 +31,7 @@ namespace ProductionSystem.Web.Controllers
         // GET: Insumos
         public IActionResult Index()
         {
-            //cambia esto
+
             return View(this.insumoRepository.GetAll());
         }
 
