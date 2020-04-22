@@ -14,8 +14,8 @@
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <!--Campo que no pidamos en el get lo guarmamos en el hidden-->
-            <input type="hidden" asp-for="EnvaseId" />
-            <input type="hidden" asp-for="EtiquetaId" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="FormerEtiquetaId" />
             <dl class="dl-horizontal">
                 <dt>
                     Información Etiqueta
@@ -36,6 +36,13 @@
                 </dd>
 
             </dl>
+
+
+            <div class="form-group">
+                <label asp-for="Nombre" class="control-label"></label>
+                <input asp-for="Nombre" asp-items="Model.Nombre" class="form-control">
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
 
             <div class="form-group">
                 <label asp-for="EnvaseId" class="control-label"></label>
@@ -58,3 +65,5 @@
         </form>
     </div>
 </div>
+
+

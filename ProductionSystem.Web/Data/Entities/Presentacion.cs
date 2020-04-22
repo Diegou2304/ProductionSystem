@@ -9,7 +9,7 @@ namespace ProductionSystem.Web.Data.Entities
 {
     public class Presentacion
     {
-        [ForeignKey("Etiqueta")]
+       
        
         public int Id { get; set; }
 

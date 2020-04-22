@@ -22,6 +22,8 @@ namespace ProductionSystem.Web.Models
         
         public int EnvaseId { get; set; }
 
+
+        public int FormerEtiquetaId { get; set; }
         //Necesitamos los respectivos collections para llenar el combo box
 
         public IEnumerable<SelectListItem> Envases;

@@ -36,7 +36,7 @@ namespace ProductionSystem.Web.Data.Entities
         public bool IsWaterProof { get; set; }
 
 
-        public Presentacion Presentacion { get; set; }
+        public ICollection  <Presentacion> Presentacion { get; set; }
 
         public bool IsUsed { get; set; }
 

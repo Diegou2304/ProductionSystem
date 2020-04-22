@@ -16,16 +16,19 @@ namespace ProductionSystem.Web.Controllers
 
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
+        private readonly IValidatorHelper _validatorHelper;
 
         public PresentacionesController(
             DataContext dataContext,
             ICombosHelper comboHelper,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            IValidatorHelper validatorHelper)
         {
             _dataContext = dataContext;
 
             _combosHelper = comboHelper;
             _converterHelper = converterHelper;
+            _validatorHelper = validatorHelper;
         }
 
         public IActionResult Index()
@@ -80,12 +83,26 @@ namespace ProductionSystem.Web.Controllers
             return View(model);
         }
 
+
+        public IActionResult Error ()
+        { 
+           
+
+            return View();
+        }
+
         //TODO : Tenemos que validad que las etiquetas no lleguen al combo si es que estan usadas
         [HttpPost]
         public async Task<IActionResult> Create(AddPresentacionViewModel model)
         {
 
-            if(ModelState.IsValid)
+            //Aqui igual tenemos que hacer lo corresopndiente
+            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            {
+                return RedirectToAction("Error");
+            }
+          
+            if (ModelState.IsValid)
             {
                
                 var etiqueta = await _dataContext.Etiquetas.FindAsync(model.EtiquetaId);
@@ -118,6 +135,7 @@ namespace ProductionSystem.Web.Controllers
         // GET: Owners/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+
             if (id == null)
             {
                 return NotFound();
@@ -179,17 +197,65 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            //Esto sirve, pero no es lo mejor me sale un error de dependencia circular que nose porque, al agregar el conbos helper 
-            //TODO: En el post de edit tenemos que ver como agarrar el id anterior, podemos traer view model, buscar el id de la presentacion
-            //Con todo lo correspondiente a la etiqueta y guardamos en objeto, convertimos y guardamos lo editado al final
+            
            var model = _converterHelper.ToPresentacionViewModelAsync(presentacion);
 
            
-            //Convertir Presentacion a PresentacionViewModel
+          
 
             return View(model);
         }
+        
+        //Hay un problema, tenemos que validar que el estado de una etiqueta no sea true, asi no cambiamos
+        //No podemos validar que el atributo tenga solamente un metodo, debemos crear una clase o algo que nos ayude a verificar,
+        //Pero tiene que aparecer en el model.
+        [HttpPost]
+        public async Task<IActionResult> Edit(AddPresentacionViewModel model)
+        {
+            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            {
+                //Aqui tiene que venir una ventana de error.
+                return RedirectToAction("Error");
+            }
+            
+       
+            
+            if (ModelState.IsValid)
+            {
+                //El id de la presentacion tiene que ser igual al id de la etiqueta por la relacion 1-1
+                var presentacion = await _converterHelper.ToPresentacionAsync(model);
 
+                var etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.FormerEtiquetaId);
+
+                
+                
+
+                _dataContext.Presentaciones.Update(presentacion);
+                await _dataContext.SaveChangesAsync();
+
+                etiqueta.IsUsed = false;
+
+                _dataContext.Etiquetas.Update(etiqueta);
+
+
+                etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.EtiquetaId);
+                etiqueta.IsUsed = true ;
+
+
+                _dataContext.Etiquetas.Update(etiqueta);
+
+
+
+                await _dataContext.SaveChangesAsync();
+
+
+                //Dtalles del propietario
+                return RedirectToAction("Index");
+
+            }
+
+            return View(model);
+        }
 
 
 
