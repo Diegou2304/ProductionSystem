@@ -71,6 +71,7 @@ namespace ProductionSystem.Web
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
 
+            services.AddScoped<IValidatorHelper, ValidatorHelper>();
 
             //inyeccion de la interfaz
             services.AddScoped<IUserHelper, UserHelper>();
