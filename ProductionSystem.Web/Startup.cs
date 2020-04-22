@@ -70,13 +70,13 @@ namespace ProductionSystem.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
-
             services.AddScoped<IValidatorHelper, ValidatorHelper>();
 
             //inyeccion de la interfaz
             services.AddScoped<IUserHelper, UserHelper>();
 
             //inyeccion de los repositorios
+            services.AddTransient<SeedDb>(); //alimentador de base de datos
             services.AddScoped<IInsumoRepository, InsumoRepository>();
             services.AddScoped<ILineaRepository, LineaRepository>();
             services.AddScoped<ISaborRepository, SaborRepository>();
