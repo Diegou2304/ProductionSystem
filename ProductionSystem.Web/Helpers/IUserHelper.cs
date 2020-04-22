@@ -8,7 +8,7 @@ namespace ProductionSystem.Web.Helpers
     using System.Threading.Tasks;
     using Data.Entities;
     using Microsoft.AspNetCore.Identity;
-
+    using ProductionSystem.Web.Models;
 
     public interface IUserHelper
     {
@@ -16,6 +16,10 @@ namespace ProductionSystem.Web.Helpers
         Task<User> GetUserByEmailAsync(string email);
 
         Task<IdentityResult> AddUserAsync(User user, string password);
+
+        Task<SignInResult> LoginAsync(LoginViewModel model);
+
+        Task LogoutAsync();
 
     }
 }

@@ -36,7 +36,7 @@ namespace ProductionSystem.Web
         {
             //TODO: arreglar esto
             //propiedades para la autenticacion de usuarios
-            /*
+            
             services.AddIdentity<User, IdentityRole>(cfg =>
             {
                 cfg.User.RequireUniqueEmail = true;
@@ -47,7 +47,7 @@ namespace ProductionSystem.Web
                 cfg.Password.RequireUppercase = false;
                 cfg.Password.RequiredLength = 6; //tam minimo del password
             }).AddEntityFrameworkStores<DataContext>();
-            */
+            
 
             services.Configure<CookiePolicyOptions>(options =>
             {
@@ -103,7 +103,9 @@ namespace ProductionSystem.Web
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            //se agrego esta 
             app.UseAuthentication();
+            //
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>

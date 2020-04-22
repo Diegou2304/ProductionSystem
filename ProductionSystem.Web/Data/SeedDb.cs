@@ -2,6 +2,7 @@
 
 namespace ProductionSystem.Web.Data
 {
+    using Microsoft.AspNetCore.Identity;
     using ProductionSystem.Web.Data.Entities;
     using System;
     using System.Collections.Generic;
@@ -11,17 +12,44 @@ namespace ProductionSystem.Web.Data
     public class SeedDb
     {
         private readonly DataContext context;
+        private readonly UserManager<User> userManager;
         private Random random;
 
-        public SeedDb(DataContext context)
+        public SeedDb(DataContext context, UserManager<User> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
             this.random = new Random();
         }
 
         public async Task SeedAsync()
         {
             await this.context.Database.EnsureCreatedAsync();
+
+            var user = await this.userManager.FindByEmailAsync("Admin@gmail.com");
+            if (user == null)
+            {
+                user = new User
+                {
+                    Nombre = "Oscar",
+                    ApellidoPaterno = "Claros",
+                    ApellidoMaterno = "Carrillo",
+                    Cargo = "Administrador",
+                    Email = "Admin@gmail.com",
+                    UserName = "Admin@gmail.com"
+                };
+
+                var result = await this.userManager.CreateAsync(user, "123456");
+                if (result != IdentityResult.Success)
+                {
+                    throw new InvalidOperationException("Could not create the user in seeder");
+                }
+            }
+
+
+
+
+
 
             if (!this.context.Sabores.Any())
             {
