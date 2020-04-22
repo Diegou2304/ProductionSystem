@@ -17,7 +17,7 @@ namespace ProductionSystem.Web.Data.Entities
         [Required(ErrorMessage = "Este campo es obligatorio")]
         public string Nombre { get; set; }
 
-       
+        
         public Etiqueta Etiqueta { get; set; }
 
 

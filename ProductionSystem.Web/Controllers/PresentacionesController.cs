@@ -141,12 +141,19 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var presentacion = await _dataContext.Presentaciones
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var presentacion = _dataContext.Presentaciones
+                .Include(p => p.Envase)
+                .Include(et => et.Etiqueta)
+                .FirstOrDefault(pre => pre.Id == id);
+
             if (presentacion == null)
             {
                 return NotFound();
             }
+
+
+
+
 
             return View(presentacion);
         }
