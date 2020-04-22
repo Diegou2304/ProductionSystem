@@ -24,24 +24,6 @@ namespace ProductionSystem.Web.Controllers
         }
 
 
-        public async Task<IActionResult> DeleteCategoria(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var categoria = await this.lineaRepository.GetCategoriaAsync(id.Value);
-            if (categoria == null)
-            {
-                return NotFound();
-            }
-
-            var empleadoId = await this.lineaRepository.DeleteCategoriaAsync(categoria);
-            //TODO: arreglar
-            return this.RedirectToAction("Index");
-        }
-
         public async Task<IActionResult> EditCategoria(int? id)
         {
             if (id == null)
@@ -105,7 +87,31 @@ namespace ProductionSystem.Web.Controllers
         }
 
 
+        public async Task<IActionResult> DeleteCategoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var categoria = await this.lineaRepository.GetCategoriaAsync(id.Value);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
+        }
+
+        
+        [HttpPost, ActionName("DeleteCategoria")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmedCategoria(int id)
+        {
+            var categoria = await this.lineaRepository.GetCategoriaAsync(id);
+            await this.lineaRepository.DeleteCategoriaAsync(categoria);
+            return RedirectToAction(nameof(Index));
+        }
 
 
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Sabor
+    public class Sabor : IEntity
     {
         public int Id { get; set; }
 
