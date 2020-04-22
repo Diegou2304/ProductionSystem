@@ -81,6 +81,7 @@ namespace ProductionSystem.Web
             services.AddScoped<ILineaRepository, LineaRepository>();
             services.AddScoped<ISaborRepository, SaborRepository>();
             services.AddScoped<IEtiquetaRepository, EtiquetaRepository>();
+            services.AddScoped<ITipoProductoRepository, TipoProductoRepository>();
 
         }
 
