@@ -6,6 +6,7 @@ namespace ProductionSystem.Web.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.EntityFrameworkCore;
@@ -13,6 +14,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
 
+    [Authorize]
     public class EtiquetasController : Controller
     {
         private readonly IEtiquetaRepository etiquetaRepository;

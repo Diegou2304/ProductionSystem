@@ -6,12 +6,14 @@ namespace ProductionSystem.Web.Controllers
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Helpers;
     using ProductionSystem.Web.Models;
 
+    [Authorize]
     public class PresentacionesController : Controller
     {
         private readonly DataContext _dataContext;
