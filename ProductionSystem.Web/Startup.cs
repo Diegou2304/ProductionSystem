@@ -70,6 +70,16 @@ namespace ProductionSystem.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<ICombosHelper, CombosHelper>();
             services.AddScoped<IConverterHelper, ConverterHelper>();
+
+
+            //inyeccion de la interfaz
+            services.AddScoped<IUserHelper, UserHelper>();
+
+            //inyeccion de los repositorios
+            services.AddScoped<IInsumoRepository, InsumoRepository>();
+            services.AddScoped<ILineaRepository, LineaRepository>();
+            services.AddScoped<ISaborRepository, SaborRepository>();
+
         }
 
 
