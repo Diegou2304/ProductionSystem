@@ -5,13 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ProductionSystem.Web.Models;
 
 namespace ProductionSystem.Web.Data
 {
-    public class DataContext : IdentityDbContext<User>
+    public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+
+            //TODO: agregar que no se permita el borrado en cascada
 
         }
 
@@ -40,33 +43,30 @@ namespace ProductionSystem.Web.Data
         public DbSet<Pedido> Pedidos { get; set; }
 
         public DbSet<Persona> Personas { get; set; }
+
         public DbSet<Presentacion> Presentaciones { get; set; }
 
         public DbSet<Produccion> Producciones { get; set; }
 
         public DbSet<Producto> Productos { get; set; }
+
         public DbSet<ProductoReal> ProductoReal { get; set; }
 
         public DbSet<Resultado> Resultados { get; set; }
 
         public DbSet<Sabor> Sabores { get; set; }
+
         public DbSet<Sucursal> Sucursales { get; set; }
 
         public DbSet<TipoProducto> TipoProductos { get; set; }
 
-
-       
-
-
         public DbSet<InventarioEmpresa> InventarioEmpresas { get; set; }
 
-
         public DbSet<ProductoPago> ProductoPagos { get; set; }
+
         public DbSet<Receta> Recetas { get; set; }
+
         public DbSet<InsumoUsado> InsumoUsados { get; set; }
-
-
-
 
     }
 }

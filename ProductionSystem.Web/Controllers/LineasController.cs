@@ -12,6 +12,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using ProductionSystem.Web.Models;
 
     public class LineasController : Controller
     {
@@ -22,10 +23,98 @@ namespace ProductionSystem.Web.Controllers
             this.lineaRepository = lineaRepository;
         }
 
+
+        public async Task<IActionResult> DeleteCategoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var categoria = await this.lineaRepository.GetCategoriaAsync(id.Value);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            var empleadoId = await this.lineaRepository.DeleteCategoriaAsync(categoria);
+            //TODO: arreglar
+            return this.RedirectToAction("Index");
+        }
+
+        public async Task<IActionResult> EditCategoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var categoria = await this.lineaRepository.GetCategoriaAsync(id.Value);
+            if (categoria == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoria);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditCategoria(Categoria categoria)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var lineaId = await this.lineaRepository.UpdateCategoriaAsync(categoria);
+                if (lineaId != 0)
+                {
+                    //TODO: revisar por que esta cosa me da error
+                    return this.RedirectToAction("Index");
+                }
+            }
+
+            return this.View(categoria);
+        }
+
+        public async Task<IActionResult> AddCategoria(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var linea = await this.lineaRepository.GetByIdAsync(id.Value);
+            if (linea == null)
+            {
+                return NotFound();
+            }
+
+            var model = new CategoriaViewModel { PoseedorId = linea.Id };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddCategoria(CategoriaViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                await this.lineaRepository.AddCategoriaAsync(model);
+                //TODO: revisar por que esta cosa me da error
+                return this.RedirectToAction("Index");
+            }
+
+            return this.View(model);
+        }
+
+
+
+
+
+
+
+
         // GET: Lineas
         public IActionResult Index()
         {
-            return View(this.lineaRepository.GetAll());
+            return View(this.lineaRepository.GetLineasConCategorias());
         }
 
         // GET: Lineas/Details/5
@@ -36,7 +125,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var linea = await this.lineaRepository.GetByIdAsync(id.Value);
+            var linea = await this.lineaRepository.GetLineaConCategoriaAsync(id.Value);
             if (linea == null)
             {
                 return NotFound();
@@ -51,14 +140,15 @@ namespace ProductionSystem.Web.Controllers
             return View();
         }
 
-       
+        // POST: Lineas/Create
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Linea linea)
         {
             if (ModelState.IsValid)
             {
-
                 await this.lineaRepository.CreateAsync(linea);
                 return RedirectToAction(nameof(Index));
             }
@@ -88,12 +178,11 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Linea linea)
         {
-           
+
             if (ModelState.IsValid)
             {
                 try
                 {
-
                     await this.lineaRepository.UpdateAsync(linea);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -135,7 +224,7 @@ namespace ProductionSystem.Web.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var linea = await this.lineaRepository.GetByIdAsync(id);
-            await this.lineaRepository.DeleteAsync(linea) ;
+            await this.lineaRepository.DeleteAsync(linea);
             return RedirectToAction(nameof(Index));
         }
 

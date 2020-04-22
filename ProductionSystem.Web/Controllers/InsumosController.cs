@@ -27,7 +27,7 @@ namespace ProductionSystem.Web.Controllers
         // GET: Insumos
         public IActionResult Index()
         {
-            //cambia esto
+
             return View(this.insumoRepository.GetAll());
         }
 

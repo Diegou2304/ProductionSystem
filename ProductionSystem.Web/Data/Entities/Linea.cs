@@ -14,8 +14,9 @@ namespace ProductionSystem.Web.Data.Entities
         [Required(ErrorMessage ="Este campo es obligatorio")]
         public string Nombre { get; set; }
 
+        [Display(Name = "# Categorias")]
+        public int NumeroCategorias { get { return this.Categorias == null ? 0 : this.Categorias.Count; } }
+
         public ICollection<Categoria> Categorias { get; set; }
-
-
     }
 }
