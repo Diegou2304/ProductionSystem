@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿
 
 namespace ProductionSystem.Web.Data.Entities
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class TipoProducto : IEntity
     {
         public int Id { get; set; }

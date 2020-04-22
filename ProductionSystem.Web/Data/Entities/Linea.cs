@@ -16,7 +16,6 @@ namespace ProductionSystem.Web.Data.Entities
 
         [Display(Name = "# Categorias")]
         public int NumeroCategorias { get { return this.Categorias == null ? 0 : this.Categorias.Count; } }
-
         public ICollection<Categoria> Categorias { get; set; }
     }
 }

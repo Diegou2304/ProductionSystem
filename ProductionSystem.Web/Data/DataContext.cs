@@ -1,20 +1,54 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using ProductionSystem.Web.Data.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using ProductionSystem.Web.Models;
+﻿
 
 namespace ProductionSystem.Web.Data
 {
+    using Microsoft.EntityFrameworkCore;
+    using ProductionSystem.Web.Data.Entities;
+    using System.Linq;
+
+
     public class DataContext : DbContext
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options)
         {
+        }
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+            //para no permitir el borrado en cascada
+            var cascadeFKS = builder.Model
+                .GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+            foreach (var fk in cascadeFKS)
+            {
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+            }
 
-            //TODO: agregar que no se permita el borrado en cascada
+            //datos unicos
+            builder.Entity<Etiqueta>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<Insumo>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<Linea>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<Presentacion>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<Sabor>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
+
+            builder.Entity<TipoProducto>()
+                .HasIndex(p => p.Nombre)
+                .IsUnique(true);
 
         }
 

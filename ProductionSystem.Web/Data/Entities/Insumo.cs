@@ -5,6 +5,7 @@ namespace ProductionSystem.Web.Data.Entities
 
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     //agregar la IEntity a todas las entidades
     public class Insumo : IEntity
@@ -12,8 +13,12 @@ namespace ProductionSystem.Web.Data.Entities
 
         public int Id { get; set; }
 
+        [Display(Name = "Nombre")]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public string Nombre { get; set; }
 
+        [Display(Name = "Stock")]
+        [Required(ErrorMessage = "Este campo es obligatorio")]
         public Decimal Stock { get; set; }
 
         public bool IsRawProduct { get; set;}
