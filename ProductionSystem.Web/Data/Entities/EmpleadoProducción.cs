@@ -1,19 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class EmpleadoProducción
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class EmpleadoProducción : Persona
     {
-        public int Id { get; set; }
 
-        public string Telefono { get; set; }
+        [Required]
+        [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]
+        public string Cargo { get; set; }
 
-        public int IdEmpleado { get; set; }
-
-        public Persona Persona { get; set; }
+        [Required]
+        public int Telefono { get; set; }
 
         public ICollection<Produccion> Producciones {get; set;}
     }
