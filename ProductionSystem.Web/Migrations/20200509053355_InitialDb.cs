@@ -92,7 +92,7 @@ namespace ProductionSystem.Web.Migrations
                     Ancho = table.Column<decimal>(nullable: false),
                     PrecioUnitario = table.Column<decimal>(nullable: false),
                     IsWaterProof = table.Column<bool>(nullable: false),
-                    IsUsed = table.Column<bool>(nullable: false,defaultValue: false)
+                    IsUsed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,7 +120,7 @@ namespace ProductionSystem.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: true),
+                    Nombre = table.Column<string>(nullable: false),
                     Stock = table.Column<decimal>(nullable: false),
                     IsRawProduct = table.Column<bool>(nullable: false)
                 },
@@ -203,7 +203,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -224,7 +224,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -244,7 +244,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -262,13 +262,13 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_AspNetUserRoles_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -288,7 +288,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -419,7 +419,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.Id,
                         principalTable: "Empresas",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_EncargadosEmpresas_Personas_PersonaId",
                         column: x => x.PersonaId,
@@ -650,7 +650,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.Id,
                         principalTable: "Producciones",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -696,7 +696,7 @@ namespace ProductionSystem.Web.Migrations
                         column: x => x.Id,
                         principalTable: "Producciones",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
@@ -754,6 +754,18 @@ namespace ProductionSystem.Web.Migrations
                 column: "PersonaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Etiquetas_Nombre",
+                table: "Etiquetas",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Insumos_Nombre",
+                table: "Insumos",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_InsumoUsados_InsumoId",
                 table: "InsumoUsados",
                 column: "InsumoId");
@@ -774,6 +786,12 @@ namespace ProductionSystem.Web.Migrations
                 column: "ProductoRealId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Lineas_Nombre",
+                table: "Lineas",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Pagos_EmpresaId",
                 table: "Pagos",
                 column: "EmpresaId");
@@ -792,6 +810,12 @@ namespace ProductionSystem.Web.Migrations
                 name: "IX_Presentaciones_EtiquetaId",
                 table: "Presentaciones",
                 column: "EtiquetaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Presentaciones_Nombre",
+                table: "Presentaciones",
+                column: "Nombre",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Producciones_EmpleadoProducciónId",
@@ -859,9 +883,21 @@ namespace ProductionSystem.Web.Migrations
                 column: "ProductoRealId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Sabores_Nombre",
+                table: "Sabores",
+                column: "Nombre",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Sucursales_EmpresaId",
                 table: "Sucursales",
                 column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TipoProductos_Nombre",
+                table: "TipoProductos",
+                column: "Nombre",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

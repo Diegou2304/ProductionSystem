@@ -10,7 +10,7 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200408175534_InitialDb")]
+    [Migration("20200509053355_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -247,6 +247,9 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
                     b.ToTable("Etiquetas");
                 });
 
@@ -275,11 +278,15 @@ namespace ProductionSystem.Web.Migrations
 
                     b.Property<bool>("IsRawProduct");
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nombre")
+                        .IsRequired();
 
                     b.Property<decimal>("Stock");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("Insumos");
                 });
@@ -336,6 +343,9 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("Lineas");
                 });
@@ -419,6 +429,9 @@ namespace ProductionSystem.Web.Migrations
                     b.HasIndex("EnvaseId");
 
                     b.HasIndex("EtiquetaId");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("Presentaciones");
                 });
@@ -569,6 +582,9 @@ namespace ProductionSystem.Web.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Nombre")
+                        .IsUnique();
+
                     b.ToTable("Sabores");
                 });
 
@@ -603,6 +619,9 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired();
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Nombre")
+                        .IsUnique();
 
                     b.ToTable("TipoProductos");
                 });
@@ -682,7 +701,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -690,7 +709,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
@@ -698,7 +717,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
@@ -706,12 +725,12 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
                         .WithMany()
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProductionSystem.Web.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -719,12 +738,12 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Categoria", b =>
                 {
-                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea", "Linea")
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea")
                         .WithMany("Categorias")
                         .HasForeignKey("LineaId");
                 });
@@ -734,7 +753,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Produccion", "Produccion")
                         .WithOne("Deshecho")
                         .HasForeignKey("ProductionSystem.Web.Data.Entities.Deshecho", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EmpleadoProducción", b =>
@@ -749,7 +768,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
                         .WithOne("EncargadoEmpresa")
                         .HasForeignKey("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("ProductionSystem.Web.Data.Entities.Persona", "Persona")
                         .WithMany()
@@ -875,7 +894,7 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Produccion", "Produccion")
                         .WithOne("Resultado")
                         .HasForeignKey("ProductionSystem.Web.Data.Entities.Resultado", "Id")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Sucursal", b =>

@@ -19,5 +19,9 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             this.context = context;
         }
 
+        public Etiqueta GetEtiqueta(int Id)
+        {
+           return   context.Etiquetas.FirstOrDefault(e => e.Id== Id);
+        }
     }
 }

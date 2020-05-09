@@ -10,6 +10,7 @@ namespace ProductionSystem.Web.Controllers
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.EntityFrameworkCore;
     using ProductionSystem.Web.Data;
+    using ProductionSystem.Web.Data.Repositories.Interfaz;
     using ProductionSystem.Web.Helpers;
     using ProductionSystem.Web.Models;
 
@@ -22,28 +23,34 @@ namespace ProductionSystem.Web.Controllers
         private readonly IConverterHelper _converterHelper;
         private readonly IValidatorHelper _validatorHelper;
 
+        private readonly IPresentacionRepository _presentacionRepository;
+
+        private readonly IEtiquetaRepository _etiquetaRepository;
+
         public PresentacionesController(
             DataContext dataContext,
             ICombosHelper comboHelper,
             IConverterHelper converterHelper,
-            IValidatorHelper validatorHelper)
+            IValidatorHelper validatorHelper,
+            IPresentacionRepository presentacionRepository,
+            IEtiquetaRepository etiquetaRepository)
         {
             _dataContext = dataContext;
 
             _combosHelper = comboHelper;
             _converterHelper = converterHelper;
             _validatorHelper = validatorHelper;
+            _presentacionRepository = presentacionRepository;
+            _etiquetaRepository = etiquetaRepository;
         }
 
         public IActionResult Index()
         {
-            return View(_dataContext.Presentaciones
-                .Include(p => p.Etiqueta)
-                .Include (p => p.Envase));
+            return View(_presentacionRepository.GetPresentacionConEtiquetaEnvase());
         }
 
 
-        public  async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
 
             if (id == null)
@@ -53,10 +60,9 @@ namespace ProductionSystem.Web.Controllers
 
             }
 
-            var presentacion =  _dataContext.Presentaciones
-                .Include(e => e.Envase)
-                .Include(et => et.Etiqueta)
-                .FirstOrDefault(p => p.Id == id);
+
+            var presentacion = _presentacionRepository.GetDetailsPresentacion(id);
+
 
             if (presentacion == null)
             {
@@ -64,9 +70,9 @@ namespace ProductionSystem.Web.Controllers
             }
 
             return View(presentacion);
-        
-        
-        
+
+
+
         }
 
 
@@ -87,6 +93,48 @@ namespace ProductionSystem.Web.Controllers
             return View(model);
         }
 
+        //TODO : Tenemos que validad que las etiquetas no lleguen al combo si es que estan usadas
+        [HttpPost]
+        public async Task<IActionResult> Create(AddPresentacionViewModel model)
+        {
+
+            //Aqui igual tenemos que hacer lo corresopndiente
+            if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            {
+                return RedirectToAction("Error");
+            }
+
+            if (ModelState.IsValid)
+            {
+
+                var etiqueta = _etiquetaRepository.GetEtiqueta(model.EtiquetaId);
+                var presentacion = await _converterHelper.ToPresentacionAsync(model);
+
+
+                
+                await _presentacionRepository.CreateAsync(presentacion);
+
+             
+
+                //Solo depsues que se haya guardado los datos, tenemos que insertar la etiqueta
+
+                etiqueta.IsUsed = true;
+
+             
+                await _etiquetaRepository.UpdateAsync(etiqueta);
+              
+
+                return RedirectToAction("Index");
+
+
+            }
+
+            return View(model);
+
+
+
+        }
+
 
         public IActionResult Error ()
         { 
@@ -95,49 +143,12 @@ namespace ProductionSystem.Web.Controllers
             return View();
         }
 
-        //TODO : Tenemos que validad que las etiquetas no lleguen al combo si es que estan usadas
-        [HttpPost]
-        public async Task<IActionResult> Create(AddPresentacionViewModel model)
-        {
 
-            //Aqui igual tenemos que hacer lo corresopndiente
-            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
-            {
-                return RedirectToAction("Error");
-            }
-          
-            if (ModelState.IsValid)
-            {
-               
-                var etiqueta = await _dataContext.Etiquetas.FindAsync(model.EtiquetaId);
-                var presentacion = await _converterHelper.ToPresentacionAsync(model);
-
-
-                _dataContext.Presentaciones.Add(presentacion);
-                await _dataContext.SaveChangesAsync();
-
-                //Solo depsues que se haya guardado los datos, tenemos que insertar la etiqueta
-
-                etiqueta.IsUsed = true;
-
-                _dataContext.Etiquetas.Update(etiqueta);
-                await _dataContext.SaveChangesAsync();
-
-                return RedirectToAction("Index");
-               
-
-            }
-
-            return View(model);
-
-
-           
-        }
 
         //Cuando eliminamos una presentacion debemos cambiar el estado de esta etiqueta a disponible.
         //La pantalla de edit tambien
         // GET: Owners/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
 
             if (id == null)
@@ -145,10 +156,8 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var presentacion = _dataContext.Presentaciones
-                .Include(p => p.Envase)
-                .Include(et => et.Etiqueta)
-                .FirstOrDefault(pre => pre.Id == id);
+
+            var presentacion = _presentacionRepository.GetDetailsPresentacion(id);
 
             if (presentacion == null)
             {
@@ -167,22 +176,19 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var presentacion = await _dataContext.Presentaciones
-                .Include(e => e.Etiqueta)
-                .FirstAsync(m => m.Id == id);
-                
 
-            var etiqueta = await _dataContext.Etiquetas.FindAsync(presentacion.Etiqueta.Id);
 
-            _dataContext.Presentaciones.Remove(presentacion);
+            var presentacion = _presentacionRepository.GetPresentacionAsync(id);
+           
 
-            await _dataContext.SaveChangesAsync();
+
+            var etiqueta = _etiquetaRepository.GetEtiqueta(presentacion.Etiqueta.Id);
+            
+            await _presentacionRepository.DeleteAsync(presentacion);
 
             etiqueta.IsUsed = false;
 
-            _dataContext.Etiquetas.Update(etiqueta);
-
-            await _dataContext.SaveChangesAsync();
+            await  _etiquetaRepository.UpdateAsync(etiqueta);
 
 
             return RedirectToAction(nameof(Index));
@@ -198,10 +204,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var presentacion = _dataContext.Presentaciones
-                .Include(p => p.Envase)
-                .Include(et => et.Etiqueta)
-                .FirstOrDefault(pre => pre.Id == id);
+            var presentacion = _presentacionRepository.GetDetailsPresentacion(id);
 
             if (presentacion == null)
             {
@@ -228,36 +231,32 @@ namespace ProductionSystem.Web.Controllers
                 //Aqui tiene que venir una ventana de error.
                 return RedirectToAction("Error");
             }
-            
-       
-            
+
+
+
             if (ModelState.IsValid)
             {
                 //El id de la presentacion tiene que ser igual al id de la etiqueta por la relacion 1-1
                 var presentacion = await _converterHelper.ToPresentacionAsync(model);
 
-                var etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.FormerEtiquetaId);
+                var etiqueta = _etiquetaRepository.GetEtiqueta(model.FormerEtiquetaId);
 
-                
-                
 
-                _dataContext.Presentaciones.Update(presentacion);
-                await _dataContext.SaveChangesAsync();
+
+
+                await _presentacionRepository.UpdateAsync(presentacion);
 
                 etiqueta.IsUsed = false;
 
-                _dataContext.Etiquetas.Update(etiqueta);
+                await _etiquetaRepository.UpdateAsync(etiqueta);
 
-
-                etiqueta = _dataContext.Etiquetas.FirstOrDefault(et => et.Id == model.EtiquetaId);
+                etiqueta = _etiquetaRepository.GetEtiqueta(model.EtiquetaId);
+                //Esto en teoria no deberia estar aca, se puede hacer una abstraccion mas, pero como no es un cambio de
+                //La base de datos, sino del objeto en si creo que estaria permitido.
                 etiqueta.IsUsed = true ;
 
 
-                _dataContext.Etiquetas.Update(etiqueta);
-
-
-
-                await _dataContext.SaveChangesAsync();
+                await _etiquetaRepository.UpdateAsync(etiqueta);
 
 
                 //Dtalles del propietario
