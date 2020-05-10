@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductionSystem.Web.Data;
 
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200509192316_ArregloTablaEmpleado")]
+    partial class ArregloTablaEmpleado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,16 +168,28 @@ namespace ProductionSystem.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Direccion");
 
-                    b.Property<string>("Telefono")
-                        .IsRequired();
+                    b.Property<string>("Telefono");
 
                     b.HasKey("Id");
 
                     b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<int?>("PersonaId");
+
+                    b.Property<string>("Telefono");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PersonaId");
+
+                    b.ToTable("EncargadosEmpresas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Envase", b =>
@@ -375,8 +389,7 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired();
 
                     b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
@@ -693,25 +706,6 @@ namespace ProductionSystem.Web.Migrations
                     b.HasDiscriminator().HasValue("EmpleadoProducción");
                 });
 
-            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
-                {
-                    b.HasBaseType("ProductionSystem.Web.Data.Entities.Persona");
-
-                    b.Property<int>("IdEmpresa");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnName("EncargadoEmpresa_Telefono");
-
-                    b.HasIndex("IdEmpresa")
-                        .IsUnique()
-                        .HasFilter("[IdEmpresa] IS NOT NULL");
-
-                    b.ToTable("EncargadoEmpresa");
-
-                    b.HasDiscriminator().HasValue("EncargadoEmpresa");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -770,6 +764,18 @@ namespace ProductionSystem.Web.Migrations
                         .WithOne("Deshecho")
                         .HasForeignKey("ProductionSystem.Web.Data.Entities.Deshecho", "Id")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
+                {
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
+                        .WithOne("EncargadoEmpresa")
+                        .HasForeignKey("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", "Id")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Persona", "Persona")
+                        .WithMany()
+                        .HasForeignKey("PersonaId");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.InsumoUsado", b =>
@@ -899,14 +905,6 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
                         .WithMany("Sucursales")
                         .HasForeignKey("EmpresaId");
-                });
-
-            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
-                {
-                    b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
-                        .WithOne("EncargadoEmpresa")
-                        .HasForeignKey("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", "IdEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

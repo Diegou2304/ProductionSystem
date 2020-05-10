@@ -56,7 +56,7 @@ namespace ProductionSystem.Web.Data
         
         public DbSet<Deshecho> Deshechos { get; set; }
 
-        public DbSet<EmpleadoProducción> EmpleadosProducciones { get; set; }
+        public DbSet<EmpleadoProduccion> EmpleadosProducciones { get; set; }
 
         public DbSet<Empresa> Empresas { get; set; }
 

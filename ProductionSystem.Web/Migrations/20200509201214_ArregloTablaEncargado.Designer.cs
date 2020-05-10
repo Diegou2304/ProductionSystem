@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProductionSystem.Web.Data;
 
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200509201214_ArregloTablaEncargado")]
+    partial class ArregloTablaEncargado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -166,12 +168,9 @@ namespace ProductionSystem.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Direccion");
 
-                    b.Property<string>("Telefono")
-                        .IsRequired();
+                    b.Property<string>("Telefono");
 
                     b.HasKey("Id");
 
@@ -375,8 +374,7 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired();
 
                     b.Property<string>("Direccion")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                        .IsRequired();
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
@@ -700,7 +698,6 @@ namespace ProductionSystem.Web.Migrations
                     b.Property<int>("IdEmpresa");
 
                     b.Property<string>("Telefono")
-                        .IsRequired()
                         .HasColumnName("EncargadoEmpresa_Telefono");
 
                     b.HasIndex("IdEmpresa")

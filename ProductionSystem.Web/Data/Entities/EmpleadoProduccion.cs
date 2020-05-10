@@ -9,21 +9,16 @@ namespace ProductionSystem.Web.Data.Entities
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class Fase : IEntity
+    public class EmpleadoProduccion : Persona
     {
-        public int Id { get; set; }
 
         [Required]
-        public string Nombre { get; set; }
+        [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]
+        public string Cargo { get; set; }
 
         [Required]
-        public int Numero { get; set;}
+        public int Telefono { get; set; }
 
-        [Required]
-        public string Descripcion { get; set; }
-
-        public ICollection<Produccion> Producciones { get; set;}
-
-
+        public ICollection<Produccion> Producciones {get; set;}
     }
 }
