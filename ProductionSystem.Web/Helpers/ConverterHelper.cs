@@ -1,11 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
-using ProductionSystem.Web.Data;
+﻿using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
 using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Helpers
@@ -36,7 +31,7 @@ namespace ProductionSystem.Web.Helpers
                 Etiqueta = await _dataContext.Etiquetas.FindAsync(model.EtiquetaId),
                 Envase = await _dataContext.Envases.FindAsync(model.EnvaseId),
                 Id = model.Id
-               
+
 
 
             };
@@ -63,7 +58,7 @@ namespace ProductionSystem.Web.Helpers
 
 
 
-        };
+            };
 
         }
 
@@ -90,8 +85,45 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
+        public ProductoViewModel ToProductoViewModel(Producto model)
+        {
+            return new ProductoViewModel
+            {
+                Id = model.Id,
+
+                Nombre = model.Nombre,
+
+                CategoriaId = model.Categoria.Id,
+
+                TipoProductoId = model.TipoProducto.Id,
+
+                SaborId = model.Sabor.Id,
+
+                PresentacionId = model.Presentacion.Id,
+
+                Categoria = model.Categoria,
+
+                TipoProducto = model.TipoProducto,
+
+                Sabor = model.Sabor,
+
+                Presentacion = model.Presentacion,
 
 
 
+                Categorias = _combosHelper.GetComboCategorias(),
+
+                TiposProductos = _combosHelper.GetComboTipoProducto(),
+
+                Sabores = _combosHelper.GetComboSabores(),
+
+                Presentaciones = _combosHelper.GetComboPresentaciones(),
+
+
+
+
+            };
+
+        }
     }
 }

@@ -43,15 +43,14 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Productoes/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var producto = await _context.Productos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var producto = _productoRepository.GetProductosCompletos(id);
             if (producto == null)
             {
                 return NotFound();
@@ -102,12 +101,14 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Productos.FindAsync(id);
+            var producto =  _productoRepository.GetProductosCompletos(id);
             if (producto == null)
             {
                 return NotFound();
             }
-            return View(producto);
+
+            var model = _converterHelper.ToProductoViewModel(producto);
+            return View(model);
         }
 
         // POST: Productoes/Edit/5
@@ -115,34 +116,20 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Producto producto)
+        public async Task<IActionResult> Edit(ProductoViewModel model)
         {
-            if (id != producto.Id)
-            {
-                return NotFound();
-            }
+           
 
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(producto);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!ProductoExists(producto.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                var producto = await  _converterHelper.ToProductoAsync(model);
+              
+
+                await  _productoRepository.UpdateAsync(producto);
+
                 return RedirectToAction(nameof(Index));
             }
-            return View(producto);
+            return View(model);
         }
 
         // GET: Productoes/Delete/5
@@ -153,8 +140,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var producto = await _context.Productos
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var producto = _productoRepository.GetProductosCompletos(id);
             if (producto == null)
             {
                 return NotFound();
@@ -168,10 +154,13 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var producto = await _context.Productos.FindAsync(id);
-            _context.Productos.Remove(producto);
-            await _context.SaveChangesAsync();
+
+            var producto = _productoRepository.GetProductosCompletos(id);
+
+            await _productoRepository.DeleteAsync(producto);
+
             return RedirectToAction(nameof(Index));
+
         }
 
         private bool ProductoExists(int id)

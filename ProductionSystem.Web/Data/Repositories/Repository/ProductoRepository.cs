@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ProductionSystem.Web.Controllers;
 using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Data.Repositories.Interfaz;
 using System;
@@ -33,9 +34,23 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                
         }
 
+        public Producto GetProductosCompletos(int? id)
+        {
+            return _dataContext.Productos
+                .Include(c => c.Categoria)
+                .Include(tp => tp.TipoProducto)
+                .Include(s => s.Sabor)
+                .Include(p => p.Presentacion)
+                    .ThenInclude(et => et.Etiqueta)
+                .Include(p => p.Presentacion)
+                    .ThenInclude(en => en.Envase)
+                 .FirstOrDefault(o => o.Id == id);
+
+        }
 
 
-    
+
+
 
     }
 }

@@ -9,6 +9,6 @@ namespace ProductionSystem.Web.Helpers
          Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model);
          AddPresentacionViewModel ToPresentacionViewModelAsync(Presentacion model);
          Task<Producto> ToProductoAsync(ProductoViewModel model);
-
+         ProductoViewModel ToProductoViewModel(Producto model);
     }
 }

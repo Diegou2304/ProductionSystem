@@ -1,9 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using ProductionSystem.Web.Data;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Helpers
 {
@@ -48,9 +46,9 @@ namespace ProductionSystem.Web.Helpers
             var list = _dataContext.Envases.Select(
                 pt => new SelectListItem
                 {
-                    Text = pt.Capacidad.ToString()+"Gr " + "Plastico: " + $"{pt.Isplastic}",
+                    Text = pt.Capacidad.ToString() + "Gr " + "Plastico: " + $"{pt.Isplastic}",
                     Value = $"{pt.Id}"
-                    
+
                 })
                 .OrderBy(pt => pt.Value)
                 .ToList();
@@ -70,16 +68,16 @@ namespace ProductionSystem.Web.Helpers
             var list = _dataContext.Etiquetas.Select(
                 pt => new SelectListItem
                 {
-                    Text = 
-                    "Marca: " +pt.Nombre +
-                    " WaterProof: " + $"{pt.IsWaterProof}"+
-                    " Precio Unitario: "+$"{pt.PrecioUnitario}"+ 
-                    " Altura (Cm): "+$"{pt.Altura}" + 
+                    Text =
+                    "Marca: " + pt.Nombre +
+                    " WaterProof: " + $"{pt.IsWaterProof}" +
+                    " Precio Unitario: " + $"{pt.PrecioUnitario}" +
+                    " Altura (Cm): " + $"{pt.Altura}" +
                     " Ancho: " + $"{pt.Ancho}",
-                     Value = $"{pt.Id}"
+                    Value = $"{pt.Id}"
 
                 })
-                
+
                 .OrderBy(pt => pt.Text)
                 .ToList();
 
@@ -99,10 +97,10 @@ namespace ProductionSystem.Web.Helpers
                 pt => new SelectListItem
                 {
                     Text =
-                    "Nombre: " + pt.Nombre +
-                    "Etiqueta: " + pt.Etiqueta.Nombre+"Precio U. " +  pt.Etiqueta.PrecioUnitario+
-                    "Envase: " + pt.Nombre + "Capacidad " + $"{pt.Envase.Capacidad}",
-                      
+                     pt.Nombre +
+                    " Etiqueta: " + pt.Etiqueta.Nombre + " Precio U. " + pt.Etiqueta.PrecioUnitario +" Bs"+
+                    " Plastico: " + $"{pt.Envase.Isplastic}" + " Capacidad " + $"{pt.Envase.Capacidad}" + " gr",
+
                     Value = $"{pt.Id}"
 
                 })
@@ -126,8 +124,8 @@ namespace ProductionSystem.Web.Helpers
                 pt => new SelectListItem
                 {
                     Text =
-                    "Sabor"+ pt.Nombre ,
-                     Value = $"{pt.Id}",
+                    "Sabor: " + pt.Nombre,
+                    Value = $"{pt.Id}",
 
                 })
 
@@ -151,8 +149,7 @@ namespace ProductionSystem.Web.Helpers
             var list = _dataContext.TipoProductos.Select(
                 pt => new SelectListItem
                 {
-                    Text =
-                    "Sabor" + pt.Nombre,
+                    Text = pt.Nombre,
                     Value = $"{pt.Id}",
 
                 })

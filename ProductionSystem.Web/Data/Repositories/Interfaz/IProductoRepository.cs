@@ -9,5 +9,6 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     public interface IProductoRepository : IGenericRepository<Producto>
     {
         IQueryable GetProductosCompletos();
+        Producto GetProductosCompletos(int? id);
     }
 }

@@ -1,34 +1,60 @@
-﻿@model ProductionSystem.Web.Data.Entities.Producto
+﻿@model ProductionSystem.Web.Models.ProductoViewModel
 
 @{
     ViewData["Title"] = "Edit";
 }
 
-<h2>Edit</h2>
-
-<h4>Producto</h4>
+<h2>Editar Producto</h2>
 <hr />
 <div class="row">
     <div class="col-md-4">
+        <!--Todo esto esta sujeto a la accion de add property-->
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <!--Campo que no pidamos en el get lo guarmamos en el hidden-->
             <input type="hidden" asp-for="Id" />
+           
+
             <div class="form-group">
                 <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
+                <input asp-for="Nombre" asp-items="Model.Nombre" class="form-control">
                 <span asp-validation-for="Nombre" class="text-danger"></span>
             </div>
+
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="CategoriaId" class="control-label"></label>
+                <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-control"></select>
+                <span asp-validation-for="CategoriaId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TipoProductoId" class="control-label"></label>
+                <select asp-for="TipoProductoId" asp-items="Model.TiposProductos" class="form-control"></select>
+                <span asp-validation-for="TipoProductoId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="SaborId" class="control-label"></label>
+                <select asp-for="SaborId" asp-items="Model.Sabores" class="form-control"></select>
+                <span asp-validation-for="SaborId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="PresentacionId" class="control-label"></label>
+                <select asp-for="PresentacionId" asp-items="Model.Presentaciones" class="form-control"></select>
+                <span asp-validation-for="PresentacionId"class="text-danger"></span>
+            </div>
+
+
+
+
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-success" /> |
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

@@ -46,6 +46,7 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.Nombre)
                             </td>
+                            
                             <td>
                                 @Html.DisplayFor(modelItem => item.Categoria.Nombre)
                             </td>
@@ -56,8 +57,7 @@
                                 @Html.DisplayFor(modelItem => item.TipoProducto.Nombre)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)  Capacidad: @Html.DisplayFor(modelItem => item.Presentacion.Envase.Capacidad) gr Etiqueta @Html.DisplayFor(modelItem => item.Presentacion.Etiqueta.Nombre) gr   
-                            </td>
+                                @Html.DisplayFor(modelItem => item.Presentacion.Nombre)  </td>
                             <td align="right">
                                 <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning">Editar</a> |
                                 <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Detalle</a> |
