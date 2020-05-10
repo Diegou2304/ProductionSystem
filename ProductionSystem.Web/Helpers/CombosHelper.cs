@@ -18,6 +18,29 @@ namespace ProductionSystem.Web.Helpers
 
             _dataContext = dataContext;
         }
+
+        public IEnumerable<SelectListItem> GetComboCategorias()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Categorias.Select(
+                pt => new SelectListItem
+                {
+                    Text = pt.Nombre,
+                    Value = $"{pt.Id}"
+
+                })
+                .OrderBy(pt => pt.Value)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona La categoria de tu producto",
+                Value = "0"
+            });
+
+            return list;
+        }
+
         //Select list item es una clase que tiene campo y valor
         public IEnumerable<SelectListItem> GetComboEnvases()
         {
@@ -69,6 +92,82 @@ namespace ProductionSystem.Web.Helpers
             return list;
         }
 
+        public IEnumerable<SelectListItem> GetComboPresentaciones()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Presentaciones.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    "Nombre: " + pt.Nombre +
+                    "Etiqueta: " + pt.Etiqueta.Nombre+"Precio U. " +  pt.Etiqueta.PrecioUnitario+
+                    "Envase: " + pt.Nombre + "Capacidad " + $"{pt.Envase.Capacidad}",
+                      
+                    Value = $"{pt.Id}"
 
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona la Presentacion correspondiente",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboSabores()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Sabores.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    "Sabor"+ pt.Nombre ,
+                     Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona el sabor deseado.",
+                Value = "0"
+            });
+
+            return list;
+
+        }
+
+        public IEnumerable<SelectListItem> GetComboTipoProducto()
+        {
+
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.TipoProductos.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    "Sabor" + pt.Nombre,
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona Tipo de Producto deseado.",
+                Value = "0"
+            });
+
+            return list;
+
+        }
     }
 }

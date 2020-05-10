@@ -7,5 +7,15 @@ namespace ProductionSystem.Web.Helpers
     {
         IEnumerable<SelectListItem> GetComboEnvases();
         IEnumerable<SelectListItem> GetComboEtiqueta();
+
+        IEnumerable<SelectListItem> GetComboPresentaciones();
+        IEnumerable<SelectListItem> GetComboCategorias();
+
+        IEnumerable<SelectListItem> GetComboSabores();
+        IEnumerable<SelectListItem> GetComboTipoProducto();
+
+
+
+
     }
 }

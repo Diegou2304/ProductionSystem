@@ -85,6 +85,8 @@ namespace ProductionSystem.Web
             services.AddScoped<IEnvaseRepository, EnvaseRepository>();
             services.AddScoped<IPresentacionRepository, PresentacionRepository>();
 
+            services.AddScoped<IProductoRepository,ProductoRepository>();
+
         }
 
 
