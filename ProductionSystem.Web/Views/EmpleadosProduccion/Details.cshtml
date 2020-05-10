@@ -1,0 +1,59 @@
+﻿@model ProductionSystem.Web.Data.Entities.EmpleadoProduccion
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalles Trabajadores</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cargo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cargo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoPaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoPaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.ApellidoMaterno)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ApellidoMaterno)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CI)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CI)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Direccion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Direccion)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

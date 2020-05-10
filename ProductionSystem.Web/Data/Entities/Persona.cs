@@ -30,8 +30,7 @@ namespace ProductionSystem.Web.Data.Entities
         public string  CI{ get; set; }
 
         [Required]
-        [Display(Name = "Fecha de Nacimiento")]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]
         public string Direccion { get; set; }
 
     }

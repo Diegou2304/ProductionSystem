@@ -9,7 +9,7 @@ namespace ProductionSystem.Web.Data.Entities
     using System.Linq;
     using System.Threading.Tasks;
 
-    public class EmpleadoProducción : Persona
+    public class EmpleadoProduccion : Persona
     {
 
         [Required]

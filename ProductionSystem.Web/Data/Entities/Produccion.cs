@@ -27,7 +27,7 @@ namespace ProductionSystem.Web.Data.Entities
 
         public Deshecho Deshecho {get; set;}
 
-        public EmpleadoProducción EmpleadoProducción { get; set; }
+        public EmpleadoProduccion EmpleadoProducción { get; set; }
         
 
         
