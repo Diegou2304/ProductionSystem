@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ProductionSystem.Web.Data.Entities
+﻿namespace ProductionSystem.Web.Data.Entities
 {
-    public class Receta
+    public class Receta : IEntity
     {
         public int Id { get; set; }
 

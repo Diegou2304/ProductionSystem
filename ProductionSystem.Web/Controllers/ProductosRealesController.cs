@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Data.Repositories.Interfaz;
 using ProductionSystem.Web.Helpers;
 using ProductionSystem.Web.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Controllers
 {
@@ -32,13 +28,13 @@ namespace ProductionSystem.Web.Controllers
             _productoRealRepository = productoRealRepository;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
-           
+
         }
 
         // GET: ProductosReales
         public IActionResult Index()
         {
-            return View( _productoRealRepository.GetProductosReales());
+            return View(_productoRealRepository.GetProductosReales());
         }
 
         // GET: ProductosReales/Details/5
@@ -122,7 +118,7 @@ namespace ProductionSystem.Web.Controllers
                 try
                 {
                     await _productoRealRepository.UpdateAsync(productoReal);
-                 
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -148,7 +144,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var productoReal =  _productoRealRepository.GetProductosReales(id);
+            var productoReal = _productoRealRepository.GetProductosReales(id);
             if (productoReal == null)
             {
                 return NotFound();
