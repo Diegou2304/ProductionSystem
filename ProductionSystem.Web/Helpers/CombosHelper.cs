@@ -196,6 +196,59 @@ namespace ProductionSystem.Web.Helpers
             return list;
 
         }
+        public IEnumerable<SelectListItem> GetComboInsumo()
+        {
 
+
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Insumos.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre + " Materia Prima " + 
+                    $"{pt.IsRawProduct}",
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona el Insumo deseado.",
+                Value = "0"
+            });
+
+            return list;
+
+        }
+
+     
+        public IEnumerable<SelectListItem> GetComboProductosReales()
+        {  
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.ProductoReal.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona el Producto Real deseado.",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

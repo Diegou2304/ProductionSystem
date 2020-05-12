@@ -1,4 +1,5 @@
-﻿using ProductionSystem.Web.Data;
+﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Models;
 using System.Threading.Tasks;
@@ -146,5 +147,49 @@ namespace ProductionSystem.Web.Helpers
             };
 
         }
-      }
+
+        public async Task<Receta> ToRecetaAsync(RecetaViewModel model)
+        {
+            return new Receta
+            {
+
+                Id= model.Id,
+
+                Insumo = await _dataContext.Insumos.FindAsync(model.InsumoId),
+
+                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.ProductoRealId),
+
+                Porcentaje = model.Porcentaje,
+
+
+
+            };
+        }
+
+        public RecetaViewModel ToRecetaViewModel(Receta model)
+        {
+            return new RecetaViewModel
+            {
+                Id = model.Id,
+
+                Porcentaje = model.Porcentaje,
+
+                InsumoId = model.Insumo.Id,
+
+                ProductoRealId = model.ProductoReal.Id,
+
+                Insumo = model.Insumo,
+
+                ProductoReal = model.ProductoReal,
+                
+
+                Insumos = _combosHelper.GetComboInsumo(),
+
+                ProductosReales = _combosHelper.GetComboProductosReales(),
+
+               
+
+            };
+        }
+    }
 }

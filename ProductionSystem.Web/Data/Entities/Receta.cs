@@ -1,9 +1,12 @@
-﻿namespace ProductionSystem.Web.Data.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace ProductionSystem.Web.Data.Entities
 {
     public class Receta : IEntity
     {
         public int Id { get; set; }
 
+        [Range(0, 100, ErrorMessage = "Limite es 100%")]
         public decimal Porcentaje { get; set; }
 
 

@@ -17,5 +17,9 @@ namespace ProductionSystem.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboProductos();
 
+        IEnumerable<SelectListItem> GetComboInsumo();
+
+        IEnumerable<SelectListItem> GetComboProductosReales();
+
     }
 }

@@ -13,5 +13,10 @@ namespace ProductionSystem.Web.Helpers
        
         Task<ProductoReal> ToProductoRealAsync(ProductoRealViewModel model);
 
+        Task<Receta> ToRecetaAsync(RecetaViewModel mdoel);
+
+
+        RecetaViewModel ToRecetaViewModel(Receta mdoel);
+
     }
 }

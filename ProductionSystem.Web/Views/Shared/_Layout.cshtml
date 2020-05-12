@@ -40,18 +40,20 @@
                             <a asp-area="" asp-controller="Envases" asp-action="Index">Envases</a>
                             <br />
                             <a asp-area="" asp-controller="TipoProductos" asp-action="Index">TipoProducto</a>
-
+                            <br />
                             <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+
+                            <a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a>
                         </div>
-                   </li>
-                   
+                    </li>
+
                     <li><a asp-area="" asp-controller="Presentaciones" asp-action="Index">Presentaciones</a></li>
                     <li><a asp-area="" asp-controller="Insumos" asp-action="Index">Insumos</a></li>
                     <li><a asp-area="" asp-controller="Lineas" asp-action="Index">Lineas</a></li>
                     <li><a asp-area="" asp-controller="EmpleadosProduccion" asp-action="Index">Empleados</a></li>
                     <li><a asp-area="" asp-controller="Empresas" asp-action="Index">Empresas</a></li>
                     <li><a asp-area="" asp-controller="Fases" asp-action="Index">Fases</a></li>
-                    <li><a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a></li>
+                    <li><a asp-area="" asp-controller="Recetas" asp-action="Index">Recetas</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
