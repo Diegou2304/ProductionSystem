@@ -1,0 +1,58 @@
+﻿@model ProductionSystem.Web.Data.Entities.ProductoReal
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Detalles Producto</h2>
+
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Nombre Comercial
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+        <dt>
+            Stock
+
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.stock)
+        </dd>
+        <dt>
+           Producto Real
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Nombre)
+        </dd>
+        <dt>
+            Tipo de Producto
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Producto.TipoProducto.Nombre)
+        </dd>
+        <dt>
+            Presentación
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Presentacion.Nombre)
+            <br />
+            Capacidad: @Html.DisplayFor(model => model.Producto.Presentacion.Envase.Capacidad) Gr.
+            <br />
+            Etiqueta: @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Nombre) Tamaño : @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Altura) cm @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Ancho) cm
+
+        </dd>
+
+        </dd>
+
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

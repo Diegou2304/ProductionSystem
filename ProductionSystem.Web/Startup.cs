@@ -90,6 +90,8 @@ namespace ProductionSystem.Web
 
             services.AddScoped<IProductoRepository,ProductoRepository>();
 
+            services.AddScoped<IProductoRealRepository, ProductoRealRepository>();
+
         }
 
 

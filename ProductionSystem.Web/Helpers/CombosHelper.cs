@@ -166,5 +166,36 @@ namespace ProductionSystem.Web.Helpers
             return list;
 
         }
+
+        public IEnumerable<SelectListItem> GetComboProductos()
+        {
+            
+
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Productos.Select(
+                pt => new SelectListItem
+                {
+                    Text = 
+                    pt.Nombre +
+                    pt.TipoProducto.Nombre + 
+                    pt.Sabor.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona el Producto deseado.",
+                Value = "0"
+            });
+
+            return list;
+
+        }
+
     }
 }

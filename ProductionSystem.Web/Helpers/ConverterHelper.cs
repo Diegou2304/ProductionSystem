@@ -85,6 +85,27 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
+        public async Task<ProductoReal> ToProductoRealAsync(ProductoRealViewModel model)
+        {
+            return new ProductoReal
+            {
+
+
+                Nombre = model.Nombre,
+                stock = model.stock,
+                Producto = await _dataContext.Productos.FindAsync(model.ProductoId),
+
+                Id = model.Id,
+
+
+
+
+            };
+        }
+
+       
+
+
         public ProductoViewModel ToProductoViewModel(Producto model)
         {
             return new ProductoViewModel
@@ -125,5 +146,5 @@ namespace ProductionSystem.Web.Helpers
             };
 
         }
-    }
+      }
 }

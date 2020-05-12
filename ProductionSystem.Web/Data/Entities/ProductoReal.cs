@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class ProductoReal
+    public class ProductoReal: IEntity
     {
         public int Id { get; set; }
 

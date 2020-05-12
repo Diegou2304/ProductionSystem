@@ -19,18 +19,17 @@ namespace ProductionSystem.Web.Controllers
     {
         private readonly IProductoRepository _productoRepository;
         private readonly ICombosHelper _combosHelper;
-        private readonly DataContext _context;
+ 
 
         private readonly IConverterHelper _converterHelper;
         public ProductosController(
-            DataContext dataContext,
+           
             IProductoRepository productoRepository,
             ICombosHelper combosHelper,
             IConverterHelper converterHelper
             )
 
         {
-            _context = dataContext;
             _productoRepository = productoRepository;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
@@ -163,9 +162,6 @@ namespace ProductionSystem.Web.Controllers
 
         }
 
-        private bool ProductoExists(int id)
-        {
-            return _context.Productos.Any(e => e.Id == id);
-        }
+        
     }
 }

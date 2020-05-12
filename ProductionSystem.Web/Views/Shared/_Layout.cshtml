@@ -28,19 +28,30 @@
                 </button>
                 <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">UB INDUSTRIES</a>
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar navbar-expand-lg navbar-light bg-light">
                 <ul class="nav navbar-nav ">
-                    <li><a asp-area="" asp-controller="Sabores" asp-action="Index">Sabores </a></li>
-                    <li><a asp-area="" asp-controller="Etiquetas" asp-action="Index">Etiquetas</a></li>
-                    <li><a asp-area="" asp-controller="Envases" asp-action="Index">Envases</a></li>
-                    <li><a asp-area="" asp-controller="TipoProductos" asp-action="Index">TipoProducto</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Productos</a>
+                        <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
+                            <a asp-area="" asp-controller="Sabores" asp-action="Index">Sabores </a>
+                            <br />
+                            <a asp-area="" asp-controller="Etiquetas" asp-action="Index">Etiquetas</a>
+                            <br />
+                            <a asp-area="" asp-controller="Envases" asp-action="Index">Envases</a>
+                            <br />
+                            <a asp-area="" asp-controller="TipoProductos" asp-action="Index">TipoProducto</a>
+
+                            <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                        </div>
+                   </li>
+                   
                     <li><a asp-area="" asp-controller="Presentaciones" asp-action="Index">Presentaciones</a></li>
                     <li><a asp-area="" asp-controller="Insumos" asp-action="Index">Insumos</a></li>
                     <li><a asp-area="" asp-controller="Lineas" asp-action="Index">Lineas</a></li>
                     <li><a asp-area="" asp-controller="EmpleadosProduccion" asp-action="Index">Empleados</a></li>
                     <li><a asp-area="" asp-controller="Empresas" asp-action="Index">Empresas</a></li>
                     <li><a asp-area="" asp-controller="Fases" asp-action="Index">Fases</a></li>
-                    <li><a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a></li>
+                    <li><a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)

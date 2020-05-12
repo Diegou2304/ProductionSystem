@@ -15,7 +15,7 @@ namespace ProductionSystem.Web.Helpers
         IEnumerable<SelectListItem> GetComboTipoProducto();
 
 
-
+        IEnumerable<SelectListItem> GetComboProductos();
 
     }
 }
