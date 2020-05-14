@@ -24,7 +24,8 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         {
 
             return _context.ProductoReal
-                .Include(p => p.Producto);
+                .Include(p => p.Producto)
+                .ThenInclude(e => e.TipoProducto);
         
         }
 

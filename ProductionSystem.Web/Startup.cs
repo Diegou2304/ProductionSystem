@@ -94,6 +94,7 @@ namespace ProductionSystem.Web
 
             services.AddScoped<IRecetaRepository, RecetaRepository>();
 
+            services.AddScoped<IPedidoRepository, PedidoRepository>();
         }
 
 

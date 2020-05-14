@@ -2,17 +2,13 @@
 
 namespace ProductionSystem.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
     using ProductionSystem.Web.Helpers;
     using ProductionSystem.Web.Models;
+    using System.Threading.Tasks;
 
     [Authorize]
     public class PresentacionesController : Controller
@@ -76,7 +72,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
 
-        public IActionResult Create ()
+        public IActionResult Create()
         {
 
             //Aqui necesitamos enviar los combo box respectiivos
@@ -111,18 +107,18 @@ namespace ProductionSystem.Web.Controllers
                 var presentacion = await _converterHelper.ToPresentacionAsync(model);
 
 
-                
+
                 await _presentacionRepository.CreateAsync(presentacion);
 
-             
+
 
                 //Solo depsues que se haya guardado los datos, tenemos que insertar la etiqueta
 
                 etiqueta.IsUsed = true;
 
-             
+
                 await _etiquetaRepository.UpdateAsync(etiqueta);
-              
+
 
                 return RedirectToAction("Index");
 
@@ -136,9 +132,9 @@ namespace ProductionSystem.Web.Controllers
         }
 
 
-        public IActionResult Error ()
-        { 
-           
+        public IActionResult Error()
+        {
+
 
             return View();
         }
@@ -179,16 +175,16 @@ namespace ProductionSystem.Web.Controllers
 
 
             var presentacion = _presentacionRepository.GetPresentacionAsync(id);
-           
+
 
 
             var etiqueta = _etiquetaRepository.GetEtiqueta(presentacion.Etiqueta.Id);
-            
+
             await _presentacionRepository.DeleteAsync(presentacion);
 
             etiqueta.IsUsed = false;
 
-            await  _etiquetaRepository.UpdateAsync(etiqueta);
+            await _etiquetaRepository.UpdateAsync(etiqueta);
 
 
             return RedirectToAction(nameof(Index));
@@ -211,22 +207,22 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            
-           var model = _converterHelper.ToPresentacionViewModelAsync(presentacion);
 
-           
-          
+            var model = _converterHelper.ToPresentacionViewModelAsync(presentacion);
+
+
+
 
             return View(model);
         }
-        
+
         //Hay un problema, tenemos que validar que el estado de una etiqueta no sea true, asi no cambiamos
         //No podemos validar que el atributo tenga solamente un metodo, debemos crear una clase o algo que nos ayude a verificar,
         //Pero tiene que aparecer en el model.
         [HttpPost]
         public async Task<IActionResult> Edit(AddPresentacionViewModel model)
         {
-            if(_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+            if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
             {
                 //Aqui tiene que venir una ventana de error.
                 return RedirectToAction("Error");
@@ -253,7 +249,7 @@ namespace ProductionSystem.Web.Controllers
                 etiqueta = _etiquetaRepository.GetEtiqueta(model.EtiquetaId);
                 //Esto en teoria no deberia estar aca, se puede hacer una abstraccion mas, pero como no es un cambio de
                 //La base de datos, sino del objeto en si creo que estaria permitido.
-                etiqueta.IsUsed = true ;
+                etiqueta.IsUsed = true;
 
 
                 await _etiquetaRepository.UpdateAsync(etiqueta);

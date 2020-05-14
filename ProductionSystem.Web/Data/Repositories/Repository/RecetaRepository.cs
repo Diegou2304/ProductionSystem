@@ -19,6 +19,11 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         {
             return context.Recetas
                 .Include(pr => pr.ProductoReal)
+                .ThenInclude(p => p.Producto)
+                .ThenInclude(s => s.Sabor)
+                 .Include(pr => pr.ProductoReal)
+                .ThenInclude(p => p.Producto)
+                .ThenInclude(s => s.TipoProducto)
                 .Include(ins => ins.Insumo);
 
 

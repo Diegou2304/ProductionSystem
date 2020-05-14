@@ -22,11 +22,18 @@
                     <thead>
                         <tr>
                             <th>
-                                @Html.DisplayNameFor(model => model.ProductoReal.Nombre)
+                                @Html.DisplayNameFor(model => model.ProductoReal.Producto.Nombre)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Insumo.Nombre)
+                                @Html.DisplayNameFor(model => model.ProductoReal.Producto.TipoProducto)
                             </th>
+                            <th>
+                                Sabor
+                            </th>
+                            <th>
+                                Insumo o Materia Prima
+                            </th>
+
                             <th>
                                 @Html.DisplayNameFor(model => model.Porcentaje) %
                             </th>
@@ -38,11 +45,22 @@
                         {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ProductoReal.Nombre)
+                                @Html.DisplayFor(modelItem => item.ProductoReal.Producto.Nombre)
                             </td>
+                            <td>
+
+
+                                @Html.DisplayFor(model => item.ProductoReal.Producto.TipoProducto.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ProductoReal.Producto.Sabor.Nombre)
+                            </td>
+
                             <td>
                                 @Html.DisplayFor(modelItem => item.Insumo.Nombre)
                             </td>
+
+
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.Porcentaje)

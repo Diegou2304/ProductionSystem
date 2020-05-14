@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ProductionSystem.Web.Data.Entities.ProductoReal>
+﻿@model IEnumerable<ProductionSystem.Web.Data.Entities.Pedido>
 
 @{
     ViewData["Title"] = "Index";
@@ -7,10 +7,10 @@
 <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
 <br />
 
-<h1>Productos Reales</h1>
+<h1>Pedidos</h1>
 
 <p>
-    <a asp-action="Create" class=" btn btn-success">Nuevo Producto Real</a>
+    <a asp-action="Create" class=" btn btn-success">Nuevo Pedido</a>
 </p>
 
 
@@ -22,17 +22,21 @@
                     <thead>
                         <tr>
                             <th>
-                                Descripcion del producto
+                                @Html.DisplayNameFor(model => model.Id)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.stock)
+                                @Html.DisplayNameFor(model => model.Fecha)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Producto.Nombre)
+                                @Html.DisplayNameFor(model => model.estado)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.Producto.TipoProducto.Nombre)
+                                @Html.DisplayNameFor(model => model.ProductoReal.Nombre)
                             </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Cantidad)
+                            </th>
+
 
                         </tr>
                     </thead>
@@ -41,16 +45,19 @@
                         {
                         <tr>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Nombre)
+                                @Html.DisplayFor(modelItem => item.Id)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.stock)
+                                @Html.DisplayFor(modelItem => item.Fecha)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                                @Html.DisplayFor(modelItem => item.estado)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.Producto.TipoProducto.Nombre)
+                                @Html.DisplayFor(modelItem => item.ProductoReal.Nombre)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Cantidad)
                             </td>
 
                             <td align="right">

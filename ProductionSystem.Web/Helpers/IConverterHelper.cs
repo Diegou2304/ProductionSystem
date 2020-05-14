@@ -18,5 +18,8 @@ namespace ProductionSystem.Web.Helpers
 
         RecetaViewModel ToRecetaViewModel(Receta mdoel);
 
+        Task<Pedido> ToPedidoAsync(PedidoViewModel model);
+        PedidoViewModel ToPedidoViewModel(Pedido model);
+
     }
 }

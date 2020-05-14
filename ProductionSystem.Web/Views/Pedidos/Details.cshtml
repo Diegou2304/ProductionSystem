@@ -1,0 +1,83 @@
+﻿@model ProductionSystem.Web.Data.Entities.Pedido
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            PEDIDO
+        </dt>
+        <br />
+
+        <dt>
+            Id Pedido
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            Fecha del pedido
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Fecha)
+        </dd>
+        <dt>
+            Estado del pedido
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.estado)
+        </dd>
+        <dt>
+            Cantidad Requerida
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            DESCRIPCION
+        </dt>
+        <br />
+
+        <dd>
+            @Html.DisplayFor(model => model.ProductoReal.Nombre)
+
+        </dd>
+        <dt>
+            Tipo
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductoReal.Producto.TipoProducto.Nombre)
+
+        </dd>
+        <dt>
+            Sabor
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductoReal.Producto.Sabor.Nombre)
+
+        </dd>
+
+        <dt>
+            PRESENTACION
+        </dt>
+        <br />
+        <dt>
+            Capacidad
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductoReal.Producto.Presentacion.Envase.Capacidad) Gr
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a> |
+    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+</div>

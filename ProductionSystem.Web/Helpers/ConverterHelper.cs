@@ -21,6 +21,23 @@ namespace ProductionSystem.Web.Helpers
             _combosHelper = combosHelper;
         }
 
+        public async Task<Pedido> ToPedidoAsync(PedidoViewModel model)
+        {
+            return new Pedido
+            {
+
+                
+                Fecha = model.Fecha,
+                estado = model.estado,
+                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.ProductoRealId),
+                Id = model.Id,
+                Cantidad = model.Cantidad
+
+
+
+            };
+        }
+
         public async Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model)
         {
 
@@ -62,6 +79,26 @@ namespace ProductionSystem.Web.Helpers
             };
 
         }
+        public PedidoViewModel ToPedidoViewModel(Pedido model)
+        {
+            //Le llega con todos los datos
+
+            return new PedidoViewModel
+            {
+                Id = model.Id,
+                Cantidad = model.Cantidad,
+                Fecha = model.Fecha,
+                estado = model.estado,
+                ProductoReal = model.ProductoReal,
+                ProductosReales = _combosHelper.GetComboProductosReales(),
+                ProductoRealId = model.ProductoReal.Id,
+
+
+
+            };
+
+        }
+
 
         public async Task<Producto> ToProductoAsync(ProductoViewModel model)
         {

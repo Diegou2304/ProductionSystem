@@ -34,6 +34,18 @@ namespace ProductionSystem.Web.Helpers
             return false;
         }
 
+        public bool IsPedidoPendiente(int ?id)
+        {
+            var pedido = _dataContext.Pedidos.FirstOrDefault(i => i.Id == id);
+
+            if(!pedido.estado)
+            {
+                return true; 
+
+
+            }
+            return false;
+        }
 
 
     }
