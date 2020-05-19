@@ -31,6 +31,11 @@ namespace ProductionSystem.Web.Helpers
         }
 
 
+
+
+
+
+
         public async Task<IdentityResult> AddUserAsync(User user, string password)
         {
             return await this.userManager.CreateAsync(user, password);

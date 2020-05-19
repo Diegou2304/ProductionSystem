@@ -5,7 +5,9 @@ namespace ProductionSystem.Web.Data
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
     using ProductionSystem.Web.Data.Entities;
+    using System;
     using System.Linq;
+    using System.Threading.Tasks;
 
     public class DataContext : IdentityDbContext<User>
     {
@@ -50,6 +52,11 @@ namespace ProductionSystem.Web.Data
                 .HasIndex(p => p.Nombre)
                 .IsUnique(true);
 
+        }
+
+        internal Task GetByIdAsync(object value)
+        {
+            throw new NotImplementedException();
         }
 
         public DbSet<Categoria> Categorias { get; set; }

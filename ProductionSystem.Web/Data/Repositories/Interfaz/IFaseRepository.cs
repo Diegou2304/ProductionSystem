@@ -11,5 +11,9 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     public interface IFaseRepository : IGenericRepository<Fase>
     {
 
+        Task<Fase> GetFase(int id);
+
+        Task<string> GetNombreFaseAsync(int id);
+
     }
 }

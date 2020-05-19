@@ -278,6 +278,30 @@ namespace ProductionSystem.Web.Helpers
         }
 
 
+        public IEnumerable<SelectListItem> GetComboCargos()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Fases.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona el Cargo",
+                Value = "0"
+            });
+
+            return list;
+        }
 
 
 

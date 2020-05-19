@@ -23,7 +23,7 @@ namespace ProductionSystem.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboFases();
 
-
+        IEnumerable<SelectListItem> GetComboCargos();
 
     }
 }

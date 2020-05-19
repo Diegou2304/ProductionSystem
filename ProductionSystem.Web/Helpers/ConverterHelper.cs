@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
+using ProductionSystem.Web.Data.Repositories.Interfaz;
 using ProductionSystem.Web.Models;
 using System.Threading.Tasks;
 
@@ -11,14 +12,17 @@ namespace ProductionSystem.Web.Helpers
 
         private readonly DataContext _dataContext;
         private readonly ICombosHelper _combosHelper;
+        private readonly IFaseRepository faseRepository;
 
         public ConverterHelper(
             DataContext dataContext,
-            ICombosHelper combosHelper)
+            ICombosHelper combosHelper,
+            IFaseRepository faseRepository)
         {
 
             _dataContext = dataContext;
             _combosHelper = combosHelper;
+            this.faseRepository = faseRepository;
         }
 
         public async Task<Pedido> ToPedidoAsync(PedidoViewModel model)
@@ -237,7 +241,10 @@ namespace ProductionSystem.Web.Helpers
 
                 Telefono = model.Telefono,
 
-                Fase = await _dataContext.Fases.FindAsync(model.FaseId),        
+                //aqui se busca en la tabla fases la fase seleccionada 
+                Fase = await _dataContext.Fases.FindAsync(model.FaseId),
+                
+                
 
             };
         }
@@ -266,6 +273,34 @@ namespace ProductionSystem.Web.Helpers
 
             };
         }
+
+
+        public async Task<User> ToUserAsync(RegisterUserViewModel model)
+        {
+            return new User
+            {
+                                
+                Nombre = model.Nombre,
+
+                ApellidoPaterno = model.ApellidoPaterno,
+
+                ApellidoMaterno = model.ApellidoMaterno,
+
+                Ci = model.Ci,
+
+                UserName = model.UserName,
+
+                Email = model.UserName,
+
+                Disponible = true,
+
+                Cargo = await faseRepository.GetNombreFaseAsync(model.CargoId),
+
+                
+            };
+        }
+
+
 
 
 

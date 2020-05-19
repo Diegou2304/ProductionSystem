@@ -32,8 +32,7 @@ namespace ProductionSystem.Web.Data.Entities
         [Display(Name = "Carnet")]
         [Required]
         public int Ci { get; set; }
-
-        
+                
         [Display(Name = "Cargo")]
         [Required]
         public string Cargo { get; set; }
