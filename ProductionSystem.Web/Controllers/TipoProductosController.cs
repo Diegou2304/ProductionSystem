@@ -14,7 +14,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
 
-    [Authorize]
+    //[Authorize]
     public class TipoProductosController : Controller
     {
         private readonly ITipoProductoRepository tipoProductoRepository;

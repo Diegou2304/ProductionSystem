@@ -12,14 +12,20 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using ProductionSystem.Web.Helpers;
+    using ProductionSystem.Web.Models;
 
     public class EmpleadosProduccionController : Controller
     {
         private readonly IEmpleadoProduccionRepository empleadoProduccionRepository;
+        private readonly ICombosHelper combosHelper;
+        private readonly IConverterHelper converterHelper;
 
-        public EmpleadosProduccionController(IEmpleadoProduccionRepository empleadoProduccionRepository)
+        public EmpleadosProduccionController(IEmpleadoProduccionRepository empleadoProduccionRepository, ICombosHelper combosHelper, IConverterHelper converterHelper)
         {
             this.empleadoProduccionRepository = empleadoProduccionRepository;
+            this.combosHelper = combosHelper;
+            this.converterHelper = converterHelper;
         }
 
         // GET: EmpleadosProduccion
@@ -36,7 +42,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var empleadoProduccion = await this.empleadoProduccionRepository.GetByIdAsync(id.Value);
+            var empleadoProduccion = await this.empleadoProduccionRepository.GetEmpleadoConFase(id.Value);
             if (empleadoProduccion == null)
             {
                 return NotFound();
@@ -48,7 +54,12 @@ namespace ProductionSystem.Web.Controllers
         // GET: EmpleadosProduccion/Create
         public IActionResult Create()
         {
-            return View();
+            var model = new EmpleadoProduccionViewModel
+            {
+                Fases = combosHelper.GetComboFases(),
+            };
+
+            return View(model);
         }
 
         // POST: EmpleadosProduccion/Create
@@ -56,14 +67,17 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(EmpleadoProduccion empleadoProduccion)
+        public async Task<IActionResult> Create(EmpleadoProduccionViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var empleadoProduccion = await converterHelper.ToEmpleadoProduccionAsync(model);
+
+
                 await this.empleadoProduccionRepository.CreateAsync(empleadoProduccion);
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleadoProduccion);
+            return View(model);
         }
 
         // GET: EmpleadosProduccion/Edit/5
@@ -74,12 +88,14 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var empleadoProduccion = await this.empleadoProduccionRepository.GetByIdAsync(id.Value);
+            var empleadoProduccion = await this.empleadoProduccionRepository.GetEmpleadoConFase(id.Value);
             if (empleadoProduccion == null)
             {
                 return NotFound();
             }
-            return View(empleadoProduccion);
+
+            var model = converterHelper.ToEmpleadoProduccionViewModel(empleadoProduccion);
+            return View(model);
         }
 
         // POST: EmpleadosProduccion/Edit/5
@@ -87,11 +103,11 @@ namespace ProductionSystem.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(EmpleadoProduccion empleadoProduccion)
+        public async Task<IActionResult> Edit(EmpleadoProduccionViewModel model)
         {
-            
             if (ModelState.IsValid)
             {
+                var empleadoProduccion = await converterHelper.ToEmpleadoProduccionAsync(model);
                 try
                 {
                     await this.empleadoProduccionRepository.UpdateAsync(empleadoProduccion);
@@ -109,7 +125,7 @@ namespace ProductionSystem.Web.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(empleadoProduccion);
+            return View(model);
         }
 
         // GET: EmpleadosProduccion/Delete/5

@@ -21,7 +21,7 @@ namespace ProductionSystem.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboProductosReales();
 
-
+        IEnumerable<SelectListItem> GetComboFases();
 
 
 

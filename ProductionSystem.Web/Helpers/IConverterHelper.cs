@@ -21,5 +21,7 @@ namespace ProductionSystem.Web.Helpers
         Task<Pedido> ToPedidoAsync(PedidoViewModel model);
         PedidoViewModel ToPedidoViewModel(Pedido model);
 
+        Task<EmpleadoProduccion> ToEmpleadoProduccionAsync(EmpleadoProduccionViewModel model);
+        EmpleadoProduccionViewModel ToEmpleadoProduccionViewModel(EmpleadoProduccion model);
     }
 }

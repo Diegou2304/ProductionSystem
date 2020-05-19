@@ -14,6 +14,7 @@ namespace ProductionSystem.Web.Models
         [Display(Name = "Insumo Id")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un Producto")]
         public int InsumoId { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Producto Real Id")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar un Producto Real")]

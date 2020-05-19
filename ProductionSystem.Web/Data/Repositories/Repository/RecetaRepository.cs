@@ -28,13 +28,13 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
 
 
         }
+
         public Receta GetRecetas(int? id)
         {
             return context.Recetas
                 .Include(pr => pr.ProductoReal)
                 .Include(ins => ins.Insumo)
                 .FirstOrDefault(r => r.Id == id);
-
 
         }
     }

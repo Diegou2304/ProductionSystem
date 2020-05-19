@@ -19,6 +19,8 @@ namespace ProductionSystem.Web.Data.Entities
         [Required]
         public int Telefono { get; set; }
 
+        public Fase Fase { get; set; }
+
         public ICollection<Produccion> Producciones {get; set;}
     }
 }

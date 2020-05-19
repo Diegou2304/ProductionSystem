@@ -14,7 +14,7 @@ using ProductionSystem.Web.Models;
 
 namespace ProductionSystem.Web.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class ProductosController : Controller
     {
         private readonly IProductoRepository _productoRepository;

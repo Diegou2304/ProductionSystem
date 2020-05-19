@@ -93,8 +93,6 @@ namespace ProductionSystem.Web.Helpers
                 ProductosReales = _combosHelper.GetComboProductosReales(),
                 ProductoRealId = model.ProductoReal.Id,
 
-
-
             };
 
         }
@@ -105,7 +103,6 @@ namespace ProductionSystem.Web.Helpers
             return new Producto
             {
 
-
                 Nombre = model.Nombre,
                 Categoria = await _dataContext.Categorias.FindAsync(model.CategoriaId),
 
@@ -114,9 +111,6 @@ namespace ProductionSystem.Web.Helpers
                 Presentacion = await _dataContext.Presentaciones.FindAsync(model.PresentacionId),
 
                 Id = model.Id,
-
-
-
 
             };
 
@@ -128,15 +122,11 @@ namespace ProductionSystem.Web.Helpers
             return new ProductoReal
             {
 
-
                 Nombre = model.Nombre,
                 stock = model.stock,
                 Producto = await _dataContext.Productos.FindAsync(model.ProductoId),
 
                 Id = model.Id,
-
-
-
 
             };
         }
@@ -219,14 +209,65 @@ namespace ProductionSystem.Web.Helpers
 
                 ProductoReal = model.ProductoReal,
                 
-
                 Insumos = _combosHelper.GetComboInsumo(),
 
                 ProductosReales = _combosHelper.GetComboProductosReales(),
+                      
+            };
+        }
 
-               
+        public async Task<EmpleadoProduccion> ToEmpleadoProduccionAsync(EmpleadoProduccionViewModel model)
+        {
+            return new EmpleadoProduccion
+            {
+
+                Id = model.Id,
+
+                Nombre = model.Nombre,
+
+                ApellidoPaterno = model.ApellidoPaterno,
+
+                ApellidoMaterno = model.ApellidoMaterno,
+
+                Direccion = model.Direccion,
+
+                Cargo = model.Cargo,
+
+                CI = model.CI,
+
+                Telefono = model.Telefono,
+
+                Fase = await _dataContext.Fases.FindAsync(model.FaseId),        
 
             };
         }
+
+        public EmpleadoProduccionViewModel ToEmpleadoProduccionViewModel(EmpleadoProduccion model)
+        {
+            return new EmpleadoProduccionViewModel
+            {
+                Id = model.Id,
+
+                Nombre = model.Nombre,
+
+                ApellidoPaterno = model.ApellidoPaterno,
+
+                ApellidoMaterno = model.ApellidoMaterno,
+
+                Direccion = model.Direccion,
+
+                Cargo = model.Cargo,
+
+                CI = model.CI,
+
+                Telefono = model.Telefono,
+
+                Fases = _combosHelper.GetComboFases(),
+
+            };
+        }
+
+
+
     }
 }

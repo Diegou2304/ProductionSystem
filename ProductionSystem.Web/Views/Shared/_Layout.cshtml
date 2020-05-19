@@ -30,6 +30,7 @@
             </div>
             <div class="navbar navbar-expand-lg navbar-light bg-light">
                 <ul class="nav navbar-nav ">
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Productos</a>
                         <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
@@ -46,24 +47,23 @@
                             <a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a>
                         </div>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Recetario</a>
-                        <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
 
-                            <a asp-area="" asp-controller="Insumos" asp-action="Index">Insumos</a>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Recetario
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item" asp-area="" asp-controller="Insumos" asp-action="Index">Insumos</a>
                             <br />
-                            <a asp-area="" asp-controller="Recetas" asp-action="Index">Recetas</a>
-                            <br />
+                            <a class="dropdown-item" asp-area="" asp-controller="Recetas" asp-action="Index">Recetas</a>
                         </div>
                     </li>
 
                     <li><a asp-area="" asp-controller="Presentaciones" asp-action="Index">Presentaciones</a></li>
-
                     <li><a asp-area="" asp-controller="Lineas" asp-action="Index">Lineas</a></li>
                     <li><a asp-area="" asp-controller="EmpleadosProduccion" asp-action="Index">Empleados</a></li>
                     <li><a asp-area="" asp-controller="Empresas" asp-action="Index">Empresas</a></li>
                     <li><a asp-area="" asp-controller="Fases" asp-action="Index">Fases</a></li>
-
                     <li><a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
 
                 </ul>

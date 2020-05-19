@@ -10,7 +10,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Models;
     using System.Threading.Tasks;
 
-    [Authorize]
+    //[Authorize]
     public class PresentacionesController : Controller
     {
         private readonly DataContext _dataContext;

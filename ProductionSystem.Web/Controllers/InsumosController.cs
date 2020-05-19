@@ -17,7 +17,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data.Repositories.Interfaz;
     using Remotion.Linq.Clauses.ResultOperators;
 
-    [Authorize]
+    //[Authorize]
     public class InsumosController : Controller
     {
 

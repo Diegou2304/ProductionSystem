@@ -250,5 +250,36 @@ namespace ProductionSystem.Web.Helpers
 
             return list;
         }
+
+        
+        public IEnumerable<SelectListItem> GetComboFases()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Fases.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona la Fase",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+
+
+
+
     }
 }

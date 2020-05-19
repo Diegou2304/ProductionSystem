@@ -15,6 +15,7 @@ namespace ProductionSystem.Web.Controllers
 {
     public class RecetasController : Controller
     {
+        //data context no deberia estar aqui
         private readonly DataContext _context;
         private readonly IRecetaRepository _recetaRepository;
         private readonly ICombosHelper _combosHelper;
@@ -38,6 +39,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Recetas/Details/5
+        //TODO: sacar el context e implementar el repositorio en esta funcion
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -89,7 +91,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Recetas/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -120,10 +122,6 @@ namespace ProductionSystem.Web.Controllers
                 //El id de la presentacion tiene que ser igual al id de la etiqueta por la relacion 1-1
                 var receta = await _converterHelper.ToRecetaAsync(model);
 
-
-
-
-
                 await _recetaRepository.UpdateAsync(receta);
 
 
@@ -134,6 +132,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Recetas/Delete/5
+        //TODO: sacar el context de aqui tambien
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
