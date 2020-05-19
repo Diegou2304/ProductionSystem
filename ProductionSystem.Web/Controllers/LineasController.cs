@@ -15,7 +15,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data.Repositories.Interfaz;
     using ProductionSystem.Web.Models;
 
-    //[Authorize]
+    [Authorize]
     public class LineasController : Controller
     {
         private readonly ILineaRepository lineaRepository;

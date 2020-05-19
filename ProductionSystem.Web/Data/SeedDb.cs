@@ -4,6 +4,7 @@ namespace ProductionSystem.Web.Data
 {
     using Microsoft.AspNetCore.Identity;
     using ProductionSystem.Web.Data.Entities;
+    using ProductionSystem.Web.Helpers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -13,12 +14,14 @@ namespace ProductionSystem.Web.Data
     {
         private readonly DataContext context;
         private readonly UserManager<User> userManager;
+        private readonly IUserHelper userHelper;
         private Random random;
 
-        public SeedDb(DataContext context, UserManager<User> userManager)
+        public SeedDb(DataContext context, UserManager<User> userManager, IUserHelper userHelper)
         {
             this.context = context;
             this.userManager = userManager;
+            this.userHelper = userHelper;
             this.random = new Random();
         }
 
@@ -26,6 +29,7 @@ namespace ProductionSystem.Web.Data
         {
             await this.context.Database.EnsureCreatedAsync();
 
+            await this.userHelper.CheckRoleAsync("Administrador");
             var user = await this.userManager.FindByEmailAsync("Admin@gmail.com");
             if (user == null)
             {
@@ -34,9 +38,12 @@ namespace ProductionSystem.Web.Data
                     Nombre = "Oscar",
                     ApellidoPaterno = "Claros",
                     ApellidoMaterno = "Carrillo",
+                    Ci = 11337793,
                     Cargo = "Administrador",
                     Email = "Admin@gmail.com",
-                    UserName = "Admin@gmail.com"
+                    UserName = "Admin@gmail.com",
+                    Disponible = true,
+                    IsAdmin = true,
                 };
 
                 var result = await this.userManager.CreateAsync(user, "123456");
@@ -44,11 +51,8 @@ namespace ProductionSystem.Web.Data
                 {
                     throw new InvalidOperationException("Could not create the user in seeder");
                 }
+                await this.userHelper.AddUserToRoleAsync(user, "Administrador");
             }
-
-
-
-
 
 
             if (!this.context.Sabores.Any())

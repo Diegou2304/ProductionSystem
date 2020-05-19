@@ -28,19 +28,12 @@ namespace ProductionSystem.Web.Data.Entities
         [MaxLength(50)]
         [Required]
         public string ApellidoMaterno { get; set; }
-
-
-        [Display(Name = "Nombre Completo")]
-        public string FullName { get { return $"{this.Nombre}{this.ApellidoPaterno}{this.ApellidoMaterno}"; } }
-
-
+                
         [Display(Name = "Carnet")]
         [Required]
         public int Ci { get; set; }
 
-        [Display(Name = "Telefono")]
-        public override string PhoneNumber { get => base.PhoneNumber; set => base.PhoneNumber = value; }
-
+        
         [Display(Name = "Cargo")]
         [Required]
         public string Cargo { get; set; }

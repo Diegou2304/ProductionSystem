@@ -19,6 +19,7 @@ namespace ProductionSystem.Web.Controllers
             this.userHelper = userHelper;
         }
 
+
         public IActionResult Login()
         {
             if (this.User.Identity.IsAuthenticated)
@@ -55,6 +56,30 @@ namespace ProductionSystem.Web.Controllers
             await this.userHelper.LogoutAsync();
             return this.RedirectToAction("Index", "Home");
         }
+
+        //
+        public async Task<IActionResult> Index()
+        {
+            var users = await this.userHelper.GetAllUsersAsync();
+            foreach (var user in users)
+            {
+                var myUser = await this.userHelper.GetUserByIdAsync(user.Id);
+                if (myUser != null)
+                {
+                    user.IsAdmin = await this.userHelper.IsUserInRoleAsync(myUser, "Administrador");
+                }
+            }
+
+            return this.View(users);
+        }
+
+
+
+
+
+
+
+
 
     }
 }
