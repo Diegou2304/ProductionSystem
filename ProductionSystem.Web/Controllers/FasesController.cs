@@ -60,7 +60,15 @@ namespace ProductionSystem.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+               
                 await this.faseRepository.CreateAsync(fase);
+
+                var temp = await this.faseRepository.GetLastRecord();
+
+                fase.Numero = fase.Id;
+
+                await this.faseRepository.UpdateAsync(fase);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(fase);

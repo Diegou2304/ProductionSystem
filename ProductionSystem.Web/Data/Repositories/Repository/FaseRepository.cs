@@ -35,6 +35,12 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         }
 
 
+        public async Task<Fase> GetLastRecord()
+        {
+            return   context.Fases.OrderByDescending(f => f.Id).FirstOrDefault();
+
+        }
+
 
 
 

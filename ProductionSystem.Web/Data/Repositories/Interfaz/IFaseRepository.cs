@@ -14,6 +14,8 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
         Task<Fase> GetFase(int id);
 
         Task<string> GetNombreFaseAsync(int id);
+        Task<Fase> GetLastRecord();
+
 
     }
 }

@@ -24,6 +24,7 @@ namespace ProductionSystem.Web.Data.Entities
         [DefaultValue(false)]
         public bool estado { get; set; }
 
+     
         public ProductoReal ProductoReal { get; set; }
 
         public ICollection<Produccion> Producciones { get; set; }

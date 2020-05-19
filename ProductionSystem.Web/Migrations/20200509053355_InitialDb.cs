@@ -106,7 +106,9 @@ namespace ProductionSystem.Web.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Nombre = table.Column<string>(nullable: true),
+                    
                     Numero = table.Column<int>(nullable: false),
+                    
                     Descripcion = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
