@@ -22,17 +22,23 @@ namespace ProductionSystem.Web.Controllers
         private readonly IPedidoRepository pedidoRepository;
         private readonly IUserHelper userHelper;
         private readonly IConverterHelper converterHelper;
+        private readonly ICombosHelper combosHelper;
+        private readonly IInsumoUsadoRepository insumoUsadoRepository;
 
         public ProduccionesController(
             IProduccionRepository produccionRepository, 
             IPedidoRepository pedidoRepository,
             IUserHelper userHelper,
-            IConverterHelper converterHelper)
+            IConverterHelper converterHelper,
+            ICombosHelper combosHelper,
+            IInsumoUsadoRepository insumoUsadoRepository)
         {
             this.produccionRepository = produccionRepository;
             this.pedidoRepository = pedidoRepository;
             this.userHelper = userHelper;
             this.converterHelper = converterHelper;
+            this.combosHelper = combosHelper;
+            this.insumoUsadoRepository = insumoUsadoRepository;
         }
 
         // GET: Producciones
@@ -184,7 +190,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         //lo shido
-
+        //Las producciones en proceso de cada usuario
         public async Task<IActionResult> ProduccionUsuario()
         {
 
@@ -198,10 +204,48 @@ namespace ProductionSystem.Web.Controllers
 
         }
 
+        //el id que llega como parametro es el id de la produccion
+        //
+        //Get
+        public IActionResult AddInsumoUsado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var produccion = this.produccionRepository.GetProduccionById(id.Value);
+            if (produccion == null)
+            {
+                return NotFound();
+            }
 
+            var model = new InsumoUsadoViewModel
+            {
 
+                ProduccionId = produccion.Id,
+                Insumos = combosHelper.GetComboInsumo()
 
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddInsumoUsado(InsumoUsadoViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var insumoUsado = converterHelper.ToInsumoUsado(model);
+                await produccionRepository.ActulizarInsumosUsadosenProduccion(insumoUsado, model.ProduccionId);
+                //await insumoUsadoRepository.CreateAsync(insumoUsado);
+                //
+
+                return this.RedirectToAction("ProduccionUsuario");
+            }
+
+            return this.View(model);
+        }
 
 
 

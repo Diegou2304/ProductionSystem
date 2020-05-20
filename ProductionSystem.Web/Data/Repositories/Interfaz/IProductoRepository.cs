@@ -10,5 +10,9 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     {
         IQueryable GetProductosCompletos();
         Producto GetProductosCompletos(int? id);
+
+        
+
+
     }
 }

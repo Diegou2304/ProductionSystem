@@ -17,13 +17,22 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         private readonly IEmpleadoProduccionRepository empleadoProduccionRepository;
         private readonly IFaseRepository faseRepository;
         private readonly IPedidoRepository pedidoRepository;
+        private readonly IInsumoRepository insumoRepository;
+        private readonly IInsumoUsadoRepository insumoUsadoRepository;
 
-        public ProduccionRepository(DataContext context, IEmpleadoProduccionRepository empleadoProduccionRepository,IFaseRepository faseRepository,IPedidoRepository pedidoRepository) : base(context)
+        public ProduccionRepository(DataContext context, 
+            IEmpleadoProduccionRepository empleadoProduccionRepository,
+            IFaseRepository faseRepository,
+            IPedidoRepository pedidoRepository,
+            IInsumoRepository insumoRepository,
+            IInsumoUsadoRepository insumoUsadoRepository) : base(context)
         {
             this.context = context;
             this.empleadoProduccionRepository = empleadoProduccionRepository;
             this.faseRepository = faseRepository;
             this.pedidoRepository = pedidoRepository;
+            this.insumoRepository = insumoRepository;
+            this.insumoUsadoRepository = insumoUsadoRepository;
         }
 
 
@@ -38,8 +47,32 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                 .FirstOrDefault();
         }
 
+        //obtener produccion por id
+        public Produccion GetProduccionById(int id)
+        {
+            return context.Producciones
+                .Include(p => p.Pedido)
+                .Include(q => q.EmpleadoProducción)
+                .Include(s => s.InsumosUsados)
+                .Include(l => l.Fase)
+                .Where(c => c.Id == id)
+                .FirstOrDefault();
+        }
 
 
+        
+        public async Task ActulizarInsumosUsadosenProduccion(InsumoUsado insumo, int id)
+        {
+            var produccion = this.GetProduccionById(id);
+            if (produccion == null)
+            {
+                return;
+            }                     
+
+            produccion.InsumosUsados.Add(insumo);
+            this.context.Producciones.Update(produccion);
+            await this.context.SaveChangesAsync();
+        }
 
 
 

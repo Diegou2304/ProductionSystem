@@ -13,5 +13,9 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     {
         Produccion GetProduccionUsuario(User user);
 
+        Produccion GetProduccionById(int id);
+
+        Task ActulizarInsumosUsadosenProduccion(InsumoUsado insumo, int id);
+
     }
 }
