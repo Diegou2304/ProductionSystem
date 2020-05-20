@@ -93,14 +93,14 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Productoes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public IActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var producto =  _productoRepository.GetProductosCompletos(id);
+            var producto = _productoRepository.GetProductosCompletos(id);
             if (producto == null)
             {
                 return NotFound();
@@ -132,7 +132,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Productoes/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {

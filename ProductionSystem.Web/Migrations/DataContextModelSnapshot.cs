@@ -377,8 +377,7 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("CI")
-                        .IsRequired();
+                    b.Property<int>("Ci");
 
                     b.Property<string>("Direccion")
                         .IsRequired()

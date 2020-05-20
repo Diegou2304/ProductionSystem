@@ -10,5 +10,8 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
 
         Task<EmpleadoProduccion> GetEmpleadoConFase(int id);
 
+        Task<EmpleadoProduccion> GetEmpleadoPorCI(int ci);
+
+
     }
 }

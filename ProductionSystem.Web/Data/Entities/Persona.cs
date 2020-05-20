@@ -25,9 +25,9 @@ namespace ProductionSystem.Web.Data.Entities
         [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]
         public string ApellidoMaterno { get; set; }
 
+        [Display(Name = "Carnet")]
         [Required]
-        [Display(Name = "CI")]
-        public string  CI{ get; set; }
+        public int Ci { get; set; }
 
         [Required]
         [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]

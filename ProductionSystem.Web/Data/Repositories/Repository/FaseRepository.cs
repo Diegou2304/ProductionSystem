@@ -27,6 +27,20 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             .FirstOrDefaultAsync();
         }
 
+
+        public async Task<Fase> GetFasePorNumeroAsync(int numero)
+        {
+            return await this.context.Fases
+            .Where(c => c.Numero == numero)
+            .FirstOrDefaultAsync();
+        }
+
+        public Fase GetLastRecord()
+        {
+            return context.Fases.OrderByDescending(f => f.Id).FirstOrDefault();
+
+        }
+
         /*
         //Obtener fase por id
         public async Task<Fase> GetUltimaFase(int id)

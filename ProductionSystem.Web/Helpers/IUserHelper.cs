@@ -38,9 +38,9 @@ namespace ProductionSystem.Web.Helpers
 
         Task DeleteUserAsync(User user);
 
-        Task CambiarEstadoDisponible(User user);
+        Task CambiarEstadoADisponible(User user);
 
-        Task CambiarEstadoNoDisponible(User user);
+        Task CambiarEstadoANoDisponible(User user);
 
 
 

@@ -10,8 +10,8 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200514144237_pedido")]
-    partial class pedido
+    [Migration("20200520073238_quesad")]
+    partial class quesad
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -352,9 +352,11 @@ namespace ProductionSystem.Web.Migrations
 
                     b.Property<DateTime>("Fecha");
 
+                    b.Property<int>("NumeroFase");
+
                     b.Property<int?>("ProductoRealId");
 
-                    b.Property<bool>("estado");
+                    b.Property<string>("estado");
 
                     b.HasKey("Id");
 
@@ -377,8 +379,7 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("CI")
-                        .IsRequired();
+                    b.Property<int>("Ci");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
@@ -632,6 +633,8 @@ namespace ProductionSystem.Web.Migrations
                     b.Property<string>("Cargo")
                         .IsRequired();
 
+                    b.Property<int>("CargoNumero");
+
                     b.Property<int>("Ci");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -692,7 +695,11 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<int?>("FaseId");
+
                     b.Property<int>("Telefono");
+
+                    b.HasIndex("FaseId");
 
                     b.ToTable("EmpleadoProduccion");
 
@@ -905,6 +912,13 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
                         .WithMany("Sucursales")
                         .HasForeignKey("EmpresaId");
+                });
+
+            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EmpleadoProduccion", b =>
+                {
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Fase", "Fase")
+                        .WithMany()
+                        .HasForeignKey("FaseId");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>

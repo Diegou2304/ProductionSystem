@@ -20,26 +20,26 @@ namespace ProductionSystem.Web.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
         private readonly IValidatorHelper _validatorHelper;
+        private readonly IUserHelper userHelper;
 
         public PedidosController(
             DataContext context,
             IPedidoRepository pedidoRepository,
             ICombosHelper combosHelper,
             IConverterHelper converterHelper,
-            IValidatorHelper validatorHelper)
+            IValidatorHelper validatorHelper,
+            IUserHelper userHelper)
         {
             _context = context;
             _pedidoRepository = pedidoRepository;
             _combosHelper = combosHelper;
             _converterHelper = converterHelper;
             _validatorHelper = validatorHelper;
+            this.userHelper = userHelper;
         }
 
         // GET: Pedidos
-        public IActionResult Index()
-        {
-            return View(_pedidoRepository.GetPedidos());
-        }
+        
 
         // GET: Pedidos/Details/5
         public IActionResult Details(int? id)
@@ -184,5 +184,34 @@ namespace ProductionSystem.Web.Controllers
         {
             return _context.Pedidos.Any(e => e.Id == id);
         }
+
+        //Lo shido
+
+        public IActionResult Index()
+        {
+            return View(_pedidoRepository.GetPedidos());
+        }
+
+        //View para mostrar los pedidos pendientes por usuario
+        public async Task<IActionResult> PedidosPendientesUsuario()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            //valida que el usuario no este con un pedido en proceso
+            if (user.Disponible == true)
+            {
+                return View(_pedidoRepository.GetPedidosPendientesUsuario(user));
+            }
+            else
+            {
+                //TODO: hacer vista de Usurio Ocupado
+                return NotFound();
+            }
+            
+        }
+
+
+
+
+
     }
 }

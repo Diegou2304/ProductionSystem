@@ -118,17 +118,22 @@ namespace ProductionSystem.Web.Helpers
             await this.userManager.DeleteAsync(user);
         }
 
-        public async Task CambiarEstadoDisponible(User user)
+
+        //Para cambiar el estado de la cuenta
+        public async Task CambiarEstadoADisponible(User user)
         {
             user.Disponible = true;
             await this.userManager.UpdateAsync(user);
         }
 
-        public async Task CambiarEstadoNoDisponible(User user)
+        public async Task CambiarEstadoANoDisponible(User user)
         {
             user.Disponible = false;
             await this.userManager.UpdateAsync(user);
         }
+
+                
+
 
 
 

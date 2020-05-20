@@ -13,33 +13,60 @@ namespace ProductionSystem.Web.Helpers
         private readonly DataContext _dataContext;
         private readonly ICombosHelper _combosHelper;
         private readonly IFaseRepository faseRepository;
+        private readonly IEmpleadoProduccionRepository empleadoProduccionRepository;
+        private readonly IUserHelper userHelper;
+        private readonly IPedidoRepository pedidoRepository;
 
         public ConverterHelper(
             DataContext dataContext,
             ICombosHelper combosHelper,
-            IFaseRepository faseRepository)
+            IFaseRepository faseRepository,
+            IEmpleadoProduccionRepository empleadoProduccionRepository,
+            IUserHelper userHelper,
+            IPedidoRepository pedidoRepository)
         {
 
             _dataContext = dataContext;
             _combosHelper = combosHelper;
             this.faseRepository = faseRepository;
+            this.empleadoProduccionRepository = empleadoProduccionRepository;
+            this.userHelper = userHelper;
+            this.pedidoRepository = pedidoRepository;
         }
 
+
+        public async Task<Produccion> ToProduccionAsync(ProduccionViewModel model)
+        {
+
+            return new Produccion
+            {
+                //por algun motivo esto no va aqui
+                //Id = model.Id,
+
+                FechaProduccion = model.FechaProduccion,
+                //
+                EmpleadoProducción = await empleadoProduccionRepository.GetEmpleadoPorCI(model.UserCi),
+                Fase = await faseRepository.GetFasePorNumeroAsync(model.FaseId),
+                Pedido = pedidoRepository.GetPedidos(model.PedidoId),
+                               
+            };
+
+        }
+
+
+        //Pedido
         public async Task<Pedido> ToPedidoAsync(PedidoViewModel model)
         {
             return new Pedido
             {
-
-
+               
                 Fecha = model.Fecha,
-                estado = model.estado,
+                estado = "Pendiente",
                 //Cambiar esto es solo de prueba
                 NumeroFase = 1,
                 ProductoReal = await _dataContext.ProductoReal.FindAsync(model.ProductoRealId),
                 Id = model.Id,
                 Cantidad = model.Cantidad
-
-
 
             };
         }
@@ -63,9 +90,7 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
-
-
-
+        //Presentacion
         public async Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model)
         {
 
@@ -108,8 +133,7 @@ namespace ProductionSystem.Web.Helpers
 
         }
         
-
-
+        //Producto
         public async Task<Producto> ToProductoAsync(ProductoViewModel model)
         {
             return new Producto
@@ -142,10 +166,7 @@ namespace ProductionSystem.Web.Helpers
 
             };
         }
-
-       
-
-
+        
         public ProductoViewModel ToProductoViewModel(Producto model)
         {
             return new ProductoViewModel
@@ -187,6 +208,7 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
+        //Receta
         public async Task<Receta> ToRecetaAsync(RecetaViewModel model)
         {
             return new Receta
@@ -228,6 +250,7 @@ namespace ProductionSystem.Web.Helpers
             };
         }
 
+        //Empleado Produccion
         public async Task<EmpleadoProduccion> ToEmpleadoProduccionAsync(EmpleadoProduccionViewModel model)
         {
             return new EmpleadoProduccion
@@ -245,7 +268,7 @@ namespace ProductionSystem.Web.Helpers
 
                 Cargo = model.Cargo,
 
-                CI = model.CI,
+                Ci = model.Ci,
 
                 Telefono = model.Telefono,
 
@@ -273,7 +296,7 @@ namespace ProductionSystem.Web.Helpers
 
                 Cargo = model.Cargo,
 
-                CI = model.CI,
+                Ci = model.Ci,
 
                 Telefono = model.Telefono,
 
@@ -282,7 +305,7 @@ namespace ProductionSystem.Web.Helpers
             };
         }
 
-
+        //User
         public async Task<User> ToUserAsync(RegisterUserViewModel model)
         {
             return new User
@@ -308,9 +331,6 @@ namespace ProductionSystem.Web.Helpers
                 
             };
         }
-
-
-
 
 
     }

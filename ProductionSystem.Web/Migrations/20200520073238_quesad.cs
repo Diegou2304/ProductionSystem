@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductionSystem.Web.Migrations
 {
-    public partial class InitialDb : Migration
+    public partial class quesad : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -35,6 +35,7 @@ namespace ProductionSystem.Web.Migrations
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
+                    PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
@@ -44,8 +45,8 @@ namespace ProductionSystem.Web.Migrations
                     ApellidoPaterno = table.Column<string>(maxLength: 50, nullable: false),
                     ApellidoMaterno = table.Column<string>(maxLength: 50, nullable: false),
                     Ci = table.Column<int>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: true),
                     Cargo = table.Column<string>(nullable: false),
+                    CargoNumero = table.Column<int>(nullable: false),
                     Disponible = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
@@ -59,8 +60,8 @@ namespace ProductionSystem.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Direccion = table.Column<string>(nullable: true),
-                    Telefono = table.Column<string>(nullable: true)
+                    Direccion = table.Column<string>(maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,11 +106,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: true),
-                    
+                    Nombre = table.Column<string>(nullable: false),
                     Numero = table.Column<int>(nullable: false),
-                    
-                    Descripcion = table.Column<string>(nullable: true)
+                    Descripcion = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -142,23 +141,6 @@ namespace ProductionSystem.Web.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Lineas", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Personas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: true),
-                    ApellidoPaterno = table.Column<string>(nullable: true),
-                    ApellidoMaterno = table.Column<string>(nullable: true),
-                    CI = table.Column<string>(nullable: true),
-                    Direccion = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Personas", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -365,6 +347,41 @@ namespace ProductionSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Personas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
+                    ApellidoPaterno = table.Column<string>(maxLength: 50, nullable: false),
+                    ApellidoMaterno = table.Column<string>(maxLength: 50, nullable: false),
+                    Ci = table.Column<int>(nullable: false),
+                    Direccion = table.Column<string>(maxLength: 50, nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    Cargo = table.Column<string>(maxLength: 50, nullable: true),
+                    Telefono = table.Column<int>(nullable: true),
+                    FaseId = table.Column<int>(nullable: true),
+                    EncargadoEmpresa_Telefono = table.Column<string>(nullable: true),
+                    IdEmpresa = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Personas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Personas_Fases_FaseId",
+                        column: x => x.FaseId,
+                        principalTable: "Fases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Personas_Empresas_IdEmpresa",
+                        column: x => x.IdEmpresa,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Categorias",
                 columns: table => new
                 {
@@ -385,58 +402,12 @@ namespace ProductionSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "EmpleadosProducciones",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Telefono = table.Column<string>(nullable: true),
-                    IdEmpleado = table.Column<int>(nullable: false),
-                    PersonaId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EmpleadosProducciones", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EmpleadosProducciones_Personas_PersonaId",
-                        column: x => x.PersonaId,
-                        principalTable: "Personas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EncargadosEmpresas",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
-                    Telefono = table.Column<string>(nullable: true),
-                    PersonaId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EncargadosEmpresas", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_EncargadosEmpresas_Empresas_Id",
-                        column: x => x.Id,
-                        principalTable: "Empresas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_EncargadosEmpresas_Personas_PersonaId",
-                        column: x => x.PersonaId,
-                        principalTable: "Personas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Productos",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: false),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
                     CategoriaId = table.Column<int>(nullable: true),
                     TipoProductoId = table.Column<int>(nullable: true),
                     SaborId = table.Column<int>(nullable: true),
@@ -525,8 +496,10 @@ namespace ProductionSystem.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Cantidad = table.Column<int>(nullable: false),
                     Fecha = table.Column<DateTime>(nullable: false),
-                    estado = table.Column<bool>(nullable: false),
+                    estado = table.Column<string>(nullable: true),
+                    NumeroFase = table.Column<int>(nullable: false),
                     ProductoRealId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
@@ -611,9 +584,9 @@ namespace ProductionSystem.Web.Migrations
                 {
                     table.PrimaryKey("PK_Producciones", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Producciones_EmpleadosProducciones_EmpleadoProducciónId",
+                        name: "FK_Producciones_Personas_EmpleadoProducciónId",
                         column: x => x.EmpleadoProducciónId,
-                        principalTable: "EmpleadosProducciones",
+                        principalTable: "Personas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -746,16 +719,6 @@ namespace ProductionSystem.Web.Migrations
                 column: "LineaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EmpleadosProducciones_PersonaId",
-                table: "EmpleadosProducciones",
-                column: "PersonaId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_EncargadosEmpresas_PersonaId",
-                table: "EncargadosEmpresas",
-                column: "PersonaId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Etiquetas_Nombre",
                 table: "Etiquetas",
                 column: "Nombre",
@@ -802,6 +765,18 @@ namespace ProductionSystem.Web.Migrations
                 name: "IX_Pedidos_ProductoRealId",
                 table: "Pedidos",
                 column: "ProductoRealId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personas_FaseId",
+                table: "Personas",
+                column: "FaseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Personas_IdEmpresa",
+                table: "Personas",
+                column: "IdEmpresa",
+                unique: true,
+                filter: "[IdEmpresa] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Presentaciones_EnvaseId",
@@ -923,9 +898,6 @@ namespace ProductionSystem.Web.Migrations
                 name: "Deshechos");
 
             migrationBuilder.DropTable(
-                name: "EncargadosEmpresas");
-
-            migrationBuilder.DropTable(
                 name: "InsumoUsados");
 
             migrationBuilder.DropTable(
@@ -956,13 +928,7 @@ namespace ProductionSystem.Web.Migrations
                 name: "Producciones");
 
             migrationBuilder.DropTable(
-                name: "Empresas");
-
-            migrationBuilder.DropTable(
-                name: "EmpleadosProducciones");
-
-            migrationBuilder.DropTable(
-                name: "Fases");
+                name: "Personas");
 
             migrationBuilder.DropTable(
                 name: "Insumos");
@@ -971,7 +937,10 @@ namespace ProductionSystem.Web.Migrations
                 name: "Pedidos");
 
             migrationBuilder.DropTable(
-                name: "Personas");
+                name: "Fases");
+
+            migrationBuilder.DropTable(
+                name: "Empresas");
 
             migrationBuilder.DropTable(
                 name: "ProductoReal");

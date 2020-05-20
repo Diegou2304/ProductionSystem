@@ -25,6 +25,13 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             .FirstOrDefaultAsync();
         }
 
+        public async Task<EmpleadoProduccion> GetEmpleadoPorCI(int ci)
+        {
+            return await this.context.EmpleadosProducciones
+            .Include(c => c.Fase)
+            .Where(c => c.Ci == ci)
+            .FirstOrDefaultAsync();
+        }
 
 
 

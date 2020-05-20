@@ -24,9 +24,8 @@ namespace ProductionSystem.Web.Data.Entities
         [DefaultValue("Pendiente")]
         public string estado { get; set; }
 
-        public int  NumeroFase { get; set; }
-
-     
+        public int NumeroFase { get; set; }
+             
         public ProductoReal ProductoReal { get; set; }
 
         public ICollection<Produccion> Producciones { get; set; }

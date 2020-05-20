@@ -137,7 +137,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: ProductosReales/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public IActionResult Delete(int? id)
         {
             if (id == null)
             {

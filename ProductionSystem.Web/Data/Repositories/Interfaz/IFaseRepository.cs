@@ -14,10 +14,12 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
         Task<Fase> GetFase(int id);
 
         Task<string> GetNombreFaseAsync(int id);
-        Task<Fase> GetLastRecord();
-
+        
+        Fase GetLastRecord();
 
         Task<int> GetNumeroFaseAsync(int id);
+
+        Task<Fase> GetFasePorNumeroAsync(int numero);
 
     }
 }
