@@ -12,6 +12,7 @@ namespace ProductionSystem.Web.Data.Entities
     public class Produccion : IEntity
     {
 
+         
         public int Id { get; set; }
 
         //Esto Deberia de ponerse automatico
