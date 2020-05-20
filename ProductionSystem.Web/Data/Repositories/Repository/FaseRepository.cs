@@ -35,12 +35,16 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         }
 
 
+        //Esta funcion devuelve el ultimo registro de la fase.
+
         public async Task<Fase> GetLastRecord()
         {
             return   context.Fases.OrderByDescending(f => f.Id).FirstOrDefault();
 
         }
 
+        //
+       
 
 
 

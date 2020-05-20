@@ -17,5 +17,7 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
         Task<Fase> GetLastRecord();
 
 
+
+
     }
 }

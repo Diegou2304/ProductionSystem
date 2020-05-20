@@ -54,6 +54,16 @@ namespace ProductionSystem.Web.Controllers
         // POST: Fases/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        //Funcion para cambiar de fase, se llama cuando terminemos un proceso
+        
+        //Ir a produccion, ligado con el empleado, sacar d eacuerdo con la cuenta, buscar el empleado sacar el pedido y vamos a la tabla de pedidos para mostrarle el usuario
+        //Deshechos aceptar los deshechos producto rterminado se cree solo, solo en despues de la fase 3.
+        // Pedido tiene fase.
+        
+
+//Numero de la ultima fase nomas.
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Fase fase)
