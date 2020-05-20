@@ -25,5 +25,9 @@ namespace ProductionSystem.Web.Helpers
 
         IEnumerable<SelectListItem> GetComboCargos();
 
+
+        IEnumerable<SelectListItem> GetComboLineas();
+        IEnumerable<SelectListItem> GetComboCategorias(int idlinea);
+
     }
 }

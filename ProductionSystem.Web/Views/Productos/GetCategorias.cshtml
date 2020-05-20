@@ -20,11 +20,11 @@
                 <span asp-validation-for="LineaId" class="text-danger"></span>
             </div>
             <td align="right">
-                <input type="submit" value="GetCategorias" class="btn btn-success"  asp-action="GetCategorias"/>
+                <input type="submit" value="GetCategorias" class="btn btn-success" asp-action="GetCategorias" />
 
                 <br />
             </td>
-           
+
             <div class="form-group">
                 <label asp-for="CategoriaId" class="control-label"></label>
                 <select asp-for="CategoriaId" asp-items="Model.Categorias" class="form-control"></select>

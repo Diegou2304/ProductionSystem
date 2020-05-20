@@ -303,7 +303,58 @@ namespace ProductionSystem.Web.Helpers
             return list;
         }
 
+        public IEnumerable<SelectListItem> GetComboLineas()
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Lineas.Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                .ToList();
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona la Linea",
+                Value = "0"
+            });
+
+            return list;
+        }
+        public IEnumerable<SelectListItem> GetComboCategorias(int idlinea)
+        {
+            //lISTA DE PROPERTY TIPES TENEMOS QUE CONVERTIRLA
+            var list = _dataContext.Categorias.Where(c => c.Linea.Id == idlinea).Select(
+                pt => new SelectListItem
+                {
+                    Text =
+                    pt.Nombre,
+
+                    Value = $"{pt.Id}",
+
+                })
+
+                .OrderBy(pt => pt.Text)
+                
+                .ToList();
 
 
+
+         
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona la Categoria",
+                Value = "0"
+            });
+
+            return list;
+        }
     }
 }

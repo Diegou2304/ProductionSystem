@@ -63,17 +63,17 @@ namespace ProductionSystem.Web.Controllers
         {
             var model = new ProductoViewModel
             {
-                Categorias = _combosHelper.GetComboCategorias(),
+                Categorias = null,
                 TiposProductos = _combosHelper.GetComboTipoProducto(),
                 Sabores = _combosHelper.GetComboSabores(),
-                Presentaciones = _combosHelper.GetComboPresentaciones()
-                
+                Presentaciones = _combosHelper.GetComboPresentaciones(),
+                Lineas = _combosHelper.GetComboLineas(),
 
 
             };
             return View(model);
         }
-
+       
         // POST: Productoes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -91,6 +91,40 @@ namespace ProductionSystem.Web.Controllers
             }
             return View(model);
         }
+
+
+        // GET: Se encarga de traer las categorias que tiene la linea seleccionada, pero deberia ser un post.
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> GetCategorias(ProductoViewModel model)
+        {
+
+            // Aqui tenemos cargado el id de la linea correspondiente
+
+            //Tenemos que buscar un combo con la categoria que tiene las lineas y para eso hacemos otro combo box.
+
+
+            var productomodel = new ProductoViewModel
+            {
+
+                Categorias = _combosHelper.GetComboCategorias(model.LineaId),
+                TiposProductos = _combosHelper.GetComboTipoProducto(),
+                Sabores = _combosHelper.GetComboSabores(),
+                Presentaciones = _combosHelper.GetComboPresentaciones(),
+                Lineas = _combosHelper.GetComboLineas(),
+
+
+
+            };
+
+            return View(productomodel);
+
+           
+        }
+
+
 
         // GET: Productoes/Edit/5
         public async Task<IActionResult> Edit(int? id)

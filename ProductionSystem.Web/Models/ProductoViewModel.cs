@@ -34,6 +34,12 @@ namespace ProductionSystem.Web.Models
 
         public int PresentacionId { get; set; }
 
+        [Required(ErrorMessage = "El campo {0} es obligatorio")]
+        [Display(Name = "Linea Id")]
+        [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una Linea")]
+
+        public int LineaId { get; set; }
+
         public IEnumerable<SelectListItem> Categorias;
 
         public IEnumerable<SelectListItem> TiposProductos;
@@ -41,6 +47,9 @@ namespace ProductionSystem.Web.Models
         public IEnumerable<SelectListItem> Sabores;
 
         public IEnumerable<SelectListItem> Presentaciones;
+
+
+        public IEnumerable<SelectListItem> Lineas;
 
     }
 }

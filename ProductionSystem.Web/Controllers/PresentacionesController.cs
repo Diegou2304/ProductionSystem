@@ -13,7 +13,7 @@ namespace ProductionSystem.Web.Controllers
     //[Authorize]
     public class PresentacionesController : Controller
     {
-        private readonly DataContext _dataContext;
+        
 
         private readonly ICombosHelper _combosHelper;
         private readonly IConverterHelper _converterHelper;
@@ -31,7 +31,7 @@ namespace ProductionSystem.Web.Controllers
             IPresentacionRepository presentacionRepository,
             IEtiquetaRepository etiquetaRepository)
         {
-            _dataContext = dataContext;
+           
 
             _combosHelper = comboHelper;
             _converterHelper = converterHelper;
@@ -95,13 +95,14 @@ namespace ProductionSystem.Web.Controllers
         {
 
             //Aqui igual tenemos que hacer lo corresopndiente
-            if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
-            {
-                return RedirectToAction("Error");
-            }
+          
 
             if (ModelState.IsValid)
             {
+                if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+                {
+                    return RedirectToAction("Error");
+                }
 
                 var etiqueta = _etiquetaRepository.GetEtiqueta(model.EtiquetaId);
                 var presentacion = await _converterHelper.ToPresentacionAsync(model);
@@ -122,6 +123,12 @@ namespace ProductionSystem.Web.Controllers
 
                 return RedirectToAction("Index");
 
+
+            }
+            else
+            {
+                model.Envases = _combosHelper.GetComboEnvases();
+                model.Etiquetas = _combosHelper.GetComboEtiqueta();
 
             }
 
@@ -222,16 +229,17 @@ namespace ProductionSystem.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(AddPresentacionViewModel model)
         {
-            if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
-            {
-                //Aqui tiene que venir una ventana de error.
-                return RedirectToAction("Error");
-            }
 
 
 
             if (ModelState.IsValid)
             {
+                if (_validatorHelper.IsEtiquetaUsed(model.EtiquetaId))
+                {
+                    //Aqui tiene que venir una ventana de error.
+                    return RedirectToAction("Error");
+                }
+
                 //El id de la presentacion tiene que ser igual al id de la etiqueta por la relacion 1-1
                 var presentacion = await _converterHelper.ToPresentacionAsync(model);
 
@@ -259,8 +267,13 @@ namespace ProductionSystem.Web.Controllers
                 return RedirectToAction("Index");
 
             }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+           
 
-            return View(model);
+           
         }
 
 
