@@ -42,7 +42,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         // GET: Pedidos/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
@@ -93,10 +93,13 @@ namespace ProductionSystem.Web.Controllers
         // GET: Pedidos/Edit/5
         public IActionResult Edit(int? id)
         {
+            //TODO: arreglar esta validacion para funcione de otra forma
+            /*
             if(!_validatorHelper.IsPedidoPendiente(id))
             {
                 return RedirectToAction("Error");
-            }
+            }*/
+
 
 
             if (id == null)

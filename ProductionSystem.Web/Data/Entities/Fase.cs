@@ -16,6 +16,7 @@ namespace ProductionSystem.Web.Data.Entities
         [Required]
         public string Nombre { get; set; }
 
+        //TODO:hacer que esto sea unico
         [Required]
         public int Numero { get; set;}
 

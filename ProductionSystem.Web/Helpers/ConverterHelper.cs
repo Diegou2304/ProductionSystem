@@ -30,9 +30,11 @@ namespace ProductionSystem.Web.Helpers
             return new Pedido
             {
 
-                
+
                 Fecha = model.Fecha,
                 estado = model.estado,
+                //Cambiar esto es solo de prueba
+                NumeroFase = 1,
                 ProductoReal = await _dataContext.ProductoReal.FindAsync(model.ProductoRealId),
                 Id = model.Id,
                 Cantidad = model.Cantidad
@@ -41,6 +43,28 @@ namespace ProductionSystem.Web.Helpers
 
             };
         }
+
+        public PedidoViewModel ToPedidoViewModel(Pedido model)
+        {
+            //Le llega con todos los datos
+
+            return new PedidoViewModel
+            {
+                Id = model.Id,
+                Cantidad = model.Cantidad,
+                Fecha = model.Fecha,
+                estado = model.estado,
+                NumeroFase = model.NumeroFase,
+                ProductoReal = model.ProductoReal,
+                ProductosReales = _combosHelper.GetComboProductosReales(),
+                ProductoRealId = model.ProductoReal.Id,
+
+            };
+
+        }
+
+
+
 
         public async Task<Presentacion> ToPresentacionAsync(AddPresentacionViewModel model)
         {
@@ -83,23 +107,7 @@ namespace ProductionSystem.Web.Helpers
             };
 
         }
-        public PedidoViewModel ToPedidoViewModel(Pedido model)
-        {
-            //Le llega con todos los datos
-
-            return new PedidoViewModel
-            {
-                Id = model.Id,
-                Cantidad = model.Cantidad,
-                Fecha = model.Fecha,
-                estado = model.estado,
-                ProductoReal = model.ProductoReal,
-                ProductosReales = _combosHelper.GetComboProductosReales(),
-                ProductoRealId = model.ProductoReal.Id,
-
-            };
-
-        }
+        
 
 
         public async Task<Producto> ToProductoAsync(ProductoViewModel model)
@@ -279,7 +287,7 @@ namespace ProductionSystem.Web.Helpers
         {
             return new User
             {
-                                
+
                 Nombre = model.Nombre,
 
                 ApellidoPaterno = model.ApellidoPaterno,
@@ -296,6 +304,7 @@ namespace ProductionSystem.Web.Helpers
 
                 Cargo = await faseRepository.GetNombreFaseAsync(model.CargoId),
 
+                CargoNumero = await faseRepository.GetNumeroFaseAsync(model.CargoId),
                 
             };
         }

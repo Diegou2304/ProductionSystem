@@ -19,13 +19,24 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             this.context = context;
         }
 
-
+        //Obtener fase por id
         public async Task<Fase> GetFase(int id)
         {
             return await this.context.Fases
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
         }
+
+        /*
+        //Obtener fase por id
+        public async Task<Fase> GetUltimaFase(int id)
+        {
+            return await this.context.Fases
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync();
+        }*/
+
+
 
         //para obtener solo el nombre de una fase con el id
         public async Task<string> GetNombreFaseAsync (int id)
@@ -35,6 +46,11 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         }
 
 
+        public async Task<int> GetNumeroFaseAsync(int id)
+        {
+            var fase = await this.GetFase(id);
+            return fase.Numero;
+        }
 
 
 

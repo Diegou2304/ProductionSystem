@@ -37,6 +37,9 @@ namespace ProductionSystem.Web.Data.Entities
         [Required]
         public string Cargo { get; set; }
 
+        //para obtener el numero de la fase
+        public int CargoNumero { get; set; }
+
         [NotMapped]
         [Display(Name = "Es Admin?")]
         public bool IsAdmin { get; set; }
@@ -44,6 +47,7 @@ namespace ProductionSystem.Web.Data.Entities
         [Display(Name = "Disponible?")]
         [Required]
         public bool Disponible { get; set; }
+
 
 
     }
