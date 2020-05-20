@@ -19,13 +19,38 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             this.context = context;
         }
 
-
+        //Obtener fase por id
         public async Task<Fase> GetFase(int id)
         {
             return await this.context.Fases
             .Where(c => c.Id == id)
             .FirstOrDefaultAsync();
         }
+
+
+        public async Task<Fase> GetFasePorNumeroAsync(int numero)
+        {
+            return await this.context.Fases
+            .Where(c => c.Numero == numero)
+            .FirstOrDefaultAsync();
+        }
+
+        public Fase GetLastRecord()
+        {
+            return context.Fases.OrderByDescending(f => f.Id).FirstOrDefault();
+
+        }
+
+        /*
+        //Obtener fase por id
+        public async Task<Fase> GetUltimaFase(int id)
+        {
+            return await this.context.Fases
+            .Where(c => c.Id == id)
+            .FirstOrDefaultAsync();
+        }*/
+
+
 
         //para obtener solo el nombre de una fase con el id
         public async Task<string> GetNombreFaseAsync (int id)
@@ -35,17 +60,14 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         }
 
 
-        //Esta funcion devuelve el ultimo registro de la fase.
-
-        public async Task<Fase> GetLastRecord()
+        public async Task<int> GetNumeroFaseAsync(int id)
         {
-            return   context.Fases.OrderByDescending(f => f.Id).FirstOrDefault();
-
+            var fase = await this.GetFase(id);
+            return fase.Numero;
         }
 
         //
        
-
 
 
     }

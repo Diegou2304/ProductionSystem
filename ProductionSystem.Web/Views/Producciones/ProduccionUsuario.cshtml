@@ -1,0 +1,21 @@
+﻿@model ProductionSystem.Web.Data.Entities.Produccion
+@{
+    ViewData["Title"] = "ProduccionUsuario";
+}
+
+<h2>Produccion Actual</h2>
+
+<h2>Detalles</h2>
+
+<div>
+    <h4>Produccion</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaProduccion)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaProduccion)
+        </dd>
+    </dl>
+</div>

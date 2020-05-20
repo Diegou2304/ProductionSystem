@@ -25,5 +25,10 @@ namespace ProductionSystem.Web.Helpers
         EmpleadoProduccionViewModel ToEmpleadoProduccionViewModel(EmpleadoProduccion model);
 
         Task<User> ToUserAsync(RegisterUserViewModel model);
+
+        Task<Produccion> ToProduccionAsync(ProduccionViewModel model);
+
+
+
     }
 }

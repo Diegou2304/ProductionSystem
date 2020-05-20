@@ -40,7 +40,7 @@ namespace ProductionSystem.Web.Controllers
 
         // GET: Recetas/Details/5
         //TODO: sacar el context e implementar el repositorio en esta funcion
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {

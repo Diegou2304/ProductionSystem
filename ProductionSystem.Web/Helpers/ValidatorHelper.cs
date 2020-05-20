@@ -38,10 +38,9 @@ namespace ProductionSystem.Web.Helpers
         {
             var pedido = _dataContext.Pedidos.FirstOrDefault(i => i.Id == id);
 
-            if(!pedido.estado)
+            if(pedido.estado == "Pendiente")
             {
                 return true; 
-
 
             }
             return false;

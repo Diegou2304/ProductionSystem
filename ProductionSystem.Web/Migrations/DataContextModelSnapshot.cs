@@ -350,9 +350,11 @@ namespace ProductionSystem.Web.Migrations
 
                     b.Property<DateTime>("Fecha");
 
+                    b.Property<int>("NumeroFase");
+
                     b.Property<int?>("ProductoRealId");
 
-                    b.Property<bool>("estado");
+                    b.Property<string>("estado");
 
                     b.HasKey("Id");
 
@@ -375,8 +377,7 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("CI")
-                        .IsRequired();
+                    b.Property<int>("Ci");
 
                     b.Property<string>("Direccion")
                         .IsRequired()
@@ -629,6 +630,8 @@ namespace ProductionSystem.Web.Migrations
 
                     b.Property<string>("Cargo")
                         .IsRequired();
+
+                    b.Property<int>("CargoNumero");
 
                     b.Property<int>("Ci");
 

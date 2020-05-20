@@ -12,6 +12,11 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
         IQueryable GetPedidos();
         Pedido GetPedidos(int? id);
         Pedido GetDetailsPedido(int? id);
+        IQueryable GetPedidosPendientesUsuario(User user);
+
+
+        Task CambiarEstadoAProceso(Pedido pedido);
+        Task CambiarEstadoAFinalizado(Pedido pedido);
 
     }
 }

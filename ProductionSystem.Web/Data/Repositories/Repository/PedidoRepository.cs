@@ -17,6 +17,7 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             this.context = context;
         }
 
+        
         public IQueryable GetPedidos()
         {
             return context.Pedidos
@@ -30,6 +31,7 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                 .ThenInclude(pr => pr.Producto)
                 .FirstOrDefault(i => i.Id ==id);
         }
+
         public Pedido GetDetailsPedido(int? id)
         {
             return context.Pedidos
@@ -50,8 +52,35 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                 .ThenInclude(pr => pr.Producto)
                 .ThenInclude(tp => tp.Presentacion)
                 .ThenInclude(e => e.Etiqueta)
-
+                
                 .FirstOrDefault(i => i.Id == id);
         }
+
+        //Por probar
+        //Obtengo los pedidos pendientes por usuario logeado
+        public IQueryable GetPedidosPendientesUsuario(User user)
+        {
+            return context.Pedidos
+                .Include(p => p.ProductoReal)
+                .ThenInclude(pr => pr.Producto)
+                .Where(c => c.estado == "Pendiente" && c.NumeroFase == user.CargoNumero);
+        }
+
+        //Por probar
+        //Hacer la que cambia de estado 
+
+        public async Task CambiarEstadoAProceso(Pedido pedido)
+        {
+            pedido.estado = "Proceso";
+            await this.UpdateAsync(pedido);
+        }
+
+        public async Task CambiarEstadoAFinalizado(Pedido pedido)
+        {
+            pedido.estado = "Finalizado";
+            await this.UpdateAsync(pedido);
+        }
+
+        
     }
 }

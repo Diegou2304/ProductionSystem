@@ -90,6 +90,7 @@ namespace ProductionSystem.Web.Controllers
         }
 
         //POST
+        //Solo se manejaran dos roles (administracion y empleado)
         [HttpPost]
         public async Task<IActionResult> Register(RegisterUserViewModel model)
         {
@@ -106,10 +107,19 @@ namespace ProductionSystem.Web.Controllers
                         this.ModelState.AddModelError(string.Empty, "The user couldn't be created.");
                         return this.View(model);
                     }
+
+                    string rol;
+                    if (user.Cargo == "Administrador") {
+                        rol = "Administrador";
+                    }
+                    else
+                    {
+                        rol = "Produccion";
+                    }
                     
-                    await this.userHelper.CheckRoleAsync(user.Cargo);
-                    await this.userHelper.AddUserToRoleAsync(user, user.Cargo);
-                    var isInRole = await this.userHelper.IsUserInRoleAsync(user, user.Cargo);
+                    await this.userHelper.CheckRoleAsync(rol);
+                    await this.userHelper.AddUserToRoleAsync(user, rol);
+                    var isInRole = await this.userHelper.IsUserInRoleAsync(user, rol);
 
                     if (!isInRole)
                     {
@@ -141,6 +151,39 @@ namespace ProductionSystem.Web.Controllers
             return this.View(model);
         }
 
+        public async Task<IActionResult> AdminOff(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.RemoveUserFromRoleAsync(user, "Administrador");
+            return this.RedirectToAction(nameof(Index));
+        }
+
+        public async Task<IActionResult> AdminOn(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return NotFound();
+            }
+
+            var user = await this.userHelper.GetUserByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            await this.userHelper.AddUserToRoleAsync(user, "Administrador");
+            return this.RedirectToAction(nameof(Index));
+        }
 
 
 

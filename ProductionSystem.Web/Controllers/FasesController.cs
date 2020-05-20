@@ -73,7 +73,7 @@ namespace ProductionSystem.Web.Controllers
                
                 await this.faseRepository.CreateAsync(fase);
 
-                var temp = await this.faseRepository.GetLastRecord();
+                var temp = this.faseRepository.GetLastRecord();
 
                 fase.Numero = fase.Id;
 

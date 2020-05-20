@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Produccion
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    public class Produccion : IEntity
     {
 
         public int Id { get; set; }
 
+        //Esto Deberia de ponerse automatico
         [Display(Name = "Fecha de Produccion")]
         [Required(ErrorMessage = "The field {0} is mandatory.")]
         [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
@@ -28,11 +31,7 @@ namespace ProductionSystem.Web.Data.Entities
         public Deshecho Deshecho {get; set;}
 
         public EmpleadoProduccion EmpleadoProducción { get; set; }
-        
-
-        
-
-
+                  
 
     }
 }

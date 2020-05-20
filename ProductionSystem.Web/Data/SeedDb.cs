@@ -102,6 +102,22 @@ namespace ProductionSystem.Web.Data
                 await this.context.SaveChangesAsync();
             }
 
+            if (!this.context.Lineas.Any())
+            {
+                this.AddLinea("Niños", "Sin azucar", "Con azucar", "Organicos");
+                this.AddLinea("Adultos", "Sin azucar", "Con azucar", "Organicos");
+                await this.context.SaveChangesAsync();
+            }
+
+            if (!this.context.Fases.Any())
+            {
+                this.AddFase("Administrador", 0, "Prueba");
+                this.AddFase("Pelado", 1, "Prueba");
+                this.AddFase("Coccion", 2, "Prueba");
+                this.AddFase("Envasado", 3, "Prueba");
+                await this.context.SaveChangesAsync();
+            }
+
         }
 
         private void AddSabor(string name)
@@ -151,6 +167,40 @@ namespace ProductionSystem.Web.Data
                 
             });
         }
+
+        private void AddLinea(string name, string cat1, string cat2, string cat3)
+        {
+            
+            this.context.Lineas.Add(new Linea
+            {
+                Nombre = name,
+                Categorias = AddCategorias(cat1,cat2, cat3),
+            });
+        }
+
+        private void AddFase(string name, int numero, string descripcion)
+        {
+            this.context.Fases.Add(new Fase
+            {
+                Nombre = name,
+                Numero = numero,
+                Descripcion = descripcion, 
+            });
+        }
+
+        //de a 3
+        private List<Categoria> AddCategorias(string name1, string name2, string name3)
+        {
+            var categorias = new List<Categoria>();
+
+            categorias.Add(new Categoria { Nombre = name1 });
+            categorias.Add(new Categoria { Nombre = name2 });
+            categorias.Add(new Categoria { Nombre = name3 });
+
+            return categorias;
+        }
+
+
 
 
     }

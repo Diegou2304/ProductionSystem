@@ -20,11 +20,12 @@ namespace ProductionSystem.Web.Data.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Fecha { get; set;}
 
-        [Display(Name = "Estado")]
-        [DefaultValue(false)]
-        public bool estado { get; set; }
+        //Lo estados del pedido son (pendiente) (proceso) (finalizado)
+        [DefaultValue("Pendiente")]
+        public string estado { get; set; }
 
-     
+        public int NumeroFase { get; set; }
+             
         public ProductoReal ProductoReal { get; set; }
 
         public ICollection<Produccion> Producciones { get; set; }
