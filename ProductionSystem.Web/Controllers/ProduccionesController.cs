@@ -237,8 +237,8 @@ namespace ProductionSystem.Web.Controllers
             if (this.ModelState.IsValid)
             {
                 var insumoUsado = converterHelper.ToInsumoUsado(model);
-                await produccionRepository.ActulizarInsumosUsadosenProduccion(insumoUsado, model.ProduccionId);
-                //await insumoUsadoRepository.CreateAsync(insumoUsado);
+                //await produccionRepository.ActulizarInsumosUsadosenProduccion(insumoUsado, model.ProduccionId);
+                await insumoUsadoRepository.CreateAsync(insumoUsado);
                 //
 
                 return this.RedirectToAction("ProduccionUsuario");
