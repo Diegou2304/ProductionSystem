@@ -47,8 +47,7 @@ namespace ProductionSystem.Web.Controllers
                 return NotFound();
             }
 
-            var receta = await _context.Recetas
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var receta = _recetaRepository.GetRecetas(id);
             if (receta == null)
             {
                 return NotFound();

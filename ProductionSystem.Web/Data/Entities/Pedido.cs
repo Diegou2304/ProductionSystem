@@ -26,6 +26,7 @@ namespace ProductionSystem.Web.Data.Entities
 
         public int  NumeroFase { get; set; }
 
+     
         public ProductoReal ProductoReal { get; set; }
 
         public ICollection<Produccion> Producciones { get; set; }
