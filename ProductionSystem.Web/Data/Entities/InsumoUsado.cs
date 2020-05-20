@@ -5,11 +5,10 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class InsumoUsado :  IEntity
+    public class InsumoUsado : IEntity
     {
 
         public int Id { get; set; }
-
 
         public decimal CantidadUsada { get; set; }
 

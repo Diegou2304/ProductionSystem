@@ -7,7 +7,7 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     public interface IInsumoRepository : IGenericRepository<Insumo>
     {
 
-
+        Insumo GetInsumoById(int id);
 
 
     }

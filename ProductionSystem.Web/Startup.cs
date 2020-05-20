@@ -98,7 +98,7 @@ namespace ProductionSystem.Web
 
             services.AddScoped<IProduccionRepository, ProduccionRepository>();
 
-
+            services.AddScoped<IInsumoUsadoRepository, InsumoUsadoRepository>();
         }
 
 

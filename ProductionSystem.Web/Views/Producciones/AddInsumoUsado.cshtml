@@ -1,0 +1,41 @@
+﻿@model ProductionSystem.Web.Models.InsumoUsadoViewModel
+@{
+    ViewData["Title"] = "AddInsumoUsado";
+}
+
+<h2>AddInsumoUsado</h2>
+
+<h2>Registrar</h2>
+<h4>Insumo Usado</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="AddInsumoUsado">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProduccionId" />
+
+
+            <div class="form-group">
+                <label asp-for="CantidadUsada" class="control-label"></label>
+                <input asp-for="CantidadUsada" class="form-control" />
+                <span asp-validation-for="CantidadUsada" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="InsumoId" class="control-label"></label>
+                <select asp-for="InsumoId" asp-items="Model.Insumos" class="form-control"></select>
+                <span asp-validation-for="InsumoId" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <input type="submit" value="AddInsumoUsado" class="btn btn-success" /> |
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

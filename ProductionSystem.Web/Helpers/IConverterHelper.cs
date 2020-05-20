@@ -28,7 +28,7 @@ namespace ProductionSystem.Web.Helpers
 
         Task<Produccion> ToProduccionAsync(ProduccionViewModel model);
 
-
+        InsumoUsado ToInsumoUsado(InsumoUsadoViewModel model);
 
     }
 }

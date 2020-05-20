@@ -16,6 +16,8 @@ namespace ProductionSystem.Web.Helpers
         private readonly IEmpleadoProduccionRepository empleadoProduccionRepository;
         private readonly IUserHelper userHelper;
         private readonly IPedidoRepository pedidoRepository;
+        private readonly IInsumoRepository insumoRepository;
+        private readonly IProduccionRepository produccionRepository;
 
         public ConverterHelper(
             DataContext dataContext,
@@ -23,7 +25,9 @@ namespace ProductionSystem.Web.Helpers
             IFaseRepository faseRepository,
             IEmpleadoProduccionRepository empleadoProduccionRepository,
             IUserHelper userHelper,
-            IPedidoRepository pedidoRepository)
+            IPedidoRepository pedidoRepository,
+            IInsumoRepository insumoRepository,
+            IProduccionRepository produccionRepository)
         {
 
             _dataContext = dataContext;
@@ -32,6 +36,23 @@ namespace ProductionSystem.Web.Helpers
             this.empleadoProduccionRepository = empleadoProduccionRepository;
             this.userHelper = userHelper;
             this.pedidoRepository = pedidoRepository;
+            this.insumoRepository = insumoRepository;
+            this.produccionRepository = produccionRepository;
+        }
+
+        public InsumoUsado ToInsumoUsado(InsumoUsadoViewModel model)
+        {
+            var produccion = produccionRepository.GetProduccionById(model.ProduccionId);
+            var insumo = insumoRepository.GetInsumoById(model.InsumoId);
+
+            return new InsumoUsado
+            {
+                CantidadUsada = model.CantidadUsada,
+                Produccion = produccion,
+                Insumo = insumo,
+            };
+
+
         }
 
 
@@ -221,7 +242,6 @@ namespace ProductionSystem.Web.Helpers
                 ProductoReal = await _dataContext.ProductoReal.FindAsync(model.ProductoRealId),
 
                 Porcentaje = model.Porcentaje,
-
 
 
             };
