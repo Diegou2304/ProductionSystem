@@ -32,6 +32,7 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         {
             return context.Producciones
                 .Include(p => p.Pedido)
+                .ThenInclude(u => u.ProductoReal)
                 .Include(q => q.EmpleadoProducción)
                 .Include(l => l.Fase)
                 .Where(c => c.Pedido.estado == "Proceso" && c.EmpleadoProducción.Ci == user.Ci)

@@ -19,11 +19,12 @@ namespace ProductionSystem.Web.Models
         [Display(Name = "Etiqueta Id")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una etiqueta")]     
         public int EtiquetaId { get; set; }
-        
-        public int EnvaseId { get; set; }
+
         [Required(ErrorMessage = "El campo {0} es obligatorio")]
         [Display(Name = "Etiqueta Id")]
         [Range(1, int.MaxValue, ErrorMessage = "Debes seleccionar una etiqueta")]
+        public int EnvaseId { get; set; }
+       
 
         public int FormerEtiquetaId { get; set; }
         //Necesitamos los respectivos collections para llenar el combo box

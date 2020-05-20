@@ -10,8 +10,8 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200520073238_quesad")]
-    partial class quesad
+    [Migration("20200520163637_Inital")]
+    partial class Inital
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -772,7 +772,7 @@ namespace ProductionSystem.Web.Migrations
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Categoria", b =>
                 {
-                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea")
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea", "Linea")
                         .WithMany("Categorias")
                         .HasForeignKey("LineaId");
                 });

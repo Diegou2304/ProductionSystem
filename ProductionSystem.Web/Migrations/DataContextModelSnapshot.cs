@@ -770,7 +770,7 @@ namespace ProductionSystem.Web.Migrations
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Categoria", b =>
                 {
-                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea")
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Linea", "Linea")
                         .WithMany("Categorias")
                         .HasForeignKey("LineaId");
                 });

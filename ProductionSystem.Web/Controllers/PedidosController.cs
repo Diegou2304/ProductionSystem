@@ -163,7 +163,7 @@ namespace ProductionSystem.Web.Controllers
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (pedido == null)
             {
-                return NotFound();
+                return View("NoEncontrado");
             }
 
             return View(pedido);
@@ -195,6 +195,13 @@ namespace ProductionSystem.Web.Controllers
         //View para mostrar los pedidos pendientes por usuario
         public async Task<IActionResult> PedidosPendientesUsuario()
         {
+
+
+
+
+
+
+
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
             //valida que el usuario no este con un pedido en proceso
             if (user.Disponible == true)
@@ -204,7 +211,7 @@ namespace ProductionSystem.Web.Controllers
             else
             {
                 //TODO: hacer vista de Usurio Ocupado
-                return NotFound();
+                return View("NoEncontrado");
             }
             
         }

@@ -17,5 +17,50 @@
         <dd>
             @Html.DisplayFor(model => model.FechaProduccion)
         </dd>
+
+        <dt>
+            PEDIDO
+        </dt>
+        <br />
+        <dt>
+            Cantidad:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.Cantidad)
+        </dd>
+
+        <dt>
+            Fecha del Pedido:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.Fecha)
+        </dd>
+        <dt>
+            Estado del pedido:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.estado)
+        </dd>
+        <br />
+        <dt>
+            PRODUCTO
+        </dt>
+        <br />
+        <dt>
+            Descripcion del Producto:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.ProductoReal.Nombre)
+        </dd>
+
+        <dt>
+            Stock Actual:
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.ProductoReal.stock)
+        </dd>
+       
+
+
     </dl>
 </div>

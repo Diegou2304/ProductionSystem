@@ -194,6 +194,8 @@ namespace ProductionSystem.Web.Controllers
             if (user.Disponible == true)
                 return NotFound();
             var model = this.produccionRepository.GetProduccionUsuario(user);
+
+
             return View(model);
 
         }
