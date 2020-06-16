@@ -1,0 +1,46 @@
+﻿@model ProductionSystem.Web.Models.SucursalViewModel
+
+
+@{
+    ViewData["Title"] = "AddSucursal";
+}
+
+<h2>AddSucursal</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        <form asp-action="AddSucursal">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="EmpresaId" />
+
+
+            <div class="form-group">
+                <label>Nombre de la Empresa</label>
+                <input disabled asp-for="NombreEmpresa" class="control-label" />
+                
+            </div>
+            <div class="form-group">
+                <label asp-for="Direccion" class="control-label"></label>
+                <input asp-for="Direccion" asp-items="Model.Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+
+
+            <div class="form-group">
+                <label asp-for="Encargado" class="control-label"></label>
+                <input asp-for="Encargado" asp-items="Model.Encargado" class="form-control" />
+                <span asp-validation-for="Encargado" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-success" /> |
+                <a asp-action="Index" class="btn btn-primary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

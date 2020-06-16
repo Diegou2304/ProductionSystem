@@ -13,14 +13,22 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using ProductionSystem.Web.Helpers;
+    using ProductionSystem.Web.Models;
 
     public class EmpresasController : Controller
     {
         private readonly IEmpresaRepository empresaRepository;
+        private readonly IConverterHelper _converterHelper;
+        private readonly DataContext _dataContext;
 
-        public EmpresasController(IEmpresaRepository empresaRepository)
+        public EmpresasController(IEmpresaRepository empresaRepository
+            , IConverterHelper converterHelper,
+            DataContext dataContext)
         {
             this.empresaRepository = empresaRepository;
+            _converterHelper = converterHelper;
+            _dataContext = dataContext;
         }
 
         // GET: Empresas
@@ -90,11 +98,11 @@ namespace ProductionSystem.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(Empresa empresa)
         {
-            
+
             if (ModelState.IsValid)
             {
                 try
-                {               
+                {
                     await this.empresaRepository.UpdateAsync(empresa);
                 }
                 catch (DbUpdateConcurrencyException)
@@ -112,6 +120,7 @@ namespace ProductionSystem.Web.Controllers
             }
             return View(empresa);
         }
+
 
         // GET: Empresas/Delete/5
         public async Task<IActionResult> Delete(int? id)
@@ -140,5 +149,92 @@ namespace ProductionSystem.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public async Task<IActionResult> AddSucursal(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+
+            var empresa = await this.empresaRepository.GetByIdAsync(id.Value);
+            if (empresa == null)
+            {
+                return NotFound();
+            }
+
+            var model = new SucursalViewModel
+            {
+                EmpresaId = empresa.Id,
+                NombreEmpresa = empresa.Nombre,
+
+            };
+            return View(model);
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> AddSucursal(SucursalViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var sucursal = await _converterHelper.ToSucursal(model);
+            if (sucursal == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Sucursales.Add(sucursal);
+            _dataContext.SaveChanges();
+
+            return RedirectToAction($"Details/{model.EmpresaId}");
+        }
+
+        public IActionResult ViewSucursales(int? id)
+        {
+            return View(_dataContext.Sucursales
+           .Where(c => c.Empresa.Id == id));
+
+
+
+        }
+
+        public async Task<IActionResult> EditSucursales(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var sucursal = await _dataContext.Sucursales.FindAsync(id);
+            if (sucursal == null)
+            {
+                return NotFound();
+            }
+            return View(sucursal);
+
+
+        }
+        [HttpPost]
+        public IActionResult EditSucursales(Sucursal model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            _dataContext.Sucursales.Update(model);
+
+          
+
+            _dataContext.SaveChanges();
+
+            return RedirectToAction("Index");
+
+
+        }
     }
 }

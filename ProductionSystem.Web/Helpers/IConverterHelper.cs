@@ -30,5 +30,8 @@ namespace ProductionSystem.Web.Helpers
 
         InsumoUsado ToInsumoUsado(InsumoUsadoViewModel model);
 
+
+          Task<Sucursal> ToSucursal(SucursalViewModel model);
+
     }
 }

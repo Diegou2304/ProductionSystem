@@ -352,6 +352,26 @@ namespace ProductionSystem.Web.Helpers
             };
         }
 
+        public async Task<Sucursal> ToSucursal(SucursalViewModel model)
+        {
+            return new Sucursal
+            {
 
+               
+
+                Nombre = model.Nombre,
+
+                
+                Direccion = model.Direccion,
+
+                Encargado = model.Encargado,
+
+                Empresa = await  _dataContext.Empresas.FindAsync(model.EmpresaId),
+
+
+            };
+        }
+
+       
     }
 }

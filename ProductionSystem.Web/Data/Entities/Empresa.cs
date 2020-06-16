@@ -13,6 +13,10 @@ namespace ProductionSystem.Web.Data.Entities
         public int Id { get; set; }
 
 
+
+
+
+        public string Nombre { get; set;}
      
         [Required]
         [MaxLength(50, ErrorMessage = " El campo no puede tener mas caracteres")]

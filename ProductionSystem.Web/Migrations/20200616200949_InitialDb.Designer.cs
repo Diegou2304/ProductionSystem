@@ -10,8 +10,8 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200521000714_initialdb")]
-    partial class initialdb
+    [Migration("20200616200949_InitialDb")]
+    partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
