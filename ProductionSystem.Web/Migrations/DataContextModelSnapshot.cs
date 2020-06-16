@@ -170,6 +170,8 @@ namespace ProductionSystem.Web.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<string>("Nombre");
+
                     b.Property<string>("Telefono")
                         .IsRequired();
 

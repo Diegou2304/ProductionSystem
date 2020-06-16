@@ -24,7 +24,7 @@
             @Html.DisplayFor(model => model.stock)
         </dd>
         <dt>
-           Producto Real
+            Producto Real
         </dt>
         <dd>
             @Html.DisplayFor(model => model.Producto.Nombre)
@@ -46,6 +46,14 @@
             <br />
             Etiqueta: @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Nombre) Tamaño : @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Altura) cm @Html.DisplayFor(model => model.Producto.Presentacion.Etiqueta.Ancho) cm
 
+        </dd>
+        <dt>
+            Sabor
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Sabor.Nombre)
+         
         </dd>
 
         </dd>

@@ -176,9 +176,10 @@ namespace ProductionSystem.Web.Helpers
                 pt => new SelectListItem
                 {
                     Text = 
-                    pt.Nombre +
-                    pt.TipoProducto.Nombre + 
-                    pt.Sabor.Nombre,
+                    pt.Nombre +" " + 
+                    pt.TipoProducto.Nombre + " " +
+                    pt.Sabor.Nombre + " Capacidad: "
+                    +pt.Presentacion.Envase.Capacidad +"Gr " + "Plastico:" +  $"{pt.Presentacion.Envase.Isplastic}",
 
                     Value = $"{pt.Id}",
 

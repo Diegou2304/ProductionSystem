@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ProductionSystem.Web.Migrations
 {
-    public partial class Inital : Migration
+    public partial class initialdb : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -60,6 +60,7 @@ namespace ProductionSystem.Web.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(nullable: true),
                     Direccion = table.Column<string>(maxLength: 50, nullable: false),
                     Telefono = table.Column<string>(nullable: false)
                 },

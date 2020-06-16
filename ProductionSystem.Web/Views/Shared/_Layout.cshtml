@@ -79,21 +79,22 @@
                                 <br />
                                 <a asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
                                 <br />
-                            </div>
+                        <a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+
+</div>
                         </li>
 
                     }
 
+                    else 
+                    {
 
+                      
+                        <li><a asp-area="" asp-controller="Pedidos" asp-action="PedidosPendientesUsuario">Pedidos X cuenta</a></li>
 
-                    <li><a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a></li>
-
-                    <li><a asp-area="" asp-controller="Pedidos" asp-action="PedidosPendientesUsuario">Pedidos X cuenta</a></li>
-
-                    <li><a asp-area="" asp-controller="Producciones" asp-action="ProduccionUsuario">Produccion</a></li>
-
-
-                </ul>
+                        <li><a asp-area="" asp-controller="Producciones" asp-action="ProduccionUsuario">Produccion</a></li>
+                    }
+                    </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
                     {

@@ -10,8 +10,8 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200520163637_Inital")]
-    partial class Inital
+    [Migration("20200521000714_initialdb")]
+    partial class initialdb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -171,6 +171,8 @@ namespace ProductionSystem.Web.Migrations
                     b.Property<string>("Direccion")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<string>("Nombre");
 
                     b.Property<string>("Telefono")
                         .IsRequired();

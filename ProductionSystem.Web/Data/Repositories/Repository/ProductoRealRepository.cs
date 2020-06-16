@@ -38,6 +38,10 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                     .ThenInclude(p => p.Presentacion)
                  
                     .ThenInclude(et => et.Etiqueta)
+                     .Include(pr => pr.Producto)
+                    .ThenInclude(p => p.Sabor)
+
+
                    .Include(pr => pr.Producto)
                     .ThenInclude(p => p.Presentacion)
 
