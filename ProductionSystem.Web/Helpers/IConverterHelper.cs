@@ -31,7 +31,11 @@ namespace ProductionSystem.Web.Helpers
         InsumoUsado ToInsumoUsado(InsumoUsadoViewModel model);
 
 
-          Task<Sucursal> ToSucursal(SucursalViewModel model);
+        Task<Sucursal> ToSucursal(SucursalViewModel model);
+
+        Task<Pago> ToPagoAsync(PagoViewModel model);
+
+        Task<ProductoPago> ToProductoPagoAsync(PagoViewModel model);
 
     }
 }

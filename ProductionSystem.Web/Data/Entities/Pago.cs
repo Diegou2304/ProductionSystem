@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Pago
+    public class Pago : IEntity
     {
         public int Id { get; set; }
 

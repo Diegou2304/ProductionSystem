@@ -5,8 +5,8 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class ProductoPago
-    {
+    public class ProductoPago: IEntity
+    { 
 
         public int Id { get; set; }
 

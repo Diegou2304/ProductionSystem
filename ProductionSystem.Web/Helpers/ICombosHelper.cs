@@ -29,5 +29,7 @@ namespace ProductionSystem.Web.Helpers
         IEnumerable<SelectListItem> GetComboLineas();
         IEnumerable<SelectListItem> GetComboCategorias(int idlinea);
 
+        IEnumerable<SelectListItem> GetComboEmpresas();
+
     }
 }

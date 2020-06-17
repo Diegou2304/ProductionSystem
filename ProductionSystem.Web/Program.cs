@@ -16,7 +16,7 @@ public class Program
         host.Run();
     }
 
-    private static void RunSeeding(IWebHost host)
+   private static void RunSeeding(IWebHost host)
     {
         var scopeFactory = host.Services.GetService<IServiceScopeFactory>();
         using (var scope = scopeFactory.CreateScope())
@@ -25,7 +25,7 @@ public class Program
             seeder.SeedAsync().Wait();
         }
     }
-
+    
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
         WebHost.CreateDefaultBuilder(args)
             .UseStartup<Startup>();

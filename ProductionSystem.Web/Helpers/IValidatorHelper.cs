@@ -4,5 +4,7 @@
     {
         bool IsEtiquetaUsed(int? id);
         bool IsPedidoPendiente(int? id);
+
+        bool IsEnoughProduct(int? id, int cantidad);
     }
 }

@@ -1,8 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Data.Repositories.Interfaz;
 using ProductionSystem.Web.Models;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Helpers
@@ -372,6 +374,42 @@ namespace ProductionSystem.Web.Helpers
             };
         }
 
-       
+        public async Task<Pago> ToPagoAsync(PagoViewModel model)
+        {
+            return new Pago
+            {
+
+
+
+                Nombre = model.Nombre,
+
+
+                MontoTotal = model.MontoTotal,
+
+                Fecha = model.Fecha,
+
+                Empresa = await  _dataContext.Empresas.FindAsync(model.EmpresaId),
+
+
+            };
+        }
+
+        public async Task<ProductoPago> ToProductoPagoAsync(PagoViewModel model)
+        {
+            return new ProductoPago
+            {
+
+
+
+                Monto = model.MontoPago,
+
+                UnidadesPagadas = model.UnidadesPagadas,
+                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.EmpresaId),
+
+                Pago =await  _dataContext.Pagos.LastAsync(),
+               
+            };
+
+        }
     }
 }

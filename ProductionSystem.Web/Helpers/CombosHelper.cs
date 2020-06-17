@@ -234,7 +234,9 @@ namespace ProductionSystem.Web.Helpers
                 pt => new SelectListItem
                 {
                     Text =
-                    pt.Nombre,
+                    pt.Nombre + 
+                    
+                    " Stock: "+pt.stock,
 
                     Value = $"{pt.Id}",
 
@@ -352,6 +354,36 @@ namespace ProductionSystem.Web.Helpers
             list.Insert(0, new SelectListItem
             {
                 Text = "Selecciona la Categoria",
+                Value = "0"
+            });
+
+            return list;
+        }
+
+        public IEnumerable<SelectListItem> GetComboEmpresas()
+        {
+            var list = _dataContext.Empresas.Select(
+                 pt => new SelectListItem
+                 {
+                     Text =
+                     pt.Nombre,
+                    
+
+                     Value = $"{pt.Id}",
+
+                 })
+
+                 .OrderBy(pt => pt.Text)
+
+                 .ToList();
+
+
+
+
+
+            list.Insert(0, new SelectListItem
+            {
+                Text = "Selecciona la Empresa",
                 Value = "0"
             });
 

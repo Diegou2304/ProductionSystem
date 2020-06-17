@@ -20,7 +20,17 @@ namespace ProductionSystem.Web.Helpers
             _dataContext = dataContext;
         }
 
+        public bool IsEnoughProduct(int? id,int cantidad)
+        {
+            var producto = _dataContext.ProductoReal.FirstOrDefault(p => p.Id == id);
 
+            if(producto.stock < cantidad)
+            {
+                return false;
+
+            }
+            return true; 
+        }
 
         public bool IsEtiquetaUsed(int? id)
         {
