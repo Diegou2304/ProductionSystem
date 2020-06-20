@@ -5,7 +5,8 @@
 }
 
 
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
 
 <h2>Inventario de Empresas</h2>
 
@@ -14,7 +15,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <table class="table table-hover table-responsive-xl table-striped" id="InventarioTable">
+                <table  class="table table-hover table-responsive-xl table-striped" id="InventarioTable">
                     <thead>
                         <tr>
                             <th>
@@ -26,7 +27,6 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Stock)
                             </th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,7 +43,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.Stock)
                                 </td>
-                              
+
                             </tr>
                         }
                     </tbody>
@@ -54,9 +54,8 @@
 </div>
 
 @section Scripts {
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>    
-<script>
-
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
         $(document).ready(function () {
             $('#InventarioTable').DataTable();
         });
