@@ -250,6 +250,25 @@ namespace ProductionSystem.Web.Controllers
         }
 
 
+        public IActionResult DetailsInsumoUsado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var insumoUsado = this.insumoUsadoRepository.GetInsumoUsadoById(id.Value);
+            if (insumoUsado == null)
+            {
+                return NotFound();
+            }
+
+            return View(insumoUsado);
+        }
+
+
+
+
 
     }
 }

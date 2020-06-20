@@ -1,4 +1,5 @@
 ﻿
+
 namespace ProductionSystem.Web.Data.Repositories.Interfaz
 {
     using ProductionSystem.Web.Data.Entities;
@@ -7,11 +8,8 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
     using System.Linq;
     using System.Threading.Tasks;
 
-
-    public interface IInsumoUsadoRepository : IGenericRepository<InsumoUsado>
+    public interface IDeshechoRepository : IGenericRepository<Deshecho>
     {
-
-        InsumoUsado GetInsumoUsadoById(int id);
 
 
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Deshecho
+    public class Deshecho : IEntity
     {
         [ForeignKey("Produccion")]
         public int Id { get; set; }

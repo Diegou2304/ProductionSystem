@@ -2,6 +2,7 @@
 
 namespace ProductionSystem.Web.Data.Repositories.Repository
 {
+    using Microsoft.EntityFrameworkCore;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
     using System;
@@ -18,6 +19,17 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
         {
             this.context = context;
         }
+
+        //Insumo Usado por Id
+
+        public InsumoUsado GetInsumoUsadoById(int id)
+        {
+            return context.InsumoUsados
+                .Include(i => i.Insumo)
+                .Where(c => c.Id == id)
+                .FirstOrDefault();
+        }
+
 
 
     }

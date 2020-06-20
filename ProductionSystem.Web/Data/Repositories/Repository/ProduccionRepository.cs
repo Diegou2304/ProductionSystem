@@ -44,6 +44,7 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                 .ThenInclude(u => u.ProductoReal)
                 .Include(q => q.EmpleadoProducción)
                 .Include(l => l.Fase)
+                .Include(i => i.InsumosUsados)
                 .Where(c => c.Pedido.estado == "Proceso" && c.EmpleadoProducción.Ci == user.Ci)
                 .FirstOrDefault();
         }

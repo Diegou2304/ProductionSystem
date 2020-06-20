@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Data.Entities
 {
-    public class Resultado
+    public class Resultado : IEntity
     {
 
         [ForeignKey("Produccion")]

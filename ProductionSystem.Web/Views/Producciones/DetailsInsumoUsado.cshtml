@@ -1,0 +1,33 @@
+﻿@model ProductionSystem.Web.Data.Entities.InsumoUsado
+
+@{
+    ViewData["Title"] = "DetailsInsumoUsado";
+}
+
+<h2>DetailsInsumoUsado</h2>
+
+<div>
+    <h4>InsumoUsado</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.CantidadUsada)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.CantidadUsada)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Insumo.Nombre)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Insumo.Nombre)
+        </dd>
+    </dl>
+</div>
+
