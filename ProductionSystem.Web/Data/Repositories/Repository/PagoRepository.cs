@@ -19,11 +19,12 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
 
         public Pago GetPagosCompletos(int ? id)
         {
-            return context.Pagos
+            var pr3 = context.Pagos
                 .Include(p => p.ProductoPago)
-                   
+
                  .Include(pr => pr.Empresa)
                 .FirstOrDefault(p => p.Id == id);
+            return pr3;
         }
 
        

@@ -1,5 +1,6 @@
 ﻿using ProductionSystem.Web.Data.Entities;
 using ProductionSystem.Web.Models;
+using System;
 using System.Threading.Tasks;
 
 namespace ProductionSystem.Web.Helpers
@@ -36,6 +37,8 @@ namespace ProductionSystem.Web.Helpers
         Task<Pago> ToPagoAsync(PagoViewModel model);
 
         Task<ProductoPago> ToProductoPagoAsync(PagoViewModel model);
+
+        Task<InventarioEmpresa> ToInventarioEmpresaAsync(PagoViewModel model);
 
     }
 }

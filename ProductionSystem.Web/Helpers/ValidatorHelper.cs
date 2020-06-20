@@ -1,5 +1,6 @@
 ﻿using ProductionSystem.Web.Data;
 using ProductionSystem.Web.Data.Entities;
+using ProductionSystem.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,20 @@ namespace ProductionSystem.Web.Helpers
             return false;
         }
 
+        public bool ProductStorageExists(PagoViewModel model)
+        {
+                var inventarioempresa= _dataContext
+                       .InventarioEmpresas
+                       .FirstOrDefault(e => e.ProductoReal.Id == model.IdProductoFinal
+                       && e.Empresa.Id == model.EmpresaId);
 
+            if(inventarioempresa == null)
+            {
+                return false;
+            }
+
+            return true;
+
+        }
     }
 }
