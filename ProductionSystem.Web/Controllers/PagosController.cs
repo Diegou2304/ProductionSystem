@@ -17,18 +17,21 @@ namespace ProductionSystem.Web.Controllers
         private readonly ICombosHelper _combosHelper;
         private readonly IValidatorHelper _validatorHelper;
         private readonly IPagoRepository _IpagoRepository;
+        private readonly IProductoPagoRepository _productoPagoRepository;
 
         public PagosController(DataContext context,
             IConverterHelper converterHelper,
             ICombosHelper combosHelper,
             IValidatorHelper validatorHelper,
-            IPagoRepository pagoRepository)
+            IPagoRepository pagoRepository,
+            IProductoPagoRepository productoPagoRepository)
         {
             _context = context;
             _converterHelper = converterHelper;
             _combosHelper = combosHelper;
             _validatorHelper = validatorHelper;
             _IpagoRepository = pagoRepository;
+            _productoPagoRepository = productoPagoRepository;
         }
 
         // GET: Pagos
@@ -49,7 +52,7 @@ namespace ProductionSystem.Web.Controllers
           
 
        
-            return View(_IpagoRepository.GetPagosCompletos(id));
+            return View(_productoPagoRepository.GetAllPagos(id));
         }
 
         // GET: Pagos/Create
@@ -109,7 +112,38 @@ namespace ProductionSystem.Web.Controllers
 
                 _context.SaveChanges();
 
+                //Aqui tenemos que itroducir a inventarioEmpresa
+                //Primero tenemos que verificar que no existael producto real combinado con la empresa
+                
+                if(!_validatorHelper.ProductStorageExists(model))
+                {
 
+                    var inventarioEmpresa =  await _converterHelper.ToInventarioEmpresaAsync(model);
+
+                    _context.InventarioEmpresas.Add(inventarioEmpresa);
+
+                    _context.SaveChanges();
+
+
+
+                }
+                else
+                {
+
+                    var inventarioEmpresa =  _context
+                        .InventarioEmpresas
+                        .FirstOrDefault(e => e.ProductoReal.Id == model.IdProductoFinal 
+                        && e.Empresa.Id == model.EmpresaId);
+                    inventarioEmpresa.Stock = inventarioEmpresa.Stock + model.UnidadesPagadas;
+
+                    _context.InventarioEmpresas.Update(inventarioEmpresa);
+
+                    _context.SaveChanges();
+
+                }
+                
+                //Si existe extraemos y solamente lo actualizamos
+                //Si no existe se procede a crear uno nuevo.
 
                 return RedirectToAction("Index");
 

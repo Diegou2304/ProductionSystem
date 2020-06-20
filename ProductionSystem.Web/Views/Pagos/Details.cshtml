@@ -1,4 +1,4 @@
-﻿@model ProductionSystem.Web.Data.Entities.Pago
+﻿@model ProductionSystem.Web.Data.Entities.ProductoPago
 
 @{
     ViewData["Title"] = "Details";
@@ -11,18 +11,25 @@
     <hr />
     <dl class="dl-horizontal">
 
+
+        <dt>
+            Producto Pagado
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProductoReal.Nombre)
+        </dd>
         <dt>
             Empresa
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Empresa.Nombre)
+            @Html.DisplayFor(model => model.Pago.Empresa.Nombre)
         </dd>
 
         <dt>
             Descripcion del pago
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Nombre)
+            @Html.DisplayFor(model => model.Pago.Nombre)
         </dd>
 
 
@@ -30,21 +37,27 @@
             Monto Total
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.MontoTotal)
+            @Html.DisplayFor(model => model.Pago.MontoTotal)
         </dd>
 
         <dt>
             Fecha
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Fecha)
+            @Html.DisplayFor(model => model.Pago.Fecha)
         </dd>
 
-       
+        <dt>
+            Unidades Pagadas
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UnidadesPagadas)
+        </dd>
+
+
 
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+  <a asp-action="Index">Back to List</a>
 </div>

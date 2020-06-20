@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProductionSystem.Web.Data.Entities.InventarioEmpresa>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css">
+
+<h2>Inventario de Empresas</h2>
+
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-responsive-xl table-striped" id="InventarioTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Empresa.Nombre)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.ProductoReal.Nombre)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Stock)
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Empresa.Nombre)
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ProductoReal.Nombre)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Stock)
+                                </td>
+                              
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>    
+<script>
+
+        $(document).ready(function () {
+            $('#InventarioTable').DataTable();
+        });
+    </script>
+}

@@ -404,12 +404,23 @@ namespace ProductionSystem.Web.Helpers
                 Monto = model.MontoPago,
 
                 UnidadesPagadas = model.UnidadesPagadas,
-                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.EmpresaId),
+                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.IdProductoFinal),
 
                 Pago =await  _dataContext.Pagos.LastAsync(),
                
             };
 
+        }
+
+        public async Task<InventarioEmpresa> ToInventarioEmpresaAsync(PagoViewModel model)
+        {
+            return new InventarioEmpresa
+            {
+                Stock = model.UnidadesPagadas,
+                ProductoReal = await _dataContext.ProductoReal.FindAsync(model.IdProductoFinal),
+                Empresa = await _dataContext.Empresas.FindAsync(model.EmpresaId),
+
+            };
         }
     }
 }

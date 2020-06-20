@@ -100,6 +100,8 @@ namespace ProductionSystem.Web
             services.AddScoped<IPagoRepository, PagoRepository>();
 
             services.AddScoped<IInsumoUsadoRepository, InsumoUsadoRepository>();
+            services.AddScoped<IProductoPagoRepository, ProductoPagoRepository>();
+
         }
 
 
