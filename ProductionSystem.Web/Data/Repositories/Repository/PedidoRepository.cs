@@ -11,10 +11,13 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
     public class PedidoRepository : GenericRepository<Pedido>, IPedidoRepository
     {
         private readonly DataContext context;
+        private readonly IFaseRepository faseRepository;
 
-        public PedidoRepository(DataContext context) : base(context)
+        public PedidoRepository(DataContext context,
+            IFaseRepository faseRepository) : base(context)
         {
             this.context = context;
+            this.faseRepository = faseRepository;
         }
 
         
@@ -63,12 +66,13 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             return context.Pedidos
                 .Include(p => p.ProductoReal)
                 .ThenInclude(pr => pr.Producto)
-                .Where(c => c.estado == "Pendiente" && c.NumeroFase == user.CargoNumero);
+                .Where(c => (c.estado == "Pendiente" || c.estado == "Proceso") && c.NumeroFase == user.CargoNumero);
         }
 
         //Por probar
         //Hacer la que cambia de estado 
 
+        
         public async Task CambiarEstadoAProceso(Pedido pedido)
         {
             pedido.estado = "Proceso";
@@ -81,6 +85,29 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             await this.UpdateAsync(pedido);
         }
 
-        
+        public async Task CambiarAFaseSiguiente(Pedido pedido)
+        {
+
+            int aux = faseRepository.GetNumeroUltimaFase();
+            int aux2 = pedido.NumeroFase;
+
+            if (pedido.NumeroFase == aux)
+            {
+                pedido.estado = "Finalizado";
+                await this.UpdateAsync(pedido);
+            }
+            if (aux2 < aux)
+            {
+                pedido.NumeroFase += 1;
+                await this.UpdateAsync(pedido);
+            }
+            
+                        
+        }
+
+
+
+
+
     }
 }

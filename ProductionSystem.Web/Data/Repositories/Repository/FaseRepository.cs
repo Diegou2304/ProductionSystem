@@ -66,8 +66,15 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
             return fase.Numero;
         }
 
+        public int GetNumeroUltimaFase()
+        {
+            var fase = this.GetLastRecord();
+            return fase.Numero;
+        }
+
+
         //
-       
+
 
 
     }

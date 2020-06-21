@@ -21,5 +21,7 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
 
         Task<Fase> GetFasePorNumeroAsync(int numero);
 
+        int GetNumeroUltimaFase();
+
     }
 }

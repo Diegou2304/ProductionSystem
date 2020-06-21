@@ -57,6 +57,36 @@ namespace ProductionSystem.Web.Helpers
 
         }
 
+        public Deshecho ToDeshecho(DeshechoViewModel model)
+        {
+            var produccion = produccionRepository.GetProduccionById(model.ProduccionId);
+            
+            return new Deshecho
+            {
+                Produccion = produccion,
+                Cantidad = model.Cantidad,
+                Observaciones = model.Observaciones,
+            };
+
+
+        }
+
+        public Resultado ToResultado (ResultadoViewModel model)
+        {
+            var produccion = produccionRepository.GetProduccionById(model.ProduccionId);
+
+            return new Resultado
+            {
+                Produccion = produccion,
+                Cantidad = model.Cantidad,
+                Observaciones = model.Observaciones,
+            };
+
+
+        }
+
+
+
 
         public async Task<Produccion> ToProduccionAsync(ProduccionViewModel model)
         {

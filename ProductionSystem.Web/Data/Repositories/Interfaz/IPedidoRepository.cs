@@ -18,5 +18,7 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
         Task CambiarEstadoAProceso(Pedido pedido);
         Task CambiarEstadoAFinalizado(Pedido pedido);
 
+        Task CambiarAFaseSiguiente(Pedido pedido);
+
     }
 }

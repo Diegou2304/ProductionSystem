@@ -195,13 +195,6 @@ namespace ProductionSystem.Web.Controllers
         //View para mostrar los pedidos pendientes por usuario
         public async Task<IActionResult> PedidosPendientesUsuario()
         {
-
-
-
-
-
-
-
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
             //valida que el usuario no este con un pedido en proceso
             if (user.Disponible == true)

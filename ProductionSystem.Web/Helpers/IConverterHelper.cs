@@ -40,5 +40,11 @@ namespace ProductionSystem.Web.Helpers
 
         Task<InventarioEmpresa> ToInventarioEmpresaAsync(PagoViewModel model);
 
+
+
+        Deshecho ToDeshecho(DeshechoViewModel model);
+
+        Resultado ToResultado(ResultadoViewModel model);
+
     }
 }

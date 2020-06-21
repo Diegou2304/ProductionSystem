@@ -12,6 +12,7 @@ namespace ProductionSystem.Web.Controllers
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
+    using ProductionSystem.Web.Data.Repositories.Repository;
     using ProductionSystem.Web.Helpers;
     using ProductionSystem.Web.Models;
     using Remotion.Linq.Parsing.ExpressionVisitors.TreeEvaluation;
@@ -24,6 +25,8 @@ namespace ProductionSystem.Web.Controllers
         private readonly IConverterHelper converterHelper;
         private readonly ICombosHelper combosHelper;
         private readonly IInsumoUsadoRepository insumoUsadoRepository;
+        private readonly IDeshechoRepository deshechoRepository;
+        private readonly IResultadoRepository resultadoRepository;
 
         public ProduccionesController(
             IProduccionRepository produccionRepository, 
@@ -31,7 +34,9 @@ namespace ProductionSystem.Web.Controllers
             IUserHelper userHelper,
             IConverterHelper converterHelper,
             ICombosHelper combosHelper,
-            IInsumoUsadoRepository insumoUsadoRepository)
+            IInsumoUsadoRepository insumoUsadoRepository,
+            IDeshechoRepository deshechoRepository,
+            IResultadoRepository resultadoRepository)
         {
             this.produccionRepository = produccionRepository;
             this.pedidoRepository = pedidoRepository;
@@ -39,6 +44,8 @@ namespace ProductionSystem.Web.Controllers
             this.converterHelper = converterHelper;
             this.combosHelper = combosHelper;
             this.insumoUsadoRepository = insumoUsadoRepository;
+            this.deshechoRepository = deshechoRepository;
+            this.resultadoRepository = resultadoRepository;
         }
 
         // GET: Producciones
@@ -114,7 +121,6 @@ namespace ProductionSystem.Web.Controllers
             }
             return View(model);
         }
-
 
         // GET: Producciones/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -249,7 +255,6 @@ namespace ProductionSystem.Web.Controllers
             return this.View(model);
         }
 
-
         public IActionResult DetailsInsumoUsado(int? id)
         {
             if (id == null)
@@ -265,6 +270,113 @@ namespace ProductionSystem.Web.Controllers
 
             return View(insumoUsado);
         }
+                
+        public IActionResult AddDeshecho(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var produccion = this.produccionRepository.GetProduccionById(id.Value);
+            if (produccion == null)
+            {
+                return NotFound();
+            }
+
+            var model = new DeshechoViewModel
+            {
+
+                ProduccionId = produccion.Id,
+                
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddDeshecho(DeshechoViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var deshecho = converterHelper.ToDeshecho(model);
+                
+                await deshechoRepository.CreateAsync(deshecho);
+                //
+
+                return this.RedirectToAction("ProduccionUsuario");
+            }
+
+            return this.View(model);
+        }
+
+        public IActionResult AddResultado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var produccion = this.produccionRepository.GetProduccionById(id.Value);
+            if (produccion == null)
+            {
+                return NotFound();
+            }
+
+            var model = new ResultadoViewModel
+            {
+
+                ProduccionId = produccion.Id,
+
+            };
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddResultado(ResultadoViewModel model)
+        {
+            if (this.ModelState.IsValid)
+            {
+                var resultado = converterHelper.ToResultado(model);
+                
+                await resultadoRepository.CreateAsync(resultado);
+                //
+
+                return this.RedirectToAction("ProduccionUsuario");
+            }
+
+            return this.View(model);
+        }
+
+
+        
+        public async Task<IActionResult> Confirmar(int? id)
+        {
+
+            if(id == null)
+            {
+                return NotFound();
+            }
+            var produccion = this.produccionRepository.GetProduccionById(id.Value);
+            if (produccion == null)
+            {
+                return NotFound();
+            }
+
+            //cambio de estados
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            
+            await this.pedidoRepository.CambiarAFaseSiguiente(produccion.Pedido);
+            await this.userHelper.CambiarEstadoADisponible(user);
+
+            return RedirectToAction("ProduccionUsuario");
+
+        }
+        
+
+
+
 
 
 
