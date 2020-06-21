@@ -3,12 +3,12 @@
     ViewData["Title"] = "ProduccionUsuario";
 }
 
-<h2>Produccion Actual</h2>
 
-<h2>Detalles</h2>
 
 <div>
     <hr />
+    <h1>Produccion Actual</h1>
+    <h2>Detalles</h2>
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.FechaProduccion)
@@ -112,101 +112,94 @@
         @if (Model != null)
         {
 
-            <a asp-area="" asp-controller="Producciones" asp-action="AddInsumoUsado" asp-route-id="@Model.Id">Agregar Cantidad Usada</a>
+            <a asp-area="" asp-controller="Producciones" asp-action="AddInsumoUsado" asp-route-id="@Model.Id" class="btn btn-warning ">Agregar Cantidad Usada</a>
         }
     </td>
 }
 
 
-<h2>Deshechos</h2>
 
-@if (Model.Deshecho == null)
-{
-    <h5>No se han agregado deshechos</h5>
-
-    @if (Model != null)
+    @if (Model.Deshecho == null)
     {
+        <h2>Deshechos</h2>
+        @if (Model != null)
+        {
 
-        <a asp-area="" asp-controller="Producciones" asp-action="AddDeshecho" asp-route-id="@Model.Id">Agregar Desecho</a>
+            <a asp-area="" asp-controller="Producciones" asp-action="AddDeshecho" asp-route-id="@Model.Id" class="btn btn-warning">Agregar Desecho</a>
+        }
+
+    }
+    else
+    {
+        <table class="table table-hover table-responsive-xl table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Deshecho.Cantidad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Deshecho.Observaciones)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.Deshecho.Cantidad)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.Deshecho.Observaciones)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
     }
 
-}
-else
-{
-    <table class="table table-hover table-responsive-xl table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Deshecho.Cantidad)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Deshecho.Observaciones)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Deshecho.Cantidad)
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Deshecho.Observaciones)
-                </td>
-            </tr>
-        </tbody>
-    </table>
-
-}
 
 
-<h2>Resultados</h2>
 
-@if (Model.Resultado == null && Model.Deshecho != null)
-{
-    <h5>No se han agregado resultado</h5>
-
-    @if (Model != null)
+    @if (Model.Resultado == null && Model.Deshecho != null)
     {
 
-        <a asp-area="" asp-controller="Producciones" asp-action="AddResultado" asp-route-id="@Model.Id">Agregar Resultado</a>
+        <h2>Resultados</h2>
+
+        <a asp-area="" asp-controller="Producciones" asp-action="AddResultado" asp-route-id="@Model.Id" class="btn btn-warning">Agregar Resultado</a>
+
     }
 
-}
-else
-{
-    <table class="table table-hover table-responsive-xl table-striped">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Resultado.Cantidad)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Resultado.Observaciones)
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Resultado.Cantidad)
-                </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => Model.Resultado.Observaciones)
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    @if (Model.Resultado != null)
+    {
+        <h2>Resultados</h2>
 
-}
+        <table class="table table-hover table-responsive-xl table-striped">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Resultado.Cantidad)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Resultado.Observaciones)
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.Resultado.Cantidad)
+                    </td>
 
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.Resultado.Observaciones)
+                    </td>
+                </tr>
+            </tbody>
+        </table>
 
-@if (Model.Resultado != null)
-{
-
-    <a asp-area="" asp-controller="Producciones" asp-action="Confirmar" asp-route-id="@Model.Id">Confirmar Finalizacion</a>
-}
+        <a asp-area="" asp-controller="Producciones" asp-action="Confirmar" asp-route-id="@Model.Id" class="btn btn-success">Confirmar Finalizacion</a>
+    }
 
 
 

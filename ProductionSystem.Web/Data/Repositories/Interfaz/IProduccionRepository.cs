@@ -17,5 +17,9 @@ namespace ProductionSystem.Web.Data.Repositories.Interfaz
 
         Task ActulizarInsumosUsadosenProduccion(InsumoUsado insumo, int id);
 
+        IQueryable GetProduccionUsuarioFinalizada(User user);
+
+        IQueryable GetProducciones();
+
     }
 }

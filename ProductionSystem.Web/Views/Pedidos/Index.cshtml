@@ -18,7 +18,7 @@
     <div class="col-md-12">
         <div class="panel panel-default">
             <div class="panel-body">
-                <table class="table table-hover table-responsive-xl table-striped" id="PresentacionTable">
+                <table class="table table-hover table-responsive-xl table-striped" id="PedidoTable">
                     <thead>
                         <tr>
                             <th>
@@ -37,6 +37,7 @@
                                 @Html.DisplayNameFor(model => model.Cantidad)
                             </th>
 
+                            <th></th>
 
                         </tr>
                     </thead>
@@ -78,7 +79,7 @@
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#PresentacionTable').DataTable();
+            $('#PedidoTable').DataTable();
         });
     </script>
 }

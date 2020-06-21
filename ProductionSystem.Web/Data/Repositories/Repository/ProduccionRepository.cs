@@ -51,14 +51,50 @@ namespace ProductionSystem.Web.Data.Repositories.Repository
                 .FirstOrDefault();
         }
 
+
+        public IQueryable GetProduccionUsuarioFinalizada(User user)
+        {
+            return context.Producciones
+                .Include(p => p.Pedido)
+                .ThenInclude(u => u.ProductoReal)
+                .Include(q => q.EmpleadoProducción)
+                .Include(l => l.Fase)
+                .Include(i => i.InsumosUsados)
+                .Include(d => d.Deshecho)
+                .Include(r => r.Resultado)
+                .Where(c => c.EmpleadoProducción.Ci == user.Ci)
+                .OrderBy(f => f.FechaProduccion);
+        }
+
+
+        public IQueryable GetProducciones()
+        {
+            return context.Producciones
+                .Include(p => p.Pedido)
+                .ThenInclude(u => u.ProductoReal)
+                .Include(q => q.EmpleadoProducción)
+                .Include(l => l.Fase)
+                .Include(i => i.InsumosUsados)
+                .Include(d => d.Deshecho)
+                .Include(r => r.Resultado)
+                .OrderBy(f => f.FechaProduccion);
+        }
+
+
+
+
+
         //obtener produccion por id
         public Produccion GetProduccionById(int id)
         {
             return context.Producciones
                 .Include(p => p.Pedido)
+                .ThenInclude(u => u.ProductoReal)
                 .Include(q => q.EmpleadoProducción)
                 .Include(s => s.InsumosUsados)
                 .Include(l => l.Fase)
+                .Include(r => r.Resultado)
+                .Include(d => d.Deshecho)
                 .Where(c => c.Id == id)
                 .FirstOrDefault();
         }

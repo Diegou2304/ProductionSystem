@@ -4,30 +4,92 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" />
+<br />
 
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FechaProduccion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaProduccion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+<h2>Producciones</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <table class="table table-hover table-responsive-xl table-striped" id="ProduccionesTable">
+                    <thead>
+                        <tr>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FechaProduccion)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Pedido.ProductoReal.Nombre)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Pedido.Id)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Pedido.Fecha)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.Pedido.estado)
+                            </th>
+
+                            <th>
+                                @Html.DisplayNameFor(model => model.EmpleadoProducción.Fase.Nombre)
+                            </th>
+
+                            <th></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.FechaProduccion)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedido.ProductoReal.Nombre)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedido.Id)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedido.Fecha)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Pedido.estado)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.EmpleadoProducción.Fase.Nombre)
+                            </td>
+
+                            <td align="right">
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info">Detalles</a>
+                            </td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#ProduccionesTable').DataTable();
+        });
+    </script>
 }
-    </tbody>
-</table>

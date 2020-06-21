@@ -33,28 +33,26 @@
 
                     @if (this.User.IsInRole("Administrador"))
                     {
+
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Productos</a>
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Presentacion</a>
                             <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
-                                <a asp-area="" asp-controller="Sabores" asp-action="Index">Sabores </a>
-                                <br />
                                 <a asp-area="" asp-controller="Etiquetas" asp-action="Index">Etiquetas</a>
                                 <br />
                                 <a asp-area="" asp-controller="Envases" asp-action="Index">Envases</a>
                                 <br />
-                                <a asp-area="" asp-controller="TipoProductos" asp-action="Index">TipoProducto</a>
+                                <a asp-area="" asp-controller="TipoProductos" asp-action="Index">Tipos de Productos</a>
                                 <br />
-                                <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
+                                <a asp-area="" asp-controller="Lineas" asp-action="Index">Lineas</a>
                                 <br />
-                                <a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a>
+                                <a asp-area="" asp-controller="Presentaciones" asp-action="Index">Presentaciones</a>
+                                <br />
                             </div>
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Recetario
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Insumo</a>
+                            <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
                                 <a class="dropdown-item" asp-area="" asp-controller="Insumos" asp-action="Index">Insumos</a>
                                 <br />
                                 <a class="dropdown-item" asp-area="" asp-controller="Recetas" asp-action="Index">Recetas</a>
@@ -62,44 +60,59 @@
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Lo demas
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
-                                <a asp-area="" asp-controller="Presentaciones" asp-action="Index">Presentaciones</a>
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Producto</a>
+                            <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
+                                <a asp-area="" asp-controller="Productos" asp-action="Index">Productos</a>
                                 <br />
-                                <a asp-area="" asp-controller="Lineas" asp-action="Index">Lineas</a>
+                                <a asp-area="" asp-controller="ProductosReales" asp-action="Index">Productos Reales</a>
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Pedido</a>
+                            <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
+                                <a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
+                                <br />
+                            </div>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Produccion</a>
+                            <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
+                                <a asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
                                 <br />
                                 <a asp-area="" asp-controller="EmpleadosProduccion" asp-action="Index">Empleados</a>
                                 <br />
-                                <a asp-area="" asp-controller="Empresas" asp-action="Index">Empresas</a>
+                                <a asp-area="" asp-controller="Fases" asp-action="Index">Fases</a>
+                                <br />
+                                <a asp-area="" asp-controller="Producciones" asp-action="Index">Producciones</a>
+                                <br />
+                            </div>
+                        </li>
 
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" role="combobox" aria-expanded="false" aria-haspopup="true" href="#" data-toggle="dropdown">Empresa</a>
+                            <div class="dropdown-menu bg-success" style="left: 0px; top: 0px; position: absolute; transform: translate3d(0px, 37px, 0px);" x-placement="bottom-start">
+                                <a asp-area="" asp-controller="Empresas" asp-action="Index">Empresas</a>
                                 <br />
                                 <a asp-area="" asp-controller="Pagos" asp-action="Index">Pagos</a>
                                 <br />
-                                <a asp-area="" asp-controller="Fases" asp-action="Index">Fases</a>
-                                <br />
-                                <a asp-area="" asp-controller="Account" asp-action="Index">Gestionar Cuentas</a>
-                                <br />
-                                <a asp-area="" asp-controller="Pedidos" asp-action="Index">Pedidos</a>
-                                <br />
                                 <a asp-area="" asp-controller="InventarioEmpresas" asp-action="Index">Inventario de Empresas</a>
-
                             </div>
                         </li>
 
                     }
 
-                    else 
+
+                    @if (this.User.IsInRole("Produccion"))
                     {
-
-                      
-                        <li><a asp-area="" asp-controller="Pedidos" asp-action="PedidosPendientesUsuario">Pedidos X cuenta</a></li>
-
-                        <li><a asp-area="" asp-controller="Producciones" asp-action="ProduccionUsuario">Produccion</a></li>
+                        <li><a asp-area="" asp-controller="Pedidos" asp-action="PedidosPendientesUsuario">Pedidos Pendientes</a></li>
+                        <li><a asp-area="" asp-controller="Producciones" asp-action="ProduccionUsuario">Produccion Actual</a></li>
+                        <li><a asp-area="" asp-controller="Producciones" asp-action="ProduccionFinalizadaUsuarioAsync">Producciones Finalizadas</a></li>
                     }
-                    </ul>
+
+                </ul>
+
                 <ul class="nav navbar-nav navbar-right">
                     @if (this.User.Identity.IsAuthenticated)
                     {
@@ -111,6 +124,7 @@
                         <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
                     }
                 </ul>
+
 
             </div>
         </div>

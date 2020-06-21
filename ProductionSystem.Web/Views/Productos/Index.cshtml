@@ -37,7 +37,12 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Presentacion)
                             </th>
+
+                            <th></th>
+
                         </tr>
+
+
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
@@ -76,7 +81,7 @@
     <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#PresentacionTable').DataTable();
+            $('#ProductoTable').DataTable();
         });
     </script>
 }

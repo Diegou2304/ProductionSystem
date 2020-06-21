@@ -8,7 +8,9 @@ namespace ProductionSystem.Web.Controllers
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Rendering;
+    using Microsoft.AspNetCore.Mvc.ViewFeatures.Internal;
     using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
     using ProductionSystem.Web.Data;
     using ProductionSystem.Web.Data.Entities;
     using ProductionSystem.Web.Data.Repositories.Interfaz;
@@ -51,18 +53,18 @@ namespace ProductionSystem.Web.Controllers
         // GET: Producciones
         public IActionResult Index()
         {
-            return View(this.produccionRepository.GetAll());
+            return View(this.produccionRepository.GetProducciones());
         }
 
         // GET: Producciones/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public IActionResult Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var produccion = await this.produccionRepository.GetByIdAsync(id.Value);
+            var produccion = this.produccionRepository.GetProduccionById(id.Value);
             if (produccion == null)
             {
                 return NotFound();
@@ -117,7 +119,7 @@ namespace ProductionSystem.Web.Controllers
                 await this.userHelper.CambiarEstadoANoDisponible(user);
                 await this.pedidoRepository.CambiarEstadoAProceso(produccion.Pedido);
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(ProduccionUsuario));
             }
             return View(model);
         }
@@ -199,17 +201,22 @@ namespace ProductionSystem.Web.Controllers
         //Las producciones en proceso de cada usuario
         public async Task<IActionResult> ProduccionUsuario()
         {
-
             var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
             if (user == null)
                 return NotFound();
-            if (user.Disponible == true)
-                return NotFound();
             var model = this.produccionRepository.GetProduccionUsuario(user);
 
+            if(user.Disponible == true)
+            {
+                return View("NoProduccionEnProceso");
+            }
+
+            if (model == null )
+            {
+                return View("NoProduccionEnProceso");
+            }
 
             return View(model);
-
         }
 
         //el id que llega como parametro es el id de la produccion
@@ -370,10 +377,20 @@ namespace ProductionSystem.Web.Controllers
             await this.pedidoRepository.CambiarAFaseSiguiente(produccion.Pedido);
             await this.userHelper.CambiarEstadoADisponible(user);
 
-            return RedirectToAction("ProduccionUsuario");
+            return RedirectToAction("ProduccionFinalizadaUsuarioAsync");
 
         }
-        
+
+        public async Task<IActionResult> ProduccionFinalizadaUsuarioAsync()
+        {
+            var user = await this.userHelper.GetUserByEmailAsync(this.User.Identity.Name);
+            if (user == null)
+                return NotFound();
+
+            return View(this.produccionRepository.GetProduccionUsuarioFinalizada(user));
+        }
+
+
 
 
 
