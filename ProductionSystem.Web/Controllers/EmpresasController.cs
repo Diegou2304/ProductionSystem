@@ -236,5 +236,53 @@ namespace ProductionSystem.Web.Controllers
 
 
         }
+
+        public async Task<IActionResult> AdminEncargado(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var encargado =  _dataContext.EncargadosEmpresas.Include(em => em.Empresa).FirstOrDefault(em => em.Empresa.Id == id);
+
+            var empresa = await this.empresaRepository.GetByIdAsync(id.Value);
+
+            var model = new EncargadoViewModel
+            {
+                EmpresaId = empresa.Id,
+                NombreEmpresa = empresa.Nombre,
+                
+                EncargadoEmpresa = encargado,
+
+            };
+            return View(model);
+
+
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AdminEncargado(EncargadoViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return NotFound();
+            }
+
+            var encargado = model.EncargadoEmpresa;
+
+            encargado.Empresa = await _dataContext.Empresas.FindAsync(model.EmpresaId);
+
+            if (encargado == null)
+            {
+                return NotFound();
+            }
+
+            _dataContext.EncargadosEmpresas.Add(encargado);
+            _dataContext.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
     }
 }

@@ -25,7 +25,7 @@ namespace ProductionSystem.Web.Data.Entities
         [Required]
         public string Telefono { get; set; }
 
-        public EncargadoEmpresa EncargadoEmpresa { get; set; }
+        public ICollection<EncargadoEmpresa> EncargadoEmpresa { get; set; }
 
         public ICollection<Sucursal> Sucursales { get; set; }
         public ICollection<Pago> Pagos { get; set; }
