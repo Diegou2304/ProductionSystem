@@ -277,6 +277,31 @@ namespace ProductionSystem.Web.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EncargadosEmpresas",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Nombre = table.Column<string>(maxLength: 50, nullable: false),
+                    ApellidoPaterno = table.Column<string>(maxLength: 50, nullable: false),
+                    ApellidoMaterno = table.Column<string>(maxLength: 50, nullable: false),
+                    Ci = table.Column<int>(nullable: false),
+                    Direccion = table.Column<string>(maxLength: 50, nullable: false),
+                    Telefono = table.Column<string>(nullable: false),
+                    EmpresaId = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EncargadosEmpresas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_EncargadosEmpresas_Empresas_EmpresaId",
+                        column: x => x.EmpresaId,
+                        principalTable: "Empresas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Pagos",
                 columns: table => new
                 {
@@ -305,7 +330,7 @@ namespace ProductionSystem.Web.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Nombre = table.Column<string>(nullable: true),
-                    Dirección = table.Column<string>(nullable: true),
+                    Direccion = table.Column<string>(nullable: true),
                     Encargado = table.Column<string>(nullable: true),
                     EmpresaId = table.Column<int>(nullable: true)
                 },
@@ -361,9 +386,7 @@ namespace ProductionSystem.Web.Migrations
                     Discriminator = table.Column<string>(nullable: false),
                     Cargo = table.Column<string>(maxLength: 50, nullable: true),
                     Telefono = table.Column<int>(nullable: true),
-                    FaseId = table.Column<int>(nullable: true),
-                    EncargadoEmpresa_Telefono = table.Column<string>(nullable: true),
-                    IdEmpresa = table.Column<int>(nullable: true)
+                    FaseId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -372,12 +395,6 @@ namespace ProductionSystem.Web.Migrations
                         name: "FK_Personas_Fases_FaseId",
                         column: x => x.FaseId,
                         principalTable: "Fases",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Personas_Empresas_IdEmpresa",
-                        column: x => x.IdEmpresa,
-                        principalTable: "Empresas",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -720,6 +737,11 @@ namespace ProductionSystem.Web.Migrations
                 column: "LineaId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_EncargadosEmpresas_EmpresaId",
+                table: "EncargadosEmpresas",
+                column: "EmpresaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Etiquetas_Nombre",
                 table: "Etiquetas",
                 column: "Nombre",
@@ -771,13 +793,6 @@ namespace ProductionSystem.Web.Migrations
                 name: "IX_Personas_FaseId",
                 table: "Personas",
                 column: "FaseId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Personas_IdEmpresa",
-                table: "Personas",
-                column: "IdEmpresa",
-                unique: true,
-                filter: "[IdEmpresa] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Presentaciones_EnvaseId",
@@ -899,6 +914,9 @@ namespace ProductionSystem.Web.Migrations
                 name: "Deshechos");
 
             migrationBuilder.DropTable(
+                name: "EncargadosEmpresas");
+
+            migrationBuilder.DropTable(
                 name: "InsumoUsados");
 
             migrationBuilder.DropTable(
@@ -929,6 +947,9 @@ namespace ProductionSystem.Web.Migrations
                 name: "Producciones");
 
             migrationBuilder.DropTable(
+                name: "Empresas");
+
+            migrationBuilder.DropTable(
                 name: "Personas");
 
             migrationBuilder.DropTable(
@@ -939,9 +960,6 @@ namespace ProductionSystem.Web.Migrations
 
             migrationBuilder.DropTable(
                 name: "Fases");
-
-            migrationBuilder.DropTable(
-                name: "Empresas");
 
             migrationBuilder.DropTable(
                 name: "ProductoReal");

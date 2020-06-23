@@ -10,7 +10,7 @@ using ProductionSystem.Web.Data;
 namespace ProductionSystem.Web.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200616200949_InitialDb")]
+    [Migration("20200623021801_InitialDb")]
     partial class InitialDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,6 +180,42 @@ namespace ProductionSystem.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Empresas");
+                });
+
+            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ApellidoMaterno")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("ApellidoPaterno")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<int>("Ci");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<int?>("EmpresaId");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Telefono")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EmpresaId");
+
+                    b.ToTable("EncargadosEmpresas");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.Envase", b =>
@@ -585,7 +621,7 @@ namespace ProductionSystem.Web.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Dirección");
+                    b.Property<string>("Direccion");
 
                     b.Property<int?>("EmpresaId");
 
@@ -708,25 +744,6 @@ namespace ProductionSystem.Web.Migrations
                     b.HasDiscriminator().HasValue("EmpleadoProduccion");
                 });
 
-            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
-                {
-                    b.HasBaseType("ProductionSystem.Web.Data.Entities.Persona");
-
-                    b.Property<int>("IdEmpresa");
-
-                    b.Property<string>("Telefono")
-                        .IsRequired()
-                        .HasColumnName("EncargadoEmpresa_Telefono");
-
-                    b.HasIndex("IdEmpresa")
-                        .IsUnique()
-                        .HasFilter("[IdEmpresa] IS NOT NULL");
-
-                    b.ToTable("EncargadoEmpresa");
-
-                    b.HasDiscriminator().HasValue("EncargadoEmpresa");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -785,6 +802,13 @@ namespace ProductionSystem.Web.Migrations
                         .WithOne("Deshecho")
                         .HasForeignKey("ProductionSystem.Web.Data.Entities.Deshecho", "Id")
                         .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
+                {
+                    b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
+                        .WithMany("EncargadoEmpresa")
+                        .HasForeignKey("EmpresaId");
                 });
 
             modelBuilder.Entity("ProductionSystem.Web.Data.Entities.InsumoUsado", b =>
@@ -921,14 +945,6 @@ namespace ProductionSystem.Web.Migrations
                     b.HasOne("ProductionSystem.Web.Data.Entities.Fase", "Fase")
                         .WithMany()
                         .HasForeignKey("FaseId");
-                });
-
-            modelBuilder.Entity("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", b =>
-                {
-                    b.HasOne("ProductionSystem.Web.Data.Entities.Empresa", "Empresa")
-                        .WithOne("EncargadoEmpresa")
-                        .HasForeignKey("ProductionSystem.Web.Data.Entities.EncargadoEmpresa", "IdEmpresa")
-                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }
