@@ -10,14 +10,69 @@
     <h4>Produccion</h4>
     <hr />
     <dl class="dl-horizontal">
+
         <dt>
-            @Html.DisplayNameFor(model => model.FechaProduccion)
+            Fecha de Produccion
         </dt>
         <dd>
             @Html.DisplayFor(model => model.FechaProduccion)
         </dd>
+
+        <dt>
+            Cantidad de Pedido
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.Cantidad)
+        </dd>
+
+        <dt>
+            Nombre del Producto
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Pedido.ProductoReal.Nombre)
+        </dd>
+
+        <dt>
+            Fase
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fase.Nombre)
+        </dd>
+
+        <dt>
+            Insumos Utilizados
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.InsumosUsados.Count)
+        </dd>
+
+        <dt>
+            Cantidad de Deshechos
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deshecho.Cantidad)
+        </dd>
+
+        <dt>
+            Cantidad Final
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Resultado.Cantidad)
+        </dd>
+
     </dl>
 </div>
 <div>
-    <a asp-action="Index" class="btn btn-primary">Back to List</a>
+    @if (this.User.IsInRole("Administrador"))
+    {
+        <a asp-action="Index" class="btn btn-primary">Back to List</a>
+
+    }
+
 </div>
