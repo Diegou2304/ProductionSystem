@@ -35,8 +35,8 @@ namespace ProductionSystem.Web.Data
             {
                 user = new User
                 {
-                    Nombre = "Oscar",
-                    ApellidoPaterno = "Claros",
+                    Nombre = "Juanito",
+                    ApellidoPaterno = "Perez",
                     ApellidoMaterno = "Carrillo",
                     Ci = 11337793,
                     Cargo = "Administrador",
@@ -95,10 +95,10 @@ namespace ProductionSystem.Web.Data
 
             if (!this.context.Etiquetas.Any())
             {
-                this.AddEtiqueta("Daflex", 3, 3, 5, true);
-                this.AddEtiqueta("Editorial Bless", 12, 12, 14, true);
-                this.AddEtiqueta("La Sierra Impresiones", 20, 21, 1, true);
-                this.AddEtiqueta("Sie7e Impresiones", 7, 5, 2, true);
+                this.AddEtiqueta("Et1", 3, 3, 5, true);
+                this.AddEtiqueta("Et2", 12, 12, 14, true);
+                this.AddEtiqueta("Et3", 20, 21, 1, true);
+                this.AddEtiqueta("Et4", 7, 5, 2, true);
                 await this.context.SaveChangesAsync();
             }
 
